@@ -201,6 +201,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler
   byebug
   coffee-rails (~> 4.1.0)
   delayed_job_active_record
