@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-
+ruby "2.3.0"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
 gem "rails", "4.2.6"
 gem "pg"
@@ -21,6 +21,8 @@ gem "turbolinks"
 gem "jbuilder", "~> 2.0"
 # bundle exec rake doc:rails generates the API under doc/api.
 gem "sdoc", "~> 0.4.0", group: :doc
+# For full Heroku logging feature set: https://devcenter.heroku.com/articles/rails-integration-gems
+gem "rails_12factor"
 
 gem "delayed_job_active_record"
 
