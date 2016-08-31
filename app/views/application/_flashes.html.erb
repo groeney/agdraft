@@ -1,7 +1,10 @@
-<% if flash.any? %>
-  <div class="flashes">
-    <% user_facing_flashes.each do |key, msg| -%>
-      <%= content_tag :div, msg, :id => "flash-#{key}" if msg.blank? %>
-    <% end -%>
-  </div>
-<% end %>
+<% converter = {success: "success", error: "danger", notice: "info", alert: "warning"} %>
+
+<% [:notice, :error, :alert, :success].each do |level| %>
+  <% unless flash[level].blank? %>
+    <div class="alert alert-<%= converter[level] %>">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <%= flash[level] %>
+    </div>
+  <%end%>
+<%end%>

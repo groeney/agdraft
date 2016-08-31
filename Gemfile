@@ -26,6 +26,7 @@ gem "delayed_job_active_record"
 gem "bundler"
 gem "puma"
 gem "bower-rails"
+gem "has_secure_token"
 
 # Use ActiveModel has_secure_password
 # gem "bcrypt", "~> 3.1.7"

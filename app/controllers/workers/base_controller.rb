@@ -16,4 +16,11 @@ class Workers::BaseController < DashboardController
       super
     end
   end
+
+  protected
+
+  def devise_parameter_sanitizer
+    Worker::ParameterSanitizer.new(Worker, :worker, params)
+  end
+
 end

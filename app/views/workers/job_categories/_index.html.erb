@@ -1,0 +1,11 @@
+<ul>
+  <% @job_categories.each do |job_category| %>
+    <li class="job-category">
+      <input type="checkbox" name="job_category" value="<%= job_category.id %>" <%= "checked" if false %>><%= job_category.title %><br>
+    </li>
+  <% end %>
+</ul>
+<script type="text/javascript">
+  var job_category_path = <%= job_category_url %>;
+</script>
+<%= yield :javascript %>

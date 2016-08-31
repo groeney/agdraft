@@ -26,5 +26,6 @@ module Agdraft
                                            "assets",
                                            "bower_components"
                                           )
+    config.autoload_paths << Rails.root.join('lib')
   end
 end

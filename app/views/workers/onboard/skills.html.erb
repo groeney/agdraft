@@ -1,0 +1,7 @@
+<ul>
+  <% Skill.find_each do |skill| %>
+    <li>
+      <%= skill.title %>
+    </li>
+  <% end %>
+</ul>
