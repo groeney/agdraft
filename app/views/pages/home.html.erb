@@ -1,5 +1,14 @@
-<span>
-  <%= link_to('Sign up as a worker', new_worker_registration_path)  %>
-  <%= link_to('Sign out', destroy_worker_session_path, method: :delete)  %>
+<p>
+  Worker: 
+  <%= link_to('Sign up', new_worker_registration_path)  %> |
   <%= link_to('Sign in', new_worker_session_path)  %>
-</span>
+</p>
+<p>
+  Farmer: 
+  <%= link_to('Sign up', new_farmer_registration_path)  %> |
+  <%= link_to('Sign in', new_farmer_session_path)  %>
+</p>
+<p>
+  Admin: 
+  <%= link_to('Sign in', new_admin_session_path)  %>
+</p>

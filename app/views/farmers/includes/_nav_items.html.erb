@@ -6,8 +6,8 @@
     <%= link_to "<i class='edit icon'></i>Change Email/Password".html_safe, "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" %>
   </div>
 </div>
-<% if current_farmer_user %>
-  <%= link_to "Log Out", destroy_farmer_user_session_path, :method => :delete, class: "item right" %>
-<% elsif current_admin_user %>
+<% if current_farmer %>
+  <%= link_to "Log Out", destroy_farmer_session_path, :method => :delete, class: "item right" %>
+<% elsif current_admin %>
   <%= link_to "Log Out", destroy_admin_farmer_session_path, :method => :delete, class: "item right" %>
 <%end%>

@@ -1,7 +1,18 @@
 Rails.application.routes.draw do
+  root "pages#home"
+  devise_for :admins, controllers: {
+    sessions: "farmers/sessions"
+  }
+  devise_for :farmers, controllers: {
+    registrations: "farmers/registrations",
+    sessions: "farmers/sessions",
+    confirmations: "farmers/confirmations"
+  }
   devise_for :workers, controllers: {
-      registrations: "workers/registrations"
-    }
+    registrations: "workers/registrations",
+    sessions: "workers/sessions",
+    confirmations: "workers/confirmations"
+  }
   scope "admin", module: "admins" do
     get "/" => "workers#index", as: :admin_dashboard
     delete "/farmer/signout" => "farmer_sessions#destroy", as: :destroy_admin_farmer_session
@@ -17,5 +28,4 @@ Rails.application.routes.draw do
     resources :skills, only: [:create, :destroy]
     get "/" => "overview#index", as: :worker_dashboard
   end
-  root "pages#home"
 end

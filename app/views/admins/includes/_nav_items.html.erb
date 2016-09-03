@@ -1,3 +1,3 @@
 <%= link_to "Workers", "#", class: "#{@nav_item == "workers" ? "active" : ""} item" %>
 <%= link_to "Farmers", "#", class: "#{@nav_item == "farmers" ? "active" : ""} item" %>
-<%= link_to "Log Out", "#destroy_admin_user_session_path", :method => :delete, class: "item right" %>
+<%= link_to "Log Out", destroy_admin_session_path, :method => :delete, class: "item right" %>

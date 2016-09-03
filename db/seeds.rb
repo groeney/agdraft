@@ -18,3 +18,7 @@ NUM_JOB_CATEGORIES.times do |n|
     job_category.skills << Skill.all.sample
   end
 end
+
+Admin.create(email: "admin@agdraft.com.au", password: "password")
+Worker.create(first_name: "Bob", last_name: "Smith", email: "worker@example.com", password: "password")
+Farmer.create(first_name: "Joe", last_name: "Blogs", email: "farmer@example.com", password: "password")
