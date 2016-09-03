@@ -1,0 +1,13 @@
+<div class="mobile only narrow row">
+  <div id="mobile-nav" class="ui inverted navbar menu">
+      <%= image_tag "header-logo.png", class: "brand item", onclick: "event.preventDefault();" %>
+      <div class="right menu open">
+          <div class="menu item">
+            <i class="content icon"></i>
+          </div>
+      </div>
+  </div>
+  <div class="ui vertical navbar menu inverted">
+    <%= render partial: "#{@dashboard_type}/includes/nav_items" %>
+  </div>
+</div>

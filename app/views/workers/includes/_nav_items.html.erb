@@ -1,0 +1,25 @@
+<%= link_to "Dashboard", "#", class: "#{@nav_item == "dashboard" ? "active" : ""} item" %>
+<div class="item">
+  <div class="header">Profile</div>
+  <div class="menu">
+    <%= link_to "<i class='browser icon'></i>Account".html_safe, "#", class: "#{@nav_item == "account" ? "active" : ""} item" %>
+    <%= link_to "<i class='edit icon'></i>Job Types and Skills".html_safe, "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" %>
+    <%= link_to "<i class='edit icon'></i>Photo".html_safe, "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" %>
+    <%= link_to "<i class='edit icon'></i>Availability".html_safe, "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" %>
+    <%= link_to "<i class='edit icon'></i>Previous Employers".html_safe, "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" %>
+    <%= link_to "<i class='edit icon'></i>Certificates & Education".html_safe, "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" %>
+    <%= link_to "<i class='edit icon'></i>More".html_safe, "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" %>
+  </div>
+</div>
+<div class="item">
+  <div class="header">Jobs</div>
+  <div class="menu">
+    <%= link_to "<i class='browser icon'></i>Offers".html_safe, "#", class: "#{@nav_item == "account" ? "active" : ""} item" %>
+    <%= link_to "<i class='edit icon'></i>Applications".html_safe, "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" %>
+  </div>
+</div>
+<% if current_worker_user %>
+  <%= link_to "Log Out", destroy_worker_user_session_path, :method => :delete, class: "item right" %>
+<% elsif current_admin_user %>
+  <%= link_to "Log Out", destroy_admin_worker_session_path, :method => :delete, class: "item right" %>
+<%end%>

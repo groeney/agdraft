@@ -1,0 +1,107 @@
+$primary : #89a97a;
+
+#dashboard {
+  .main.container{
+    padding-top: 2em;
+  }
+
+  .navbar{
+    border-radius:0px;
+  }
+
+  // ** SIDEBAR STYLING
+  .ui.vertical.menu {
+
+    .menu .item{
+      padding: 1em 1.33em;
+    }
+
+    .header.item{
+      width:150px;
+    } 
+    
+  }
+
+  // ** MOBILE NAV STYLING
+  @media (max-width: 767px) {
+    .ui.inverted.navbar{
+      width:100%;
+      margin-top:14px!important;
+      padding:5px;  
+
+      .brand.item{
+        width:150px;
+        height:50px;
+      }
+    }
+    .ui.vertical.menu{
+      margin-top: -15px !important;
+      width: 100%;
+      display: none;
+      font-size:130%;
+    }
+    .main.container{
+      padding-top: 2em;
+      padding-left: 0px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .ui.vertical.menu{
+      display:block;
+    }
+    .main.container{
+      padding-top: 2em;
+      padding-left:240px!important;
+    }
+  }
+
+  .ui.grid.left-border > .column:not(.row) {
+    border-left: 5px #9C0000 solid;
+    margin-bottom: 20px!important;
+  }
+
+// *** STYLES FOR COLORING THEME ***
+
+  .ui.inverted.menu {
+    background-color: $primary;
+  }
+
+  .masthead h1 .icon {
+    color: $primary;
+  }
+
+  .ui.vertical.inverted.menu .item:before {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .ui.vertical.inverted.menu .menu .item {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .ui.vertical.menu {
+    width: 18rem;
+
+    @media (max-width: 768px){
+      width:100%
+    }
+  }
+
+// **** STYLES FOR IMAGE UPLOADER ****
+  #image-holder img{
+    max-width:100%;
+  }
+
+// ********* STYLES FOR ADMIN ************
+  &.admin{
+    @media (min-width: 768px) {
+      .main.container{
+        padding-left:140px!important;
+      }
+    }
+
+    .ui.vertical.menu {
+      width: 12rem;
+    }
+  }
+}

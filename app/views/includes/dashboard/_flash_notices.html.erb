@@ -1,0 +1,12 @@
+<% converter = {success: "positive", error: "negative", notice: "info", alert: "negative"} %>
+
+<% [:notice, :error, :alert, :success].each do |level| %>
+  <% unless flash[level].blank? %>
+    <div class="ui <%= converter[level] %> message">
+      <i class="close icon"></i>
+      <%= flash[level].html_safe %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- https://gist.github.com/squiter/5665815 -->

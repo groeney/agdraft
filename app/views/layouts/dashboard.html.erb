@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AgDraft</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <%= stylesheet_link_tag 'dashboard', media: 'all', 'data-turbolinks-track' => true %>
+
+  <%= favicon_link_tag %>
+  
+  <%= csrf_meta_tags %>
+</head>
+<body id="dashboard" class="<%= @nav == 'admin' ? 'admin' : '' %>">
+  <div class="ui stackable grid">
+    <%= render partial: "includes/dashboard/side_nav" %>
+    <%= render partial: 'includes/dashboard/mobile_nav' %>
+  </div>
+  <div class="ui main container left">
+    <%= render partial: "includes/dashboard/flash_notices" %>
+    <div class="article">
+      <div class="ui masthead vertical segment">
+        <div class="ui container">
+          <%= yield :dashboard_header %>
+        </div>
+      </div>
+      <div class="ui basic segment">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+  <%= javascript_include_tag 'dashboard' %>
+  <%= yield :javascripts %>
+</footer>
+</body>
+</html>

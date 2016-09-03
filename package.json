@@ -1,0 +1,22 @@
+{
+  "name": "agdraft",
+  "version": "1.0.0",
+  "description": "AgDraft node packages",
+  "main": "index.js",
+  "dependencies": {
+    "bower": "^1.7.9",
+    "gulp": "^3.9.1"
+  },
+  "engine": {
+    "node": "5.10.0",
+    "npm": "3.5.3"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/groeneveld91/slyp.git"
+  },
+  "license": "ISC"
+}
