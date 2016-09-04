@@ -27,6 +27,7 @@ gem "bundler"
 gem "puma"
 gem "bower-rails"
 gem "has_secure_token"
+gem "newrelic_rpm"
 
 # Use ActiveModel has_secure_password
 # gem "bcrypt", "~> 3.1.7"
