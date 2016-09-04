@@ -1,5 +1,14 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Workers::OnboardController, type: :controller do
-
+  describe "#skills" do
+    let(:worker) { FactoryGirl.create(:worker) }
+    before do
+      sign_in worker
+    end
+    it "should redirect worker to job_categories_path" do
+      get :skills
+      expect(response).to redirect_to job_categories_path
+    end
+  end
 end

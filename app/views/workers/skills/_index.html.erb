@@ -1,0 +1,14 @@
+<div class="ui basic padded segment">
+  <div class="ui cards">
+    <% @selected_skills.each do |skill| %>
+      <%= render "workers/skills/card", skill: skill, selected: true %>
+    <% end %>
+    <% @eligible_skills.each do |skill| %>
+      <%= render "workers/skills/card", skill: skill, selected: false %>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var skillsPath = '<%= skills_path %>/';
+</script>

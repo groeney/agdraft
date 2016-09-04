@@ -1,9 +1,9 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Worker, type: :model do
-  describe "#check_referral" do
+  describe "#set_referral_user" do
     let(:referral_user){ FactoryGirl.create(:farmer) }
-    
+
     context "when a valid referral token is provided" do
       it "links the referral user" do
         worker = FactoryGirl.create(:worker, {referred_by_token: referral_user.referral_token})

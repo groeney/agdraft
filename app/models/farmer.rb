@@ -4,7 +4,7 @@ class Farmer < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_secure_token :referral_token
-  before_create :ensure_referral_token, :check_referral
+  before_create :ensure_referral_token, :set_referral_user
   belongs_to :referral_user, polymorphic: true
 
   validates_presence_of :first_name, :last_name
@@ -18,7 +18,7 @@ class Farmer < ActiveRecord::Base
     regenerate_referral_token
   end
 
-  def check_referral
+  def set_referral_user
     return if referred_by_token.nil?
     if user = Worker.find_by_referral_token(referred_by_token) || Farmer.find_by_referral_token(referred_by_token)
       self.referral_user = user

@@ -1,7 +1,6 @@
-<ul>
-  <% Skill.find_each do |skill| %>
-    <li>
-      <%= skill.title %>
-    </li>
-  <% end %>
-</ul>
+<h1>Select Skills that apply to you</h1>
+<div class="container">
+  <%= render "workers/skills/index" %>
+</div>
+
+<%= render "workers/shared/onboard_links" %>

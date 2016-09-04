@@ -36,8 +36,8 @@ group :development, :test do
   gem "byebug"
   gem "dotenv-rails"
   gem "pry-rails"
+  gem "pry"
   gem "factory_girl_rails"
-  gem "rspec-rails", "~> 3.5"
 end
 
 group :development do
@@ -46,4 +46,9 @@ group :development do
   gem "spring"
   gem "spring-commands-rspec"
   gem "rubocop"
+end
+
+group :test do
+  gem "rspec-rails", "~> 3.5"
+  gem "database_cleaner"
 end
