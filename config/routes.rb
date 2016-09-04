@@ -18,16 +18,25 @@ Rails.application.routes.draw do
     delete "/farmer/signout" => "farmer_sessions#destroy", as: :destroy_farmer_session
     delete "/worker/signout" => "worker_sessions#destroy", as: :destroy_worker_session
   end
+
   scope "farmer", as: "farmer", module: "farmers" do
     get "/" => "overview#index", as: :dashboard
+
+    get 'profile_photo' => 'profile_photos#show', as: :profile_photo
+    get 'profile_photo/edit' => 'profile_photos#edit', as: :edit_profile_photo
+    put 'profile_photo' => 'profile_photos#update'
   end
   scope "worker", as: "worker", module: "workers" do
+    get "/" => "overview#index", as: :dashboard
     scope "onboard", as: "onboard" do
       get "job_categories" => "onboard#job_categories"
       get "skills" => "onboard#skills"
     end
     resources :job_categories, only: [:index, :create, :destroy]
     resources :skills, only: [:index, :create, :destroy]
-    get "/" => "overview#index", as: :dashboard
+    
+    get 'profile_photo' => 'profile_photos#show', as: :profile_photo
+    get 'profile_photo/edit' => 'profile_photos#edit', as: :edit_profile_photo
+    put 'profile_photo' => 'profile_photos#update'
   end
 end

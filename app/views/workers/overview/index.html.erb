@@ -1,1 +1,124 @@
-<h2>Worker Dashboard</h2>
+<% content_for :dashboard_header do %>
+  <div class="ui positive message">
+  <i class="close icon"></i>
+  <div class="header">
+    Welcome to your AgDraft Worker Dashboard!
+  </div>
+  <p>Complete your profile to increase your chance of finding work</p>
+</div>
+<%end%>
+
+<div class="ui stackable two columns grid">
+  <div class="ui column">
+    <h3>Profile</h3>
+    <p>Complete your profile so employers know more about you</p>
+    <div class="ui progress yellow" data-percent="33" id="progress">
+      <div class="bar">
+        <div class="progress"></div>
+      </div>
+      <div class="label">Only 33% complete. Keep going!</div>
+    </div>
+  </div>
+  <div class="ui column">
+    <h3>Jobs</h3>
+    <p>You current have <b>0 job offers</b> and <b>0 job applications</b>. Search for work below and apply for a job!</p>
+  </div>
+</div>
+<div class="ui hidden divider"></div>
+<h2>Opportunities for People like you</h2>
+<div class="ui search">
+  <div class="ui icon input">
+    <input class="prompt" type="text" placeholder="Search by region or job type..." style="width:340px;">
+    <i class="search icon"></i>
+  </div>
+  <div class="results"></div>
+</div>
+<div class="ui hidden divider"></div>
+<div class="ui three column grid">
+  <div class="column">
+    <div class="ui fluid card">
+      <a class="image" href="#">
+        <%= image_tag "white-image.png" %>
+      </a>
+      <div class="content">
+        <a class="header" href="#">Job number one</a>
+        <div class="meta">
+          <a>Posted 2 days ago</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="ui fluid card">
+      <a class="image" href="#">
+        <%= image_tag "white-image.png" %>
+      </a>
+      <div class="content">
+        <a class="header" href="#">Other job</a>
+        <div class="meta">
+          <a>Posted 1 week ago</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="ui fluid card">
+      <a class="image" href="#">
+        <%= image_tag "white-image.png" %>
+      </a>
+      <div class="content">
+        <a class="header" href="#">Great job</a>
+        <div class="meta">
+          <a>Posted today</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="ui fluid card">
+      <a class="image" href="#">
+        <%= image_tag "white-image.png" %>
+      </a>
+      <div class="content">
+        <a class="header" href="#">Steve Jobes</a>
+        <div class="meta">
+          <a>Last Seen 2 days ago</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="ui fluid card">
+      <a class="image" href="#">
+        <%= image_tag "white-image.png" %>
+      </a>
+      <div class="content">
+        <a class="header" href="#">Steve Jobes</a>
+        <div class="meta">
+          <a>Last Seen 2 days ago</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="ui fluid card">
+      <a class="image" href="#">
+        <%= image_tag "white-image.png" %>
+      </a>
+      <div class="content">
+        <a class="header" href="#">Steve Jobes</a>
+        <div class="meta">
+          <a>Last Seen 2 days ago</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+    $(function(){
+      $('#progress').progress();
+    })
+  </script>
+<%end%>

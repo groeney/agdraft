@@ -1,0 +1,15 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: {header: "Profile", icon: "protect", description: "Display your logo to your customers", live_link: true } %>
+<%end%>
+
+<% if @worker.profile_photo_file_name %>
+  <%= image_tag @worker.profile_photo.url(:display) %>
+<%else%>
+  <div class="ui brown segment">
+    <i style="opacity:0.5;">Click the "Edit" button to upload an image</i>
+  </div>
+<%end%>
+
+<p>
+  <%= link_to "Edit", worker_edit_profile_photo_path, class: "ui button brown" %>
+</p>

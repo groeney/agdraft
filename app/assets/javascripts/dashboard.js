@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require semantic-ui/dist/semantic.min
 //= require_tree ./workers
+//= require_tree ./dashboard
 //= require global
