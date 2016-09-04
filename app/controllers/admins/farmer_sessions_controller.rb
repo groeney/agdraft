@@ -1,4 +1,4 @@
-class Admins::FarmerSessionsController < Admins:BaseController
+class Admins::FarmerSessionsController < Admins::BaseController
   def create
     session[:farmer_id] = id
     redirect_to farmer_dashboard_path
