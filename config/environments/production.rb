@@ -76,4 +76,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Using config vars to set host specific configs
+  config.action_controller.asset_host = ENV.fetch("ASSET_HOST", ENV.fetch("APPLICATION_HOST"))
+  Rails.application.routes.default_url_options[:host] = ENV.fetch("APPLICATION_HOST")
 end
