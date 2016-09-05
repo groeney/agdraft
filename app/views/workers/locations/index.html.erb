@@ -1,0 +1,23 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: {header: "Your Locations", icon: "marker", description: "These are locations you are willing to work at", live_link: false } %>
+<%end%>
+<div class="ui container">
+  <% if @locations.empty? %>
+    <h3>You are not currently available to work in any locations.</h3>
+  <% else %>
+    <h3>You are currently available to work in the following regions:</h3>
+    <% @locations.each do |location| %>
+      <div class="ui big label locations">
+        <i class="trash outline icon" data-id="<%= location.id %>"></i> <%= location.label %>
+      </div>
+    <%end%>
+  <% end %>
+</div>
+
+<div class="ui divider hidden"></div>
+
+<%= link_to new_worker_location_path do %>
+  <button class="ui button brown">
+    Add Locations
+  </button>
+<% end %>

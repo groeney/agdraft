@@ -51,4 +51,9 @@ FactoryGirl.define do
     sequence(:email){ |n| "farmer-email-#{n}@example.com" }
     password "password"
   end
+
+  factory :location do
+    state "QLD"
+    sequence(:region){ |n| "region-#{n}" }
+  end
 end

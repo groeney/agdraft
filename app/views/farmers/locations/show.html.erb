@@ -1,0 +1,15 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: {header: "Your Location", icon: "marker", description: "Set the location of your farm", live_link: false } %>
+<%end%>
+
+<div class="ui huge label">
+  <i class="map icon"></i> <span id="location-label"><%= @location.nil? ? "No location set" : @location.label %></span>
+</div>
+
+<div class="ui divider hidden"></div>
+
+<p>Use the options below to set your location. Select a state by clicking on it. Then click on the region you wish to set as your location</p>
+
+<div class="ui divider hidden"></div>
+  
+<%= render partial: 'includes/dashboard/location_map_selector', locals: {can_choose_multiple_locations: false} %>

@@ -14,6 +14,9 @@
     <%= link_to worker_unavailabilities_path, class: "#{@nav_item == "unavailabilities" ? "active" : ""} item" do %>
       <i class="calendar icon"></i>Availability
     <% end %>
+    <%= link_to worker_locations_path, class: "#{@nav_item == "locations" ? "active" : ""} item" do %>
+      <i class="calendar icon"></i>Locations
+    <% end %>
     <%= link_to "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" do %>
       <i class="users icon"></i>Previous Employers
     <% end %>

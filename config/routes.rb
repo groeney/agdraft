@@ -25,6 +25,10 @@ Rails.application.routes.draw do
     get "profile_photo" => "profile_photos#show", as: :profile_photo
     get "profile_photo/edit" => "profile_photos#edit", as: :edit_profile_photo
     put "profile_photo" => "profile_photos#update"
+
+    # if 'show' is added to resources then update does not get named path which is needed for js-routes plugin
+    get "location" => "locations#show", as: :show_location
+    resources :locations, only: [:update]
   end
   scope "worker", as: "worker", module: "workers" do
     get "/"                  => "overview#index", as: :dashboard
@@ -38,6 +42,7 @@ Rails.application.routes.draw do
     resources :unavailabilities, only: [:index, :create, :update, :destroy]
     resources :job_categories, only: [:index, :create, :destroy]
     resources :skills, only: [:index, :create, :destroy]
+    resources :locations, only: [:index, :new, :create, :destroy]
 
     scope "onboard", as: "onboard" do
       get "job_categories" => "onboard#job_categories"

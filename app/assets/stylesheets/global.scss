@@ -1,1 +1,21 @@
 @import "toastr/toastr.min.css";
+
+.australia-map{
+  margin:auto;
+}
+
+.mobile-only{
+  display:block!important;
+
+  @media (min-width: 768px) {
+    display:none!important;
+  }
+}
+
+.desktop-only{
+  display:none!important;
+
+  @media (min-width: 768px) {
+    display:block!important;
+  }
+}

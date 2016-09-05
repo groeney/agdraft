@@ -1,0 +1,10 @@
+<% @all_locations.each do |location| %>
+  <div class="eight wide column" style="display:none;" data-state="<%= location.state %>">
+    <div class="inline field">
+      <div class="ui radio checkbox">
+        <input id="<%= location.id %>" type="radio" name="location" value="<%= location.id %>" <%= @location && (@location.id == location.id) ? 'checked' : '' %> data-label="<%= location.label %>">
+        <label for="<%= location.id %>"><%= location.region %></label>
+      </div>
+    </div>
+  </div>
+<% end %>

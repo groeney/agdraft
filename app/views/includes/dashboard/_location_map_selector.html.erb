@@ -1,0 +1,35 @@
+<div class="ui hidden divider"></div>
+
+<% display_location = @location || @worker_locations.try(:first) || Location.first %>
+
+<div id="location-selector" class="ui stackable grid" data-display-state="<%= display_location.state %>">
+  <div class="seven wide column">
+    <div class="ui computer tablet only grid">
+      <%= render "includes/dashboard/australia_map" %>
+    </div>
+    <div class="ui mobile only grid">
+      <div class="ui form">
+        <div class="field">
+          <label>State</label>
+          <select class="ui search dropdown" id="state-dropdown">
+            <option value="">Select</option>
+            <% @all_locations.to_a.uniq {|a| a.state}.each do |location| %>
+              <option value="<%= location.state %>"><%= location.state %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nine wide column">
+    <h3 id="state-header"><span class="desktop-only"></span></h3>
+    <div class="ui divider"></div>
+    <div class="ui form grid" id="locations">
+      <% if can_choose_multiple_locations %>
+        <%= render "includes/dashboard/multiple_location_options" %>
+      <% else %>
+        <%= render "includes/dashboard/single_location_option" %>
+      <% end %>
+    </div>
+  </div>
+</div>

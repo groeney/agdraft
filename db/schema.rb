@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905084714) do
+ActiveRecord::Schema.define(version: 20160905094806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20160905084714) do
     t.string   "profile_photo_content_type"
     t.integer  "profile_photo_file_size"
     t.datetime "profile_photo_updated_at"
+    t.integer  "location_id"
   end
 
   add_index "farmers", ["confirmation_token"], name: "index_farmers_on_confirmation_token", unique: true, using: :btree
@@ -99,6 +100,21 @@ ActiveRecord::Schema.define(version: 20160905084714) do
     t.integer "job_category_id", null: false
     t.integer "worker_id",       null: false
   end
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "state",      null: false
+    t.string   "region",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "locations_workers", id: false, force: :cascade do |t|
+    t.integer "location_id", null: false
+    t.integer "worker_id",   null: false
+  end
+
+  add_index "locations_workers", ["location_id", "worker_id"], name: "index_locations_workers_on_location_id_and_worker_id", using: :btree
+  add_index "locations_workers", ["worker_id", "location_id"], name: "index_locations_workers_on_worker_id_and_location_id", using: :btree
 
   create_table "skills", force: :cascade do |t|
     t.string   "title"

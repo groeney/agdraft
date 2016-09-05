@@ -7,6 +7,7 @@ class Worker < ActiveRecord::Base
   has_and_belongs_to_many :skills, -> { uniq }
   has_and_belongs_to_many :job_categories, -> { uniq }
   has_many                :unavailabilities
+  has_and_belongs_to_many :locations, -> { uniq }
   has_secure_token        :referral_token
   has_attached_file       :profile_photo, :styles => { :display => "200x200>" }
   belongs_to              :referral_user, polymorphic: true

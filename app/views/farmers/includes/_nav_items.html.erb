@@ -11,6 +11,9 @@
     <%= link_to farmer_profile_photo_path, class: "#{@nav_item == "profile_photo" ? "active" : ""} item" do %>
       <i class="camera retro icon"></i>Profile Photo
     <% end %>
+    <%= link_to farmer_show_location_path, class: "#{@nav_item == "locations" ? "active" : ""} item" do %>
+      <i class="marker icon"></i>Locations
+    <% end %>
   </div>
 </div>
 <% if current_farmer %>

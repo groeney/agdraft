@@ -51,8 +51,10 @@ $primary : #89a97a;
       display:block;
     }
     .main.container{
+      width:100%;
       padding-top: 2em;
-      padding-left:240px!important;
+      padding-right:60px;
+      padding-left:280px!important;
     }
   }
 
@@ -103,5 +105,25 @@ $primary : #89a97a;
     .ui.vertical.menu {
       width: 12rem;
     }
+  }
+}
+
+// ********* STYLES FOR LOCATIONS ************
+.label.locations{
+  margin:10px;
+
+  i:hover{
+    cursor:pointer;
+  }
+}
+#locations { 
+  label{
+    cursor:pointer;
+  }
+  input:checked ~ label:before{
+    background-color: #4ba000!important;
+  }
+  input:checked ~ label:after{
+    background-color: white;
   }
 }

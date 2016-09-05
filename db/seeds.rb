@@ -5,6 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require_relative './states'
+
 NUM_SKILLS = 50
 NUM_JOB_CATEGORIES = (NUM_SKILLS/5)
 
@@ -22,3 +24,9 @@ end
 Admin.create(email: "admin@agdraft.com.au", password: "password")
 Worker.create(first_name: "Bob", last_name: "Smith", email: "worker@example.com", password: "password")
 Farmer.create(first_name: "Joe", last_name: "Blogs", email: "farmer@example.com", password: "password")
+
+STATES.each do |state|
+  state[:regions].each do |region|
+    Location.create(state: state[:name], region: region)
+  end
+end
