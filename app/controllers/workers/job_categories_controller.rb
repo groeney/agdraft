@@ -1,4 +1,9 @@
 class Workers::JobCategoriesController < Workers::BaseController
+  def index
+    @selected_job_categories = current_worker.job_categories
+    @eligible_job_categories = current_worker.eligible_job_categories
+  end
+
   def create
     current_worker.job_categories << JobCategory.find_by!(secure_params)
     render_201

@@ -27,7 +27,7 @@ Rails.application.routes.draw do
       get "skills" => "onboard#skills"
     end
     resources :job_categories, only: [:index, :create, :destroy]
-    resources :skills, only: [:create, :destroy]
+    resources :skills, only: [:index, :create, :destroy]
     get "/" => "overview#index", as: :dashboard
   end
 end

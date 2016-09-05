@@ -1,0 +1,7 @@
+<div class="ui two item menu">
+  <% job_categories_active = (controller_name == 'job_categories') ? 'active' : '' %>
+  <% skills_active = (controller_name == 'skills') ? 'active' : '' %>
+
+  <%= link_to "Job category picker", worker_job_categories_path, class: "item #{job_categories_active}" %>
+  <%= link_to "Skill picker", worker_skills_path, class: "item #{skills_active}" %>
+</div>
