@@ -8,7 +8,7 @@ class Workers::OnboardController < Workers::BaseController
 
   def skills
     if current_worker.job_categories.count < 1
-      flash[:notice] = "Please select a job category"
+      flash[:error] = "Please select a job category"
       redirect_to worker_onboard_job_categories_path
     end
     @selected_skills = current_worker.skills
