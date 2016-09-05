@@ -7,7 +7,7 @@ $(document).on('turbolinks:load', function(){
       if ($(this).hasClass(activeClass)){
         $.ajax({
           context: this,
-          url: jobCategoriesPath + jobCategoryID,
+          url: Routes.worker_job_category_path(jobCategoryID),
           method: 'DELETE',
           accepts: {
             json: 'application/json'
@@ -24,7 +24,7 @@ $(document).on('turbolinks:load', function(){
       } else {
         $.ajax({
           context: this,
-          url: jobCategoriesPath,
+          url: Rotues.worker_job_categories_path(),
           method: 'POST',
           accepts: {
             json: 'application/json'

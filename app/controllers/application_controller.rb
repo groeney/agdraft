@@ -28,8 +28,6 @@ class ApplicationController < ActionController::Base
       format.json {
         render json: { error: "409 conflict found in requested action." }.to_json, status: 409
       }
-
-      format.html { render text: "409 conflict found in requested action.", status: 409 }
     end
   end
 
@@ -38,9 +36,16 @@ class ApplicationController < ActionController::Base
       format.json {
         render json: { error: "404 not-found" }.to_json, status: 404
       }
-
-      format.html { render text: "404 Not found", status: 404 }
     end
+  end
+
+  def render_401(message)
+    respond_to do |format|
+      format.json {
+        render json: { error: message }.to_json, status: 401
+      }
+    end
+
   end
 
   def render_201
@@ -48,8 +53,6 @@ class ApplicationController < ActionController::Base
       format.json {
         render json: { message: "Created resource!" }.to_json, status: 201
       }
-
-      format.html { render text: "Created resource!", status: 201 }
     end
   end
 
@@ -58,8 +61,6 @@ class ApplicationController < ActionController::Base
       format.json {
         render json: {}, status: 204
       }
-
-      format.html { render status: 204 }
     end
   end
 end

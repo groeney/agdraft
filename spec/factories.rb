@@ -1,8 +1,15 @@
 FactoryGirl.define do
+  factory :unavailability do
+    start_date { Time.now }
+    end_date { rand(100.days).seconds.from_now }
+    worker
+  end
+
   factory :admin do
     sequence(:email){ |n| "admin-email-#{n}@example.com" }
     password "password"
   end
+
   factory :job_category do
     sequence(:title) { |n| "Category #{n}" }
   end
@@ -26,6 +33,14 @@ FactoryGirl.define do
     trait :with_skills do
       after(:create) do |worker|
         worker.skills << FactoryGirl.create_list(:skill, 10)
+      end
+    end
+
+    trait :with_unavailabilities do
+      after(:create) do |worker|
+        5.times do
+          worker.unavailabilities << FactoryGirl.create(:unavailability, worker: worker)
+        end
       end
     end
   end

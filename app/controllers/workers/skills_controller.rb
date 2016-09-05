@@ -23,6 +23,10 @@ class Workers::SkillsController < Workers::BaseController
 
   protected
 
+  def nav_item
+    @nav_item = "skills"
+  end
+
   def secure_params
     params.require(:skill).permit(:id)
   end

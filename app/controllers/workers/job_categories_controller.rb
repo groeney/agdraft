@@ -19,6 +19,10 @@ class Workers::JobCategoriesController < Workers::BaseController
 
   protected
 
+  def nav_item
+    @nav_item = "job_categories"
+  end
+
   def secure_params
     params.require(:job_category).permit(:id)
   end

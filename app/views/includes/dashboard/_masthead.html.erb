@@ -2,7 +2,7 @@
   <i class="<%= icon %> icon"></i>
   <div class="content">
     <%= header %>
-    <div class="sub header"><%= description %></div>
+    <div class="sub header"><%= description.html_safe %></div>
   </div>
 </h1>
 <% if live_link %>

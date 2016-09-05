@@ -5,14 +5,14 @@
     <%= link_to "#", class: "#{@nav_item == "account" ? "active" : ""} item" do %>
       <i class="browser icon"></i>Account
     <% end %>
-    <%= link_to worker_job_categories_path, class: "#{@nav_item == 'edit_user' ? 'active' : ''} item" do %>
+    <%= link_to worker_job_categories_path, class: "#{["job_categories", "skills"].include? @nav_item ? "active" : ""} item" do %>
       <i class="hand paper icon"></i>Job Types and Skills
     <% end %>
     <%= link_to worker_profile_photo_path, class: "#{@nav_item == "profile_photo" ? "active" : ""} item" do %>
       <i class="camera retro icon"></i>Profile Photo
     <% end %>
-    <%= link_to "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" do %>
-      <i class='calendar icon'></i>Availability
+    <%= link_to worker_unavailabilities_path, class: "#{@nav_item == "unavailabilities" ? "active" : ""} item" do %>
+      <i class="calendar icon"></i>Availability
     <% end %>
     <%= link_to "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" do %>
       <i class="users icon"></i>Previous Employers

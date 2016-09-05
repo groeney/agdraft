@@ -7,7 +7,7 @@ $(document).on('turbolinks:load', function(){
       if ($(this).hasClass(activeClass)){
         $.ajax({
           context: this,
-          url: skillsPath + skillID,
+          url: Routes.worker_skill_path(skillID),
           method: 'DELETE',
           accepts: {
             json: 'application/json'
@@ -24,7 +24,7 @@ $(document).on('turbolinks:load', function(){
       } else {
         $.ajax({
           context: this,
-          url: skillsPath,
+          url: Routes.worker_skills_path(),
           method: 'POST',
           accepts: {
             json: 'application/json'

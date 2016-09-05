@@ -31,6 +31,7 @@ gem "newrelic_rpm"
 gem "aws-sdk", "~> 2.3"
 gem "paperclip", "~> 5.0.0"
 gem "js-routes"
+gem "date_validator"
 
 # Use ActiveModel has_secure_password
 # gem "bcrypt", "~> 3.1.7"
@@ -42,6 +43,7 @@ group :development, :test do
   gem "pry-rails"
   gem "pry"
   gem "factory_girl_rails"
+  gem "rspec-rails", "~> 3.5"
 end
 
 group :development do
@@ -53,6 +55,6 @@ group :development do
 end
 
 group :test do
-  gem "rspec-rails", "~> 3.5"
   gem "database_cleaner"
+  gem "shoulda-matchers"
 end
