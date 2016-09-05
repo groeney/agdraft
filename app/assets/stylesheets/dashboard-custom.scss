@@ -18,8 +18,8 @@ $primary : #89a97a;
 
     .header.item{
       width:150px;
-    } 
-    
+    }
+
   }
 
   // ** MOBILE NAV STYLING
@@ -27,7 +27,7 @@ $primary : #89a97a;
     .ui.inverted.navbar{
       width:100%;
       margin-top:14px!important;
-      padding:5px;  
+      padding:5px;
 
       .brand.item{
         width:150px;
@@ -93,7 +93,7 @@ $primary : #89a97a;
   }
 
 // ********* STYLES FOR ADMIN ************
-  &.admin{
+  &.admin-dashboard{
     @media (min-width: 768px) {
       .main.container{
         padding-left:140px!important;

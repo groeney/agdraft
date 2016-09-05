@@ -13,19 +13,21 @@ Rails.application.routes.draw do
     sessions: "workers/sessions",
     confirmations: "workers/confirmations"
   }
-  scope "admin", module: "admins" do
-    get "/" => "workers#index", as: :admin_dashboard
-    delete "/farmer/signout" => "farmer_sessions#destroy", as: :destroy_admin_farmer_session
-    delete "/worker/signout" => "worker_sessions#destroy", as: :destroy_admin_worker_session
+  scope "admin", as: "admin", module: "admins" do
+    get "/" => "workers#index", as: :dashboard
+    delete "/farmer/signout" => "farmer_sessions#destroy", as: :destroy_farmer_session
+    delete "/worker/signout" => "worker_sessions#destroy", as: :destroy_worker_session
   end
-  scope "farmer", module: "farmers" do
-    get "/" => "overview#index", as: :farmer_dashboard
+  scope "farmer", as: "farmer", module: "farmers" do
+    get "/" => "overview#index", as: :dashboard
   end
-  scope "worker", module: "workers" do
-    get "job_categories" => "onboard#job_categories"
-    get "skills" => "onboard#skills"
-    resources :job_categories, only: [:create, :destroy]
+  scope "worker", as: "worker", module: "workers" do
+    scope "onboard", as: "onboard" do
+      get "job_categories" => "onboard#job_categories"
+      get "skills" => "onboard#skills"
+    end
+    resources :job_categories, only: [:index, :create, :destroy]
     resources :skills, only: [:create, :destroy]
-    get "/" => "overview#index", as: :worker_dashboard
+    get "/" => "overview#index", as: :dashboard
   end
 end

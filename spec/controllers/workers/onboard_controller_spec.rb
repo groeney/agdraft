@@ -8,7 +8,7 @@ RSpec.describe Workers::OnboardController, type: :controller do
     end
     it "should redirect worker to job_categories_path" do
       get :skills
-      expect(response).to redirect_to job_categories_path
+      expect(response).to redirect_to worker_onboard_job_categories_path
     end
   end
 end

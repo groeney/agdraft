@@ -3,12 +3,12 @@
   <head>
     <title>Agdraft</title>
     <%= favicon_link_tag %>
-    <%= stylesheet_link_tag    'onboard', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'onboard', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    "onboard", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "onboard", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
     <%= render "includes/analytics" %>
   </head>
-  <body>
+  <body class="<%= controller_name %> <%= action_name %>">
     <%= render "flashes" -%>
     <%= yield %>
   </body>

@@ -3,7 +3,7 @@
   <div class="header">Profile</div>
   <div class="menu">
     <%= link_to "<i class='browser icon'></i>Account".html_safe, "#", class: "#{@nav_item == "account" ? "active" : ""} item" %>
-    <%= link_to "<i class='edit icon'></i>Job Types and Skills".html_safe, "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" %>
+    <%= link_to "<i class='edit icon'></i>Job Types and Skills".html_safe, worker_job_categories_path, class: "#{@nav_item == "edit_user" ? "active" : ""} item" %>
     <%= link_to "<i class='edit icon'></i>Photo".html_safe, "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" %>
     <%= link_to "<i class='edit icon'></i>Availability".html_safe, "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" %>
     <%= link_to "<i class='edit icon'></i>Previous Employers".html_safe, "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" %>
