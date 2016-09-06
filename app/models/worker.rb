@@ -30,6 +30,11 @@ class Worker < ActiveRecord::Base
     end
   end
 
+   def country_name
+    country = self.nationality
+    ISO3166::Country[country]
+   end
+
   protected
 
   def ensure_referral_token

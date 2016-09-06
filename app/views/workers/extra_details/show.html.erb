@@ -1,0 +1,22 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: { header: "Extra Details", icon: "user", description: "Enhance your profile with additional details", live_link: false } %>
+<% end %>
+
+<%= simple_form_for @worker,
+  url: worker_extra_details_path,
+  remote: true,
+  method: "put" do |f| %>
+  <%= f.input :has_own_transport, as: :boolean, label: "I'll take care of transportation", wrapper_html: { class: "ui toggle checkbox" }%>
+  <div class="ui hidden divider"></div>
+  <label class="string optional" for="nationality"><b>Nationality<b></label>
+  <br>
+  <%= f.country_select :nationality, { include_blank: "Nationality" }, { class: "ui dropdown" } %>
+  <div class="ui hidden divider"></div>
+  <%= f.input :tax_file_number %>
+  <%= f.input :mobile_number %>
+  <%= f.button :submit %>
+<% end %>
+
+<script type="text/javascript">
+  var worker = <%= raw @worker.to_json %>;
+</script>

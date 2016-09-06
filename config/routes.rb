@@ -27,9 +27,11 @@ Rails.application.routes.draw do
     put "profile_photo" => "profile_photos#update"
   end
   scope "worker", as: "worker", module: "workers" do
-    get "/" => "overview#index", as: :dashboard
-    get "profile_photo" => "profile_photos#show", as: :profile_photo
+    get "/"                  => "overview#index", as: :dashboard
+    get "profile_photo"      => "profile_photos#show", as: :profile_photo
     get "profile_photo/edit" => "profile_photos#edit", as: :edit_profile_photo
+    get "extra_details"      => "extra_details#show"
+    put "extra_details"      => "extra_details#update"
 
     put "profile_photo" => "profile_photos#update"
 
