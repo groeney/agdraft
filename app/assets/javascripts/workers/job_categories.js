@@ -24,7 +24,7 @@ $(document).on('turbolinks:load', function(){
       } else {
         $.ajax({
           context: this,
-          url: Rotues.worker_job_categories_path(),
+          url: Routes.worker_job_categories_path(),
           method: 'POST',
           accepts: {
             json: 'application/json'
