@@ -26,6 +26,10 @@ Rails.application.routes.draw do
     get "profile_photo/edit" => "profile_photos#edit", as: :edit_profile_photo
     put "profile_photo" => "profile_photos#update"
 
+    get "cover_photo" => "cover_photos#show", as: :cover_photo
+    get "cover_photo/edit" => "cover_photos#edit", as: :edit_cover_photo
+    put "cover_photo" => "cover_photos#update"
+
     # if 'show' is added to resources then update does not get named path which is needed for js-routes plugin
     get "location" => "locations#show", as: :show_location
     resources :locations, only: [:update]

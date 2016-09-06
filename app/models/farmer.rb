@@ -4,7 +4,8 @@ class Farmer < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_secure_token :referral_token
-  has_attached_file :profile_photo, :styles => { :display => "200x200>" }
+  has_attached_file :profile_photo, :styles => { :display => "200x200#" }
+  has_attached_file :cover_photo, :styles => { :display => "1400x300#" }
   before_create :ensure_referral_token, :set_referral_user
   belongs_to :referral_user, polymorphic: true
   belongs_to :location

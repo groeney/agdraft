@@ -18,3 +18,5 @@
 
 app/assets/images/farmers/*
 app/assets/images/workers/*
+
+*.DS_Store

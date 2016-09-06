@@ -1,19 +1,19 @@
 $(document).on('turbolinks:load', function(){
-  $('.profile_photos.edit').ready(function(){
+  $('.profile_photos.edit, .cover_photos.edit').ready(function(){
     $('#fileInput').on('change', function () {
       if (typeof (FileReader) != 'undefined') {
         var file = this.files[0]
         var fileSize = file.size
 
-        if(fileSize > 1024 * 1024 * 4){
+        if(fileSize > 1024 * 1024 * 10){
           $(this).val('');
-          alert('File size cannot exceed 4MB');
+          alert('File size cannot exceed 10MB');
         }else{
           var _URL = window.URL || window.webkitURL;
           img = new Image();
 
           // minimum image dimensions
-          var minWidth, minHeight;
+          var minWidth, minHeight, wideAspect;
           if($(this).data('min-width')){
             minWidth = parseInt($(this).data('min-width'));
           }else{
@@ -23,6 +23,9 @@ $(document).on('turbolinks:load', function(){
             minHeight = parseInt($(this).data('min-height'));
           }else{
             console.log('WARNING: Minimum image height not defined');
+          }
+          if($(this).data('wide-aspect')){
+            wideAspect = true;
           }
 
           img.onload = function () {
@@ -34,7 +37,7 @@ $(document).on('turbolinks:load', function(){
             }else if(this.width < minWidth){
               $(this).val('');
               alert('Image width must be greater than ' + minWidth + 'px');
-            }else if(aspect > 2 || aspect < 0.5){
+            }else if(!wideAspect && (aspect > 2 || aspect < 0.5)){
               $(this).val('');
               alert('Invalid aspect ratio on your image. Make sure it is either 4:3, 3:2 or 16:9');
             }else{

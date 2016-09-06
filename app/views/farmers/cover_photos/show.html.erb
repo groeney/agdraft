@@ -1,0 +1,19 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: {header: "Cover Photo", icon: "protect", description: "Setup a cover photo to show on your farm profile and job advertisments", live_link: true } %>
+<%end%>
+
+<% if @farmer.cover_photo_file_name %>
+  <div class="ui image">
+    <%= image_tag @farmer.cover_photo.url(:display) %>
+  </div>
+<%else%>
+  <div class="ui brown segment">
+    <i style="opacity:0.5;">Click the "Edit" button to upload an image</i>
+  </div>
+<%end%>
+
+<div class="ui divider hidden"></div>
+
+<p>
+  <%= link_to "Edit", farmer_edit_cover_photo_path, class: "ui button brown" %>
+</p>
