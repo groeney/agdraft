@@ -28,6 +28,21 @@ FactoryGirl.define do
     worker
   end
 
+  factory :job do
+    farmer
+    location
+    title "MyString"
+    description "MyText"
+    accomodation_provided false
+    business_name "MyString"
+    business_description "MyText"
+    pay_min "20"
+    pay_max "25"
+    start_date Date.today + 1.days
+    end_date Date.today + 3.days
+    number_of_workers "10-20"
+  end
+
   factory :unavailability do
     start_date { Time.now }
     end_date { rand(100.days).seconds.from_now }

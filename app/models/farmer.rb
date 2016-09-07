@@ -9,6 +9,7 @@ class Farmer < ActiveRecord::Base
   before_create :ensure_referral_token, :set_referral_user
   belongs_to :referral_user, polymorphic: true
   belongs_to :location
+  has_many :jobs
   validates_attachment_content_type :profile_photo, :content_type => /\Aimage\/.*\Z/
   validates_presence_of :first_name, :last_name
 

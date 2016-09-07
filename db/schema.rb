@@ -118,6 +118,11 @@ ActiveRecord::Schema.define(version: 20160908055712) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "job_categories_jobs", id: false, force: :cascade do |t|
+    t.integer "job_id",          null: false
+    t.integer "job_category_id", null: false
+  end
+
   create_table "job_categories_skills", id: false, force: :cascade do |t|
     t.integer "job_category_id", null: false
     t.integer "skill_id",        null: false
@@ -129,6 +134,37 @@ ActiveRecord::Schema.define(version: 20160908055712) do
   create_table "job_categories_workers", id: false, force: :cascade do |t|
     t.integer "job_category_id", null: false
     t.integer "worker_id",       null: false
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.integer  "farmer_id"
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "accomodation_provided"
+    t.string   "business_name"
+    t.text     "business_description"
+    t.integer  "location_id"
+    t.string   "pay_min"
+    t.string   "pay_max"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.string   "number_of_workers"
+    t.boolean  "published",             default: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "jobs", ["farmer_id"], name: "index_jobs_on_farmer_id", using: :btree
+  add_index "jobs", ["location_id"], name: "index_jobs_on_location_id", using: :btree
+
+  create_table "jobs_skills", id: false, force: :cascade do |t|
+    t.integer "job_id",   null: false
+    t.integer "skill_id", null: false
+  end
+
+  create_table "jobs_workers", id: false, force: :cascade do |t|
+    t.integer "job_id",    null: false
+    t.integer "worker_id", null: false
   end
 
   create_table "locations", force: :cascade do |t|
@@ -214,4 +250,6 @@ ActiveRecord::Schema.define(version: 20160908055712) do
   add_index "workers", ["email"], name: "index_workers_on_email", unique: true, using: :btree
   add_index "workers", ["reset_password_token"], name: "index_workers_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "jobs", "farmers"
+  add_foreign_key "jobs", "locations"
 end

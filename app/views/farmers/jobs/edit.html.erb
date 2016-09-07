@@ -1,0 +1,9 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: {header: "Jobs", icon: "protect", description: "View you published and unpublished jobs", live_link: false } %>
+<%end%>
+
+<%= simple_form_for @job, url: farmer_job_path do |f| %>
+  <%= render partial: 'job_form', locals: {f: f} %>
+  <%= link_to "Cancel", farmer_jobs_path, class: "ui primary button basic" %>
+  <%= f.submit "Update", class: "ui primary button" %>
+<%end%>

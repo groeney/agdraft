@@ -1,0 +1,41 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: {header: "Jobs", icon: "protect", description: "View and edit your unpublished jobs", live_link: false } %>
+<%end%>
+<%= link_to "Add Job", new_farmer_job_path, class: "ui primary button" %>
+
+<table class="ui celled table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Number of Workers</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @jobs.each do |job| %>
+      <tr>
+        <td>
+          <%= job.title %>
+        </td>
+        <td>
+          <%= job.start_date %>
+        </td>
+        <td>
+          <%= job.end_date %>
+        </td>
+        <td>
+          <%= job.number_of_workers %>
+        </td>
+        <td>
+          <%= link_to "Edit", edit_farmer_job_path(job), class: "ui primary button basic" %>
+        </td>
+        <td>
+          <%= link_to "Publish", "#", class: "ui primary button" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

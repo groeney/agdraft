@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     get "location" => "locations#show", as: :show_location
     resources :locations, only: [:update]
     resources :farmers, only: [:edit, :update]
+    resources :jobs
   end
   scope "worker", as: "worker", module: "workers" do
     get "/"                  => "overview#index", as: :dashboard

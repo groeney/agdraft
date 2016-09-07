@@ -1,0 +1,62 @@
+<%= f.error_notification %>
+<%= f.input :title , label: "Job Title" %>
+<%= f.input :description, label: "Job Description" %>
+<div class="ui stackable grid">
+  <div class="ui eight wide column">
+    <%= f.input :job_categories, collection: JobCategory.all, input_html: {multiple: true, class: "ui fluid dropdown"}, prompt: "Select Job Categories", selected: @job.job_categories.map{|j| j.id} %>
+  </div>
+  <div class="ui eight wide column">
+    <%= f.input :skills, collection: Skill.all, input_html: {multiple: true, class: "ui fluid dropdown"}, prompt: "Select Skills", selected: @job.skills.map{|s| s.id } %>
+  </div>
+  <div class="ui eight wide column">
+    <%= f.input :location_id, collection: Location.all.map{|l| [l.label, l.id]}, input_html: {class: "ui fluid dropdown"}, selected: current_farmer.location.try(:id) %>
+  </div>
+  <div class="ui eight wide column">
+    <div class="ui divider hidden"></div>
+    <%= f.input :accomodation_provided, as: :boolean, wrapper_html: { class: "ui toggle checkbox" } %>
+  </div>
+  <div class="ui eight wide column">
+    <div class="ui right labeled input">
+      <div class="ui label">$</div>
+      <%= f.input_field :pay_min, placeholder: "Minimum Hourly Wage", required: true, type: 'number', min: 0 %>
+      <div class="ui basic label">Minimum</div>
+    </div>
+    <%= f.error :pay_min %>
+  </div>
+  <div class="ui eight wide column">
+    <div class="ui right labeled input">
+      <div class="ui label">$</div>
+      <%= f.input_field :pay_max, placeholder: "Maximum Hourly Wage", required: true, type: 'number', min: 0 %>
+      <div class="ui basic label">Maximum</div>
+    </div>
+    <%= f.error :pay_max %>
+  </div>
+  <div class="ui eight wide column">
+    <div class="field required">
+      <label>Start date</label>
+      <div class="ui calendar range-start">
+        <div class="ui input left icon">
+          <i class="calendar icon"></i>
+          <%= f.input_field :start_date, as: "string", placeholder: "Start", required: true %>
+        </div>
+      </div>
+      <%= f.error :start_date %>
+    </div>
+  </div>
+  <div class="ui eight wide column">
+    <div class="field required">
+      <label>End date</label>
+      <div class="ui calendar range-start">
+        <div class="ui input left icon">
+          <i class="calendar icon"></i>
+          <%= f.input_field :end_date, as: "string", placeholder: "End", required: true %>
+        </div>
+      </div>
+      <%= f.error :end_date %>
+    </div>
+  </div>
+  <div class="ui eight wide column">
+    <%= f.input :number_of_workers, collection: ["1-2", "2-5", "5-10", "10-20", "20-50", "50-100", "100+"], input_html: {class: "ui fluid dropdown"}, prompt: "Select Number of Workers", required: true %>
+  </div>
+</div>
+<div class="ui divider hidden"></div>

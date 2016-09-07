@@ -40,6 +40,9 @@ class ApplicationController < ActionController::Base
       format.json {
         render json: { error: "404 not-found" }.to_json, status: 404
       }
+      format.html{
+        render :file => 'public/404.html', :status => :not_found, :layout => false
+      }
     end
   end
 

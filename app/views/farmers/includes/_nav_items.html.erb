@@ -19,6 +19,19 @@
     <% end %>
   </div>
 </div>
+<div class="item">
+  <div class="header">Jobs</div>
+  <div class="menu">
+    <%= link_to farmer_jobs_path, class: "#{@nav_item == "jobs_unpublished" ? "active" : ""} item" do %>
+      <i class="edit icon"></i>Unpublished
+    <% end %>
+    <%= link_to "#", class: "#{@nav_item == "jobs_published" ? "active" : ""} item" do %>
+      <i class="browser icon"></i>Published
+    <% end %>
+  </div>
+</div>
+
+<%= link_to "Jobs", farmer_jobs_path, class: "item right" %>
 <% if current_farmer %>
   <%= link_to "Log Out", destroy_farmer_session_path, :method => :delete, class: "item right" %>
 <% elsif current_admin %>

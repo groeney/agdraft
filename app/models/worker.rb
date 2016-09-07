@@ -6,6 +6,7 @@ class Worker < ActiveRecord::Base
 
   has_and_belongs_to_many :skills, -> { uniq }
   has_and_belongs_to_many :job_categories, -> { uniq }
+  has_and_belongs_to_many :jobs, -> { uniq }
   has_many                :unavailabilities
   has_and_belongs_to_many :locations, -> { uniq }
   has_many                :previous_employers
