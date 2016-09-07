@@ -1,0 +1,11 @@
+<div class="ui form" data-id="<%= unavailability.id unless unavailability.blank? %>">
+  <div class="two fields">
+    <%= render "workers/shared/slot", resource_name: "unavailability" %>
+    <button id="save" class="ui primary button" style="margin-top: 20px;" data-id="<%= unavailability.id if local_assigns[:unavailability] %>">
+      Save
+    </button>
+    <button id="delete" class="ui button" style="margin-top: 20px;" data-id="<%= unavailability.id if local_assigns[:unavailability] %>">
+      <i class="trash outline icon"></i>
+    </button>
+  </div>
+</div>

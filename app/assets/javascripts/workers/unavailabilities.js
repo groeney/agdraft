@@ -14,12 +14,14 @@ $(document).on('turbolinks:load', function(){
 
       $form.find('.range-start').calendar({
         type: 'date',
+        startMode: 'month',
         minDate: minDate,
         endCalendar: $form.find('.range-end'),
       });
 
       $form.find('.range-end').calendar({
         type: 'date',
+        startMode: 'month',
         startCalendar: $form.find('.range-start'),
       });
 

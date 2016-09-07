@@ -1,0 +1,5 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: { header: "Experience", icon: "world", description: "Add a previous employer to build trust with prospective employers", live_link: false } %>
+<% end %>
+
+<%= render "previous_employer_form" %>

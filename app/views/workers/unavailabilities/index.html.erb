@@ -1,12 +1,13 @@
 <% content_for :dashboard_header do %>
   <%= render partial: "includes/dashboard/masthead", locals: { header: "Unavailablity", icon: "ban", description: "Let prospective employers know when you will <b>not</b> be available", live_link: false } %>
 <% end %>
+
 <h3 class="ui header">When are you NOT available?</h3>
 <div class="ui basic segment center aligned">
   <% @unavailabilities.each do |unavailability| %>
-    <%= render "slot", unavailability: unavailability %>
+    <%= render "slot_wrapper", unavailability: unavailability %>
   <% end %>
-  <%= render "slot" %>
+  <%= render "slot_wrapper", unavailability: nil %>
 </div>
 
 <script type="text/javascript">

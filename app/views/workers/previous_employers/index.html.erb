@@ -1,0 +1,17 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: { header: "Previous Employers", icon: "search", description: "Let prospective employers know who you have worked for in the past", live_link: false } %>
+<% end %>
+
+<%= link_to new_worker_previous_employer_path do %>
+  <button class="ui button primary">
+    Add Previous Employer
+  </button>
+<% end %>
+
+<div class="ui divider hidden"></div>
+
+<div class="ui cards">
+  <% @previous_employers.each do |previous_employer| %>
+    <%= render "previous_employer_card", previous_employer: previous_employer %>
+  <% end %>
+</div>

@@ -124,6 +124,20 @@ ActiveRecord::Schema.define(version: 20160907103056) do
   add_index "locations_workers", ["location_id", "worker_id"], name: "index_locations_workers_on_location_id_and_worker_id", using: :btree
   add_index "locations_workers", ["worker_id", "location_id"], name: "index_locations_workers_on_worker_id_and_location_id", using: :btree
 
+  create_table "previous_employers", force: :cascade do |t|
+    t.string   "business_name"
+    t.string   "contact_name"
+    t.string   "contact_email"
+    t.string   "contact_phone"
+    t.integer  "worker_id"
+    t.string   "job_title"
+    t.string   "job_description"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "skills", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at", null: false

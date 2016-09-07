@@ -1,0 +1,25 @@
+<div class="ui card" data-previous-employer-id="<%= previous_employer.id %>">
+  <div class="content">
+    <div class="header"><%= previous_employer.business_name %></div>
+    <div class="meta">
+      <span>
+        <%= previous_employer.job_title %>
+      </span>
+      <br>
+      <span>
+        <%= previous_employer.start_date.strftime("%B %Y") %> - <%= previous_employer.end_date.strftime("%B %Y") %>
+      </span>
+      <br>
+      <span>
+        <%= [previous_employer.contact_name, previous_employer.contact_email, previous_employer.contact_phone].reject { |d| d.blank? }.join(" | ") %>
+      </span>
+    </div>
+    <div class="description">
+      <%= previous_employer.job_description %>
+    </div>
+  </div>
+  <div id="delete" class="ui bottom attached red button" data-previous-employer-id="<%= previous_employer.id %>">
+    <i class="trash can icon"></i>
+    Delete
+  </div>
+</div>

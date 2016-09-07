@@ -1,0 +1,20 @@
+<%= simple_form_for @previous_employer,
+  url: worker_previous_employers_path do |f| %>
+    <%= f.input :business_name, required: true %>
+    <%= f.input :contact_name %>
+    <%= f.input :contact_email %>
+    <%= f.input :contact_phone %>
+
+    <div class="ui hidden divider"></div>
+
+    <%= f.input :job_title, required: true %>
+    <%= f.text_area :job_description, placeholder: "Description..." %>
+
+    <div class="ui hidden divider"></div>
+
+    <%= render "workers/shared/slot", resource_name: "previous_employer", required: true %>
+
+    <div class="ui hidden divider"></div>
+
+    <%= f.button :submit %>
+<% end %>

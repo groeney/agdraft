@@ -1,0 +1,18 @@
+<div class="field <%= "required" if (defined? required && required) %>">
+  <label>Start date</label>
+  <div class="ui calendar range-start">
+    <div class="ui input left icon">
+      <i class="calendar icon"></i>
+      <input type="text" placeholder="Start" name="<%= resource_name %>[start_date]">
+    </div>
+  </div>
+</div>
+<div class="field <%= "required" if (defined? required && required) %>">
+  <label>End date</label>
+  <div class="ui calendar range-end">
+    <div class="ui input left icon">
+      <i class="calendar icon"></i>
+      <input type="text" placeholder="End" name="<%= resource_name %>[end_date]">
+    </div>
+  </div>
+</div>

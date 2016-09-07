@@ -1,4 +1,18 @@
 FactoryGirl.define do
+  factory :previous_employer do
+    business_name { Faker::Company.name }
+    contact_name { Faker::Name.name }
+    contact_email { Faker::Internet.email }
+    contact_phone { Faker::PhoneNumber.phone_number }
+
+    job_title { Faker::Name.title }
+    job_description { Faker::Lorem.paragraph }
+    start_date { rand(4.years.ago..1.year.ago) }
+    end_date { rand(start_date..Time.now) }
+
+    worker
+  end
+
   factory :unavailability do
     start_date { Time.now }
     end_date { rand(100.days).seconds.from_now }
@@ -39,10 +53,27 @@ FactoryGirl.define do
     trait :with_unavailabilities do
       after(:create) do |worker|
         5.times do
-          worker.unavailabilities << FactoryGirl.create(:unavailability, worker: worker)
+          FactoryGirl.create(:unavailability, worker: worker)
         end
       end
     end
+
+    trait :with_previous_employers do
+      after(:create) do |worker|
+        5.times do
+          FactoryGirl.create(:previous_employer, worker: worker)
+        end
+      end
+    end
+
+    trait :with_previous_employers do
+      after(:create) do |worker|
+        5.times do
+          FactoryGirl.create(:previous_employer, worker: worker)
+        end
+      end
+    end
+
   end
 
   factory :farmer do
