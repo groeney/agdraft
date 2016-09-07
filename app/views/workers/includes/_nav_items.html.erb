@@ -2,8 +2,8 @@
 <div class="item">
   <div class="header">Profile</div>
   <div class="menu">
-    <%= link_to "#", class: "#{@nav_item == "account" ? "active" : ""} item" do %>
-      <i class="browser icon"></i>Account
+    <%= link_to edit_worker_registration_path, class: "#{@nav_item == "account_details" ? "active" : ""} item" do %>
+      <i class="edit icon"></i>Account Details
     <% end %>
     <%= link_to worker_job_categories_path, class: "#{["job_categories", "skills"].include? @nav_item ? "active" : ""} item" do %>
       <i class="hand paper icon"></i>Job Types and Skills

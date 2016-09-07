@@ -2,11 +2,11 @@
 <div class="item">
   <div class="header">Profile</div>
   <div class="menu">
+    <%= link_to edit_farmer_registration_path, class: "#{@nav_item == "account_details" ? "active" : ""} item" do %>
+      <i class="edit icon"></i>Account Details
+    <% end %>
     <%= link_to "#", class: "#{@nav_item == "account" ? "active" : ""} item" do %>
       <i class="browser icon"></i>Details
-    <% end %>
-    <%= link_to "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" do %>
-      <i class="edit icon"></i>Change Email/Password
     <% end %>
     <%= link_to farmer_profile_photo_path, class: "#{@nav_item == "profile_photo" ? "active" : ""} item" do %>
       <i class="camera retro icon"></i>Profile Photo

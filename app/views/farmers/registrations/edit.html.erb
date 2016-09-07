@@ -1,27 +1,27 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: {header: "Edit Account Credentials", icon: "edit", description: "Edit your account access credentials", live_link: false } %>
+<%end%>
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
+    <%= f.input :email, required: true, autofocus: true, hint: "change your account email adress" %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
 
-    <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
-    <%= f.input :password_confirmation, required: false %>
+    <%= f.input :password, autocomplete: "off", label: "New Password", hint: "leave it blank if you don't want to change it", required: false %>
+    <%= f.input :password_confirmation, label: "New Password Confirmation", hint: "leave it blank if you don't want to change it", required: false %>
+    <div class="ui divider"></div>
+    <h3>Authenticate to Update</h3>
     <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
   </div>
 
+  <div class="ui divider hidden"></div>
+
   <div class="form-actions">
+    <%= link_to "Cancel", farmer_dashboard_path, class: "ui button red basic" %>
     <%= f.button :submit, "Update" %>
   </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
