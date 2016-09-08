@@ -1,0 +1,15 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: { header: "Farm Details", icon: "user", description: "Enhance your profile with additional details", live_link: false } %>
+<% end %>
+
+<%= simple_form_for @farmer,
+  url: farmer_farmer_path,
+  remote: true,
+  method: "put", html: {id: "edit_farmer"} do |f| %>
+  
+  <%= f.input :business_name, label: "Busines/Property Name" %>
+  <%= f.input :business_description %>
+  <%= f.input :contact_name %>
+  <%= f.input :contact_number %>
+  <%= f.button :submit, value: "Update" %>
+<% end %>

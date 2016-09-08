@@ -16,5 +16,6 @@
 //= require semantic-ui-patch/calendar.min
 //= require semantic-ui/dist/semantic.min
 //= require_tree ./workers
+//= require_tree ./farmers
 //= require_tree ./dashboard
 //= require global

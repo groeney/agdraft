@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
     render_400
   end
 
+  rescue_from ActionController::ParameterMissing do
+    render_400
+  end
+
   protected
 
   def devise_parameter_sanitizer
@@ -45,7 +49,14 @@ class ApplicationController < ActionController::Base
         render json: { error: message }.to_json, status: 401
       }
     end
+  end
 
+  def render_400
+    respond_to do |format|
+      format.json {
+        render json: { error: "400 client sent a poorly formed request" }.to_json, status: 400
+      }
+    end
   end
 
   def render_201

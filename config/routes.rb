@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     # if 'show' is added to resources then update does not get named path which is needed for js-routes plugin
     get "location" => "locations#show", as: :show_location
     resources :locations, only: [:update]
+    resources :farmers, only: [:edit, :update]
   end
   scope "worker", as: "worker", module: "workers" do
     get "/"                  => "overview#index", as: :dashboard

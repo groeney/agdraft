@@ -3,9 +3,12 @@
 <%end%>
 
 <% if @farmer.profile_photo_file_name %>
-  <%= image_tag @farmer.profile_photo.url(:display) %>
+  <div class="ui image">
+    <%= image_tag @farmer.profile_photo.url(:display) %>
+  </div>
+  <div class="ui divider hidden"></div>
 <%else%>
-  <div class="ui brown segment">
+  <div class="ui segment">
     <i style="opacity:0.5;">Click the "Edit" button to upload an image</i>
   </div>
 <%end%>

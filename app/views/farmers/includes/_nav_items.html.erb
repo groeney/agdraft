@@ -1,18 +1,18 @@
-<%= link_to "Dashboard", "#", class: "#{@nav_item == "dashboard" ? "active" : ""} item" %>
+<%= link_to "Dashboard", farmer_dashboard_path, class: "#{@nav_item == "dashboard" ? "active" : ""} item" %>
 <div class="item">
   <div class="header">Profile</div>
   <div class="menu">
     <%= link_to edit_farmer_registration_path, class: "#{@nav_item == "account_details" ? "active" : ""} item" do %>
       <i class="edit icon"></i>Account Details
     <% end %>
-    <%= link_to "#", class: "#{@nav_item == "account" ? "active" : ""} item" do %>
-      <i class="browser icon"></i>Details
+    <%= link_to edit_farmer_farmer_path(current_farmer), class: "#{@nav_item == "farm_details" ? "active" : ""} item" do %>
+      <i class="browser icon"></i>Farm Details
+    <% end %>
+    <%= link_to farmer_show_location_path, class: "#{@nav_item == "locations" ? "active" : ""} item" do %>
+      <i class="marker icon"></i>Location
     <% end %>
     <%= link_to farmer_profile_photo_path, class: "#{@nav_item == "profile_photo" ? "active" : ""} item" do %>
       <i class="camera retro icon"></i>Profile Photo
-    <% end %>
-    <%= link_to farmer_show_location_path, class: "#{@nav_item == "locations" ? "active" : ""} item" do %>
-      <i class="marker icon"></i>Locations
     <% end %>
     <%= link_to farmer_cover_photo_path, class: "#{@nav_item == "cover_photo" ? "active" : ""} item" do %>
       <i class="camera retro icon"></i>Cover Photo

@@ -5,7 +5,7 @@
 <%= simple_form_for @worker,
   url: worker_extra_details_path,
   remote: true,
-  method: "put" do |f| %>
+  method: "put", html: {id: "edit-worker"} do |f| %>
   <%= f.input :has_own_transport, as: :boolean, label: "I'll take care of transportation", wrapper_html: { class: "ui toggle checkbox" }%>
   <div class="ui hidden divider"></div>
   <label class="string optional" for="nationality"><b>Nationality<b></label>
@@ -16,7 +16,3 @@
   <%= f.input :mobile_number %>
   <%= f.button :submit %>
 <% end %>
-
-<script type="text/javascript">
-  var worker = <%= raw @worker.to_json %>;
-</script>

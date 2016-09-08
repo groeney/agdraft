@@ -6,13 +6,12 @@
   <div class="ui image">
     <%= image_tag @farmer.cover_photo.url(:display) %>
   </div>
+  <div class="ui divider hidden"></div>
 <%else%>
-  <div class="ui brown segment">
+  <div class="ui segment">
     <i style="opacity:0.5;">Click the "Edit" button to upload an image</i>
   </div>
 <%end%>
-
-<div class="ui divider hidden"></div>
 
 <p>
   <%= link_to "Edit", farmer_edit_cover_photo_path, class: "ui button brown" %>
