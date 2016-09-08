@@ -1,0 +1,5 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: { header: "Education", icon: "world", description: "Add your education history to build trust with prospective employers", live_link: false } %>
+<% end %>
+
+<%= render "education_form" %>

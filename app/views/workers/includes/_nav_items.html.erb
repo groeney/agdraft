@@ -20,7 +20,7 @@
     <%= link_to worker_previous_employers_path, class: "#{@nav_item == "edit_user" ? "active" : ""} item" do %>
       <i class="users icon"></i>Previous Employers
     <% end %>
-    <%= link_to "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" do %>
+    <%= link_to worker_qualifications_path, class: "#{@nav_item == "edit_user" ? "active" : ""} item" do %>
       <i class="certificate icon"></i>Certificates & Education
     <% end %>
     <%= link_to worker_extra_details_path, class: "#{@nav_item == "extra_details" ? "active" : ""} item" do %>

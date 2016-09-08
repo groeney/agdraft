@@ -19,7 +19,7 @@ RSpec.describe Workers::SkillsController, type: :controller do
       end
     end
 
-    context "worker has job categories" do
+    context "worker has job categories but no skills" do
       let(:worker) { FactoryGirl.create(:worker, :with_job_categories) }
       before do
         sign_in worker

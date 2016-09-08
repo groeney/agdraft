@@ -1,0 +1,11 @@
+<%= simple_form_for @education,
+  url: worker_educations_path do |f| %>
+    <%= f.input :school, required: true %>
+    <%= f.input :degree %>
+    <%= f.input :field_of_study %>
+    <%= render "workers/shared/slot", resource_name: "education", required: true %>
+    <%= f.text_area :description, placeholder: "Description..." %>
+    <div class="ui divider hidden"></div>
+    <%= link_to "Cancel", worker_qualifications_path, class: "ui primary button basic" %>
+    <%= f.button :submit %>
+<% end %>

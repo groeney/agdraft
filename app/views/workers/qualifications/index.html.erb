@@ -1,0 +1,45 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: { header: "Qualifications", icon: "search", description: "Let prospective employers know about your qualifications", live_link: false } %>
+<% end %>
+
+<div class="ui attached tabular menu">
+  <a class="item active" data-tab="educations">Education</a>
+  <a class="item" data-tab="certificates">Certificates</a>
+</div>
+
+<div class="ui bottom attached tab active segment" data-tab="educations">
+
+  <%= render "zero_state", collection: @educations, zero_state_text: "You have not listed any education history. Click \"Add Education\"" %>
+
+  <div class="ui cards">
+    <% @educations.each do |education| %>
+      <%= render "education_card", education: education %>
+    <% end %>
+  </div>
+
+  <div class="ui divider hidden"></div>
+
+  <%= link_to new_worker_education_path do %>
+    <button class="ui button primary">
+      Add Education
+    </button>
+  <% end %>
+</div>
+
+<div class="ui bottom attached tab segment" data-tab="certificates">
+  <%= render "zero_state", collection: @certificates, zero_state_text: "You have not listed any certificates. Click \"Add Certificates\"" %>
+
+  <div class="ui cards">
+    <% @certificates.each do |certificate| %>
+      <%= render "certificate_card", certificate: certificate %>
+    <% end %>
+  </div>
+
+  <div class="ui divider hidden"></div>
+
+  <%= link_to new_worker_certificate_path do %>
+    <button class="ui button primary">
+      Add Certificate
+    </button>
+  <% end %>
+</div>

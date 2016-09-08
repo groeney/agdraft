@@ -1,0 +1,21 @@
+<div class="ui card" data-education-id="<%= education.id %>" data-resource-type="education">
+  <div class="content">
+    <div class="header"><%= education.school %></div>
+    <div class="meta">
+      <span>
+        <%= [education.degree, education.field_of_study].reject { |e| e.blank?  }.join(" | ") %>
+      </span>
+      <br>
+      <span>
+        <%= education.start_date.strftime("%B %Y") %> - <%= education.end_date.strftime("%B %Y") %>
+      </span>
+    </div>
+    <div class="description">
+      <%= education.description %>
+    </div>
+  </div>
+  <div id="delete" class="ui bottom attached red button" data-education-id="<%= education.id %>">
+    <i class="trash can icon"></i>
+    Delete
+  </div>
+</div>

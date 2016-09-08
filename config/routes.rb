@@ -49,6 +49,9 @@ Rails.application.routes.draw do
     resources :skills, only: [:index, :create, :destroy]
     resources :locations, only: [:index, :new, :create, :destroy]
     resources :previous_employers, only: [:new, :index, :create, :destroy]
+    resources :qualifications, only: [:index]
+    resources :educations, only: [:new, :create, :destroy]
+    resources :certificates, only: [:new, :create, :destroy]
 
     scope "onboard", as: "onboard" do
       get "job_categories" => "onboard#job_categories"

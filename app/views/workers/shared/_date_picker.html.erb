@@ -1,0 +1,9 @@
+<div class="field <%= "required" if local_assigns[:required] %>">
+  <label><%= label_text %></label>
+  <div class="ui calendar <%= js_class %>">
+    <div class="ui input left icon">
+      <i class="calendar icon"></i>
+      <input type="text" placeholder="<%= label_text %>" name="<%= resource_name %>[<%= resource_attribute %>]">
+    </div>
+  </div>
+</div>

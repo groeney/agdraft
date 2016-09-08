@@ -1,0 +1,10 @@
+<%= simple_form_for @certificate,
+  url: worker_certificates_path do |f| %>
+    <%= f.input :title, required: true %>
+    <%= f.input :issuing_institution %>
+    <%= render "workers/shared/date_picker", resource_name: "certificate", resource_attribute: "issue_date", js_class: "js-calendar", label_text: "Issue Date", required: true %>
+    <%= f.text_area :description, placeholder: "Description..." %>
+    <div class="ui divider hidden"></div>
+    <%= link_to "Cancel", worker_qualifications_path, class: "ui primary button basic" %>
+    <%= f.button :submit %>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907103056) do
+ActiveRecord::Schema.define(version: 20160908055712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 20160907103056) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
+  create_table "certificates", force: :cascade do |t|
+    t.string   "title"
+    t.date     "issue_date"
+    t.string   "issuing_institution"
+    t.string   "description"
+    t.integer  "worker_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
     t.integer  "attempts",   default: 0, null: false
@@ -49,6 +59,18 @@ ActiveRecord::Schema.define(version: 20160907103056) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "educations", force: :cascade do |t|
+    t.string   "school"
+    t.string   "degree"
+    t.string   "field_of_study"
+    t.string   "description"
+    t.integer  "worker_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
   create_table "farmers", force: :cascade do |t|
     t.string   "email",                      default: "", null: false

@@ -9,6 +9,8 @@ class Worker < ActiveRecord::Base
   has_many                :unavailabilities
   has_and_belongs_to_many :locations, -> { uniq }
   has_many                :previous_employers
+  has_many                :educations
+  has_many                :certificates
   has_secure_token        :referral_token
   has_attached_file       :profile_photo, :styles => { :display => "200x200#" }
   belongs_to              :referral_user, polymorphic: true

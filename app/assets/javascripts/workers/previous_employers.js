@@ -27,7 +27,7 @@ $(document).on('turbolinks:load', function(){
     })
   });
 
-  $('.previous_employers.new').ready(function(){
+  $('.previous_employers.new, .previous_employers.create').ready(function(){
     $('.range-start').calendar({
       type: 'date',
       startMode: 'year',
