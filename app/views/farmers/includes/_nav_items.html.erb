@@ -5,6 +5,9 @@
     <%= link_to edit_farmer_registration_path, class: "#{@nav_item == "account_details" ? "active" : ""} item" do %>
       <i class="edit icon"></i>Account Details
     <% end %>
+    <%= link_to farmer_payment_path, class: "#{@nav_item == "payments" ? "active" : ""} item" do %>
+      <i class="payment icon"></i>Payment Details
+    <% end %>
     <%= link_to edit_farmer_farmer_path(current_farmer), class: "#{@nav_item == "farm_details" ? "active" : ""} item" do %>
       <i class="browser icon"></i>Farm Details
     <% end %>

@@ -15,6 +15,26 @@ class Farmer < ActiveRecord::Base
 
   attr_accessor :referred_by_token
 
+  def update_stripe_customer_source(token)
+    begin
+      customer = Stripe::Customer.create(
+        :description => "Customer for #{current_farmer.email}",
+        :email => email,
+        :source => token
+      )
+    rescue
+      return false
+    end
+
+    stripe_customer_id = customer.id
+    stripe_deliquent = customer.deliquent
+    save
+  end
+
+  def has_valid_payment?
+    !stripe_customer_id.nil? && !stripe_delinquent
+  end
+
   protected
 
   def ensure_referral_token

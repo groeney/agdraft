@@ -1,0 +1,56 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: {header: "Update Payment Information", icon: "payment", description: "Please provide valid credit card details to enable publishing of job advertisments", live_link: false } %>
+<%end%>
+
+<div id="payment-status" class="ui segment basic">
+  <div class="ui success message <%= current_farmer.has_valid_payment? ? '' : 'hidden' %>">
+    You're all set. We have a valid form of payment recorded for your account. If you'd like to change your payment method, click "Add Payment Method" below.
+  </div>
+  <div class="ui warning message <%= current_farmer.has_valid_payment? ? 'hidden' : '' %>">
+    We do not have a valid form of payment registered for your account. This is because you have either not added one yet our we have had a problem billing your previously registered card. To add a valid form of payment click "Add Payment Method" below.
+  </div>
+</div>
+
+<button id="add-payment" class="ui button primary">Add Payment Method</button>
+
+<form action="/your-charge-code" method="POST" id="payment-form" style="display:none" class="ui form">
+  <div id="payment-error" class="ui warning message" style="display:none;"></div>
+  <div id="card-details" class="fields">
+    <div class="seven wide field">
+      <label>Card Number</label>
+      <input type="text" size="20" data-stripe="number" placeholder="Card Number">
+    </div>
+    <div class="three wide field">
+      <label>CVC</label>
+      <input type="text" size="4" data-stripe="cvc" placeholder="CVC">
+    </div>
+    <div class="six wide field">
+      <label>Expiration</label>
+      <div class="two fields">
+        <div class="field">
+          <input type="text" size="2" data-stripe="exp_month" placeholder="Month">
+        </div>
+        <div class="field">
+          <input type="text" size="2" data-stripe="exp_year" placeholder="Year">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="payment-verify-loading" class="ui icon message" style="display:none">
+    <i class="notched circle loading icon"></i>
+    <div class="content">
+      <div class="header">
+        Just one second
+      </div>
+      <p>We're verifying your payment information with our trusted partner <a target="blank_" href="https://stripe.com">Stripe</a></p>
+    </div>
+  </div>
+  <button id="cancel" class="ui primary button basic">Cancel</button>
+  <input type="submit" class="ui submit primary button" value="Update Payment Information">
+</form>
+
+<% content_for :javascripts do %>
+  <script>
+    window.stripe_publishable_key = "<%= @stripe_publishable_key %>";
+  </script>
+<%end%>

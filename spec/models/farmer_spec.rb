@@ -17,4 +17,35 @@ RSpec.describe Farmer, type: :model do
       end
     end
   end
+
+  describe "#has_valid_payment?" do
+    let(:farmer) { FactoryGirl.create(:farmer) }
+    context "when a farmer has a stripe customer id" do
+      before do 
+        farmer.update_attribute(:stripe_customer_id, "foo")
+      end
+      context "when a customer is deliquent" do
+        before do
+          farmer.update_attribute(:stripe_delinquent, true)
+        end
+        it "should return false" do
+          expect(farmer.has_valid_payment?).to eq false
+        end
+      end
+      context "when a customer is not deliquent" do
+        before do
+          farmer.update_attribute(:stripe_delinquent, false)
+        end
+        it "should return true" do
+          expect(farmer.has_valid_payment?).to eq true
+        end
+      end
+    end
+
+    context "when a farmer does not have a stripe customer id" do
+      it "should return false" do
+        expect(farmer.has_valid_payment?).to eq false
+      end
+    end
+  end
 end

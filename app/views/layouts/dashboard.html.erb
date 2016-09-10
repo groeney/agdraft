@@ -13,6 +13,7 @@
   
   <%= csrf_meta_tags %>
   <%= render "includes/analytics" %>
+  <script type="text/javascript" src="https://js.stripe.com/v2/" data-turbolinks-track="true"></script>
 </head>
 <body id="dashboard" class="<%= @nav == 'admin' ? 'admin-dashboard' : '' %> <%= controller_name %> <%= action_name %>">
   <div class="ui stackable grid">
