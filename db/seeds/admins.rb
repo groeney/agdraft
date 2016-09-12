@@ -1,0 +1,1 @@
+Admin.create(email: "admin@agdraft.com.au", password: "password")

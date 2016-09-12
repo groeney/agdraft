@@ -1,4 +1,4 @@
-STATES = [
+@states = [
   {
     name: "QLD",
     regions: [

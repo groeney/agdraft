@@ -63,20 +63,21 @@ FactoryGirl.define do
   end
 
   factory :worker do
-    first_name "Sally"
-    last_name "Smith"
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    nationality { Faker::Address.country }
     sequence(:email){ |n| "worker-email-#{n}@example.com" }
     password "password"
 
     trait :with_job_categories do
       after(:create) do |worker|
-        worker.job_categories << FactoryGirl.create_list(:job_category, 10)
+        worker.job_categories << (JobCategory.all.sample 10 || FactoryGirl.create_list(:job_category, 10))
       end
     end
 
     trait :with_skills do
       after(:create) do |worker|
-        worker.skills << FactoryGirl.create_list(:skill, 10)
+        worker.skills << (Skill.all.sample 10 || FactoryGirl.create_list(:skill, 10))
       end
     end
 
@@ -84,14 +85,6 @@ FactoryGirl.define do
       after(:create) do |worker|
         5.times do
           FactoryGirl.create(:unavailability, worker: worker)
-        end
-      end
-    end
-
-    trait :with_previous_employers do
-      after(:create) do |worker|
-        5.times do
-          FactoryGirl.create(:previous_employer, worker: worker)
         end
       end
     end
@@ -119,17 +112,23 @@ FactoryGirl.define do
         end
       end
     end
+
+    trait :with_locations do
+      after(:create) do |worker|
+        worker.locations << (Location.all.sample 3 || FactoryGirl.create_list(:location, 3))
+      end
+    end
   end
 
   factory :farmer do
-    first_name "Jon"
-    last_name "Smith"
+    first_name {  Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
     sequence(:email){ |n| "farmer-email-#{n}@example.com" }
     password "password"
   end
 
   factory :location do
-    state "QLD"
+    state { Faker::Address.state }
     sequence(:region){ |n| "region-#{n}" }
   end
 end

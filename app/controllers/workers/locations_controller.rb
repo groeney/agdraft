@@ -9,7 +9,7 @@ class Workers::LocationsController < Workers::BaseController
   end
 
   def create
-    current_worker.locations << Location.find_by!({id: params[:id]})
+    current_worker.locations << Location.find_by!({ id: params[:id] })
     render_201
   end
 

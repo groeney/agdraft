@@ -1,32 +1,15 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-require_relative './states'
+# Seed data for all environments
+require_relative "./seeds/skills"
+require_relative "./seeds/job_categories"
+require_relative "./seeds/locations"
 
-NUM_SKILLS = 50
-NUM_JOB_CATEGORIES = (NUM_SKILLS/5)
-
-NUM_SKILLS.times do |n|
-  Skill.create(title: "Skill #{n}")
-end
-
-NUM_JOB_CATEGORIES.times do |n|
-  job_category = JobCategory.create(title: "Category #{n}")
-  5.times do |m|
-    job_category.skills << Skill.all.sample
-  end
-end
-
-Admin.create(email: "admin@agdraft.com.au", password: "password")
-Worker.create(first_name: "Bob", last_name: "Smith", email: "worker@example.com", password: "password")
-Farmer.create(first_name: "Joe", last_name: "Blogs", email: "farmer@example.com", password: "password")
-
-STATES.each do |state|
-  state[:regions].each do |region|
-    Location.create(state: state[:name], region: region)
-  end
+case Rails.env
+when "development" || "test"
+  require_relative "./seeds/admins"
+  require_relative "./seeds/workers"
+  require_relative "./seeds/farmers"
+when "staging"
+  # Add staging specific seeds
+when "production"
+  # Add production specific seeds
 end
