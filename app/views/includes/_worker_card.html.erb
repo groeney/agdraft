@@ -1,0 +1,45 @@
+<a class="ui card" href="#">
+  <div class="content">
+    <div class="right floated meta"><%= [worker.locations.first.region, worker.locations.first.state].reject { |el| el.empty? }.join(", ") %></div>
+    <img class="ui avatar image" src="/assets/the-boss.jpg">
+  </div>
+
+  <div class="meta content">
+    <h2 class="ui sub header">Skills:</h2>
+    <div class="ui horizontal list">
+      <% worker.skills.each do |skill| %>
+        <div class="item">
+          <div class="content">
+            <%= skill.title %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="ui hidden divider"></div>
+
+    <h2 class="ui sub header">Job Categories:</h2>
+    <div class="ui horizontal list">
+      <% worker.job_categories.each do |job_category| %>
+        <div class="item">
+          <div class="content">
+            <%= job_category.title %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="header"><%= worker.full_name %></div>
+    <div class="meta">
+      <span><%= worker.nationality %></span>
+    </div>
+  </div>
+
+  <div class="extra content">
+    Rating:
+    <div class="ui star rating" data-rating="<%= rand(1..5) %>"></div>
+    <div class="meta">Joined <%= worker.created_at.strftime("%B %Y") %></div>
+  </div>
+</a>

@@ -8,8 +8,13 @@
     <%= csrf_meta_tags %>
     <%= render "includes/analytics" %>
   </head>
-  <body>
-    <%= render "flashes" -%>
-    <%= yield %>
+  <body class="<%= controller_name %> <%= action_name %>">
+    <div class="ui container basic segment">
+      <%= render "flashes" -%>
+      <%= yield %>
+    </div>
   </body>
+  <footer>
+    <%= yield :javascripts %>
+  </footer>
 </html>

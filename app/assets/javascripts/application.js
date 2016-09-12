@@ -13,4 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require semantic-ui-patch/calendar.min
+//= require semantic-ui/dist/semantic.min
 //= require global
+//= require_tree ./search

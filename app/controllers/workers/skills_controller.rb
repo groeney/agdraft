@@ -1,11 +1,11 @@
 class Workers::SkillsController < Workers::BaseController
   def index
+    @selected_skills = current_worker.skills
+    @eligible_skills = current_worker.eligible_skills
     if current_worker.job_categories.count < 1
       flash[:error] = "Please select a job category"
       return redirect_to worker_job_categories_path
     end
-    @selected_skills = current_worker.skills
-    @eligible_skills = current_worker.eligible_skills
   end
 
   def create
