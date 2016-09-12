@@ -31,16 +31,43 @@ class Farmers::JobsController < Farmers::BaseController
   end
 
   def index
-    @jobs = current_farmer.jobs
+    @jobs = current_farmer.jobs.where(published: false)
+  end
+
+  def published
+    @jobs = current_farmer.jobs.where(published: true)
+    @nav_item = "jobs_published"
   end
 
   def show
   end
 
+  def publish_confirm
+    @job = Job.find(params[:id])
+    return redirect_to farmer_published_jobs_path if @job.published
+  end
+
+  def publish
+    @job = Job.find(params[:id])
+    if @job.publish
+      flash[:success] = "You have successfully published your job advertisment. An e-mail receipt will be delivered to you shortly"
+      redirect_to farmer_published_jobs_path
+    else
+      flash[:error] = "There was a problem processing your payment, please make sure your payment information is valid and try again"
+      render "publish_confirm"
+    end
+  end
+
+  def live
+    job = Job.find(params[:id])
+    job.update_attribute(:live, !job.live)
+    render_201
+  end
+
   protected
 
   def nav_item
-    @nav_item = "jobs"
+    @nav_item = "jobs_unpublished"
   end
 
   def secure_params

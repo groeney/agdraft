@@ -1,0 +1,54 @@
+<div class="ui stackable grid">
+  <div class="ui eight wide column">
+    <h4>Title</h4>
+    <%= @job.title %>
+  </div>
+  <div class="ui eight wide column">
+    <h4>Location</h4> 
+    <%= @job.location.label %>
+  </div>
+  <div class="ui eight wide column">
+    <h4>Description</h4> 
+    <%= @job.description %>
+  </div>
+  <div class="ui eight wide column">
+    <h4>Accomodation Provided</h4> 
+    <%= @job.accomodation_provided ? "Yes" : "No" %>
+  </div>
+  <div class="ui eight wide column">
+    <h4>Job Categories</h4>
+    <% @job.job_categories.each do |jc| %>
+      <div class="ui label">
+        <%= jc.title %>
+      </div>
+    <%end%>
+  </div>
+  <div class="ui eight wide column">
+    <h4>Skills</h4>
+    <% @job.skills.each do |s| %>
+      <div class="ui label">
+        <%= s.title %>
+      </div>
+    <%end%>
+  </div>
+  <div class="ui eight wide column">
+    <h4>Minimum Hourly Wage</h4> 
+    $<%= @job.pay_min %>/hr
+  </div>
+  <div class="ui eight wide column">
+    <h4>Maximum Hourly Wage</h4> 
+    $<%= @job.pay_max %>/hr
+  </div>
+  <div class="ui eight wide column">
+    <h4>Start Date</h4> 
+    <%= @job.start_date_label %>
+  </div>
+  <div class="ui eight wide column">
+    <h4>End Date</h4> 
+    <%= @job.end_date_label %>
+  </div>
+  <div class="ui eight wide column">
+    <h4>Number of Workers</h4> 
+    <%= @job.number_of_workers %>
+  </div>
+</div> 

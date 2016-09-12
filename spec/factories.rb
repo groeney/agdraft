@@ -1,4 +1,11 @@
 FactoryGirl.define do
+  factory :payment_audit do
+    farmer
+    job
+    action "MyString"
+    message "MyString"
+    success false
+  end
   factory :certificate do
     title { Faker::Lorem.word }
     issue_date { rand(4.years.ago..1.year.ago) }

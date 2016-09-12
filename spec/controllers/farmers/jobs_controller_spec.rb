@@ -1,13 +1,12 @@
 require "rails_helper"
 
 RSpec.describe Farmers::JobsController, type: :controller do
+  let(:farmer) { FactoryGirl.create(:farmer) }
+  before do
+    sign_in farmer
+  end
+
   describe "#create" do
-    let(:farmer) { FactoryGirl.create(:farmer) }
-
-    before do
-      sign_in farmer
-    end
-
     it "should create the job and associate with farmer" do
       job_params = FactoryGirl.build(:job, farmer: nil).attributes
       job_params[:skills] = []
@@ -31,6 +30,15 @@ RSpec.describe Farmers::JobsController, type: :controller do
       expect(farmer.jobs.last.end_date).to eq job_params["end_date"]
       expect(farmer.jobs.last.skills.count).to eq 10
       expect(farmer.jobs.last.job_categories.count).to eq 5
+    end
+  end
+
+  describe "#live" do
+    it "should toggle the live value of a job" do
+      job = FactoryGirl.create(:job)
+      live = job.live
+      put :live, id: job.id, format: :json      
+      expect(job.reload.live).to eq !live
     end
   end
 end

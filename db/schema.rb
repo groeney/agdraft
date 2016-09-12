@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160910084240) do
+ActiveRecord::Schema.define(version: 20160912133730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 20160910084240) do
     t.boolean  "published",             default: false
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
+    t.boolean  "live",                  default: true
   end
 
   add_index "jobs", ["farmer_id"], name: "index_jobs_on_farmer_id", using: :btree
@@ -183,6 +184,20 @@ ActiveRecord::Schema.define(version: 20160910084240) do
 
   add_index "locations_workers", ["location_id", "worker_id"], name: "index_locations_workers_on_location_id_and_worker_id", using: :btree
   add_index "locations_workers", ["worker_id", "location_id"], name: "index_locations_workers_on_worker_id_and_location_id", using: :btree
+
+  create_table "payment_audits", force: :cascade do |t|
+    t.integer  "farmer_id"
+    t.integer  "job_id"
+    t.string   "action"
+    t.string   "message"
+    t.boolean  "success"
+    t.string   "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "payment_audits", ["farmer_id"], name: "index_payment_audits_on_farmer_id", using: :btree
+  add_index "payment_audits", ["job_id"], name: "index_payment_audits_on_job_id", using: :btree
 
   create_table "previous_employers", force: :cascade do |t|
     t.string   "business_name"
@@ -254,4 +269,6 @@ ActiveRecord::Schema.define(version: 20160910084240) do
 
   add_foreign_key "jobs", "farmers"
   add_foreign_key "jobs", "locations"
+  add_foreign_key "payment_audits", "farmers"
+  add_foreign_key "payment_audits", "jobs"
 end

@@ -1,5 +1,5 @@
 <% content_for :dashboard_header do %>
-  <%= render partial: "includes/dashboard/masthead", locals: {header: "Jobs", icon: "protect", description: "View and edit your unpublished jobs", live_link: false } %>
+  <%= render partial: "includes/dashboard/masthead", locals: {header: "Published Jobs", icon: "protect", description: "View your published jobs", live_link: false } %>
 <%end%>
 <%= link_to "Add Job", new_farmer_job_path, class: "ui primary button" %>
 
@@ -30,10 +30,13 @@
           <%= job.number_of_workers %>
         </td>
         <td>
-          <%= link_to "Edit", edit_farmer_job_path(job), class: "ui primary button basic" %>
+          <div class="field boolean optional job_live ui toggle checkbox" data-job-id="<%= job.id %>">
+            <input class="boolean optional" type="checkbox" value="1" <%= job.live ? 'checked="checked"' : '' %> name="job[live]" id="job_live">
+            <label class="boolean optional" for="job_live">Live</label>
+          </div>
         </td>
         <td>
-          <%= link_to "Publish", farmer_publish_job_confirm_path(job.id), class: "ui primary button" %>
+          <%= link_to "View", "#", class: "ui primary button" %>
         </td>
       </tr>
     <% end %>

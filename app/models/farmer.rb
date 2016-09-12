@@ -10,6 +10,7 @@ class Farmer < ActiveRecord::Base
   belongs_to :referral_user, polymorphic: true
   belongs_to :location
   has_many :jobs
+  has_many :payment_audtis
   validates_attachment_content_type :profile_photo, :content_type => /\Aimage\/.*\Z/
   validates_presence_of :first_name, :last_name
 

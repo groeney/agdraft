@@ -36,6 +36,11 @@ Rails.application.routes.draw do
     get "location" => "locations#show", as: :show_location
     resources :locations, only: [:update]
     resources :farmers, only: [:edit, :update]
+
+    get "jobs/:id/publish/confirm" => "jobs#publish_confirm", as: :publish_job_confirm
+    post "jobs/:id/publish" => "jobs#publish", as: :publish_job
+    get "jobs/published" => "jobs#published", as: :published_jobs
+    put "jobs/:id/live" => "jobs#live", as: :job_live
     resources :jobs
 
     get "payments" => "payments#show", as: :payment
