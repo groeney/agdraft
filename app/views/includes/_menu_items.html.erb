@@ -1,0 +1,14 @@
+<%= link_to "Home", root_path, class: "#{@nav_item == 'home' ? 'active' : ''} item" %>
+<a href="/about" class="item">About</a>
+<a class="item">Company</a>
+<a class="item">Careers</a>
+
+<% if sidebar %>
+  <a class="item">Login</a>
+  <a class="item">Signup</a>
+<%else%>
+  <div class="right item">
+    <a class="ui inverted button">Log in</a>
+    <a class="ui teal button">Sign Up</a>
+  </div>
+<%end%>

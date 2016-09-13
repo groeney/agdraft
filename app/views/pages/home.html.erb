@@ -1,3 +1,78 @@
+<!-- Background image from: http://www.beefcentral.com/wp-content/uploads/2014/05/cattle2.jpg -->
+<div class="ui inverted vertical masthead center aligned segment">
+  <div class="ui container">
+    <div class="ui large secondary inverted pointing menu">
+      <%= image_tag "header-logo-edit-2.png", class: "header item" %>
+      <a class="toc item">
+        <i class="sidebar icon"></i>
+      </a>
+      <%= render partial: "includes/menu_items", locals: {sidebar: false} %>
+    </div>
+  </div>
+
+  <div class="ui text container">
+    <h1 class="ui inverted header">
+      Connecting Workers to Farm Operators
+    </h1>
+    <h2>Reliable work when you need it</h2>
+    <a id="farmers-link" href="#" class="ui huge teal button basic">Farmers</a>
+    <a href="#" class="ui huge teal button">Workers</a>
+  </div>
+
+</div>
+<div class="ui stackable three column grid">
+  <div class="ui teal column">
+    <div class="ui very padded segment basic">
+      <i class="ui desktop icon huge"></i>
+      <h3>Post a Job</h3>
+      <p>Tell us what tasks you need done. Post a Job Online or by Phone. Free and 100% No Obligation to Hire.</p>
+    </div>
+  </div>
+  <div class="ui teal column">
+    <div class="ui very padded segment basic">
+      <i class="ui users icon huge"></i>
+      <h3>Receive Job Applications</h3>
+      <p>The best workers are screened & rated before they can apply for your job. Be in touch with workers who place bids through our messaging system.</p>
+    </div>
+  </div>
+  <div class="ui teal column">
+    <div class="ui very padded segment basic">
+      <i class="ui street view icon huge"></i>
+      <h3>Hire Workers</h3>
+      <p>Review workers profiles, experience and ratings to choose your perfect fit. We’ll give you their contact when you accept their bid.</p>
+    </div>
+  </div>
+</div>
+<div class="ui container desktop-only">
+  <div class="ui stackable six column grid">
+    <% [{
+        image: "logos/stock-journal.png", 
+        link: "http://www.stockjournal.com.au/news/agriculture/agribusiness/general-news/ag-digital-startup-wins-big/2742094.aspx"
+        }, 
+        {
+          image: "logos/westpac.png", 
+          link: "http://www.westpac.com.au/about-westpac/sustainability-and-community/news-stories/news/10-sept-digital-idea-agri"
+        }, 
+        {
+          image: "logos/fin-review.png", 
+          link: "http://www.afr.com/technology/westpac-looks-past-fintech-to-emerging-agtech-boom-20150918-gjq2na"
+        }, 
+        {
+          image: "logos/the-land.png", 
+          link: "http://www.theland.com.au/story/3365902/farmer-fix-for-workforce-woes/"
+        }, 
+        {
+          image: "logos/abc-rural.jpg", 
+          link: "https://soundcloud.com/agdraft/agdraft-abcwacountryhour"
+        }, 
+        {
+          image: "logos/blue-chilli.png", 
+          link: "https://www.bluechilli.com/corporates/innovation-challenge/disrupt-agribiz/westpac-innovation-challenge-from-mining-boom-to-dining-boom/"
+        }].each do |logo| %>
+      <%= render partial: "logo", locals: {logo: logo} %>
+    <% end %>
+  </div>
+</div>
 <p>
   Worker:
   <%= link_to('Sign up', new_worker_registration_path)  %> |

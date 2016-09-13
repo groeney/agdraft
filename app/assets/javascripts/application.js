@@ -17,3 +17,4 @@
 //= require semantic-ui/dist/semantic.min
 //= require global
 //= require_tree ./search
+//= require_tree ./pages

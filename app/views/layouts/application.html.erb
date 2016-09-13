@@ -3,15 +3,32 @@
   <head>
     <title>Agdraft</title>
     <%= favicon_link_tag %>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
     <%= render "includes/analytics" %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>">
-    <div class="ui container basic segment">
+    <%= render 'includes/fixed_menu' %>
+    <%= render 'includes/sidebar' %>
+    <div class="pusher">
+      <%= render "includes/mobile_menu" %>
+      <!-- Page Contents -->
       <%= render "flashes" -%>
-      <%= yield %>
+      <%if controller_name == "pages" && action_name == "home" %>
+        <%= yield %>
+      <%else%>
+        <div class="ui container">
+          <div class="ui segment padded basic">
+            <%= yield %>
+          </div>
+        </div>
+      <%end%>
+      <%= render "includes/footer" %>
     </div>
   </body>
   <footer>

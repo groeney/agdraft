@@ -1,0 +1,9 @@
+<div id="mobile-menu" class="ui container">
+  <div class="ui large secondary inverted pointing menu">
+    <%= image_tag "header-logo-edit-2.png", class: "header item" %>
+    <a class="toc item">
+      <i class="sidebar icon"></i>
+    </a>
+    <%= render partial: "includes/menu_items", locals: {sidebar: false} %>
+  </div>
+</div>
