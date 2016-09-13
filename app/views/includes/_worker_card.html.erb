@@ -1,6 +1,10 @@
 <a class="ui card" href="#">
   <div class="content">
-    <div class="right floated meta"><%= [worker.locations.first.region, worker.locations.first.state].reject { |el| el.empty? }.join(", ") %></div>
+    <%if worker.locations.first %>
+      <div class="right floated meta">
+        <%= [worker.locations.first.region, worker.locations.first.state].reject { |el| el.empty? }.join(", ") %>
+      </div>
+    <%end%>
     <img class="ui avatar image" src="/assets/the-boss.jpg">
   </div>
 
