@@ -23,7 +23,7 @@ RSpec.describe Worker, type: :model do
     let!(:workers_without_skills) { FactoryGirl.create_list(:worker, 20) }
     context "users with a particular skill" do
       let(:skill) { FactoryGirl.create(:skill) }
-      let!(:workers_with_skill) { FactoryGirl.create_list(:worker, 10, :with_skills, skills: skill) }
+      let!(:workers_with_skill) { FactoryGirl.create_list(:worker, 10, skills: [skill]) }
 
       it "should return correct number of workers" do
         results = Worker.skills(skill.id)
@@ -51,7 +51,7 @@ RSpec.describe Worker, type: :model do
     let!(:workers_without_job_categories) { FactoryGirl.create_list(:worker, 20) }
     context "users with a particular job_category" do
       let(:job_category) { FactoryGirl.create(:job_category) }
-      let!(:workers_with_job_category) { FactoryGirl.create_list(:worker, 10, :with_job_categories, job_categories: job_category) }
+      let!(:workers_with_job_category) { FactoryGirl.create_list(:worker, 10, job_categories: [job_category]) }
 
       it "should return correct number of workers" do
         results = Worker.job_categories(job_category.id)
@@ -79,7 +79,7 @@ RSpec.describe Worker, type: :model do
     let!(:workers_without_locations) { FactoryGirl.create_list(:worker, 20) }
     context "users with a particular location" do
       let(:location) { FactoryGirl.create(:location) }
-      let!(:workers_with_location) { FactoryGirl.create_list(:worker, 10, :with_locations, locations: location) }
+      let!(:workers_with_location) { FactoryGirl.create_list(:worker, 10, locations: [location]) }
 
       it "should return correct number of workers" do
         results = Worker.locations(location.id)
@@ -127,6 +127,65 @@ RSpec.describe Worker, type: :model do
         results.each do |worker|
           expect(available_workers).to include worker
         end
+      end
+    end
+  end
+
+  describe ".filter_rating" do
+    let(:job_categories) { FactoryGirl.create_list(:job_category, 10) }
+    let(:skills) { FactoryGirl.create_list(:skill, 10) }
+    let(:locations) { FactoryGirl.create_list(:location, 3) }
+    let(:filter_params) { { job_categories: job_categories.map(&:id), skills: skills.map(&:id), locations: locations.map(&:id) } }
+
+    context "worker with no attributes" do
+      let(:worker) { FactoryGirl.create(:worker) }
+
+      it "should return a rating of 0" do
+        expect(worker.filter_rating(filter_params)).to eq(0)
+      end
+    end
+
+    context "worker with only our job_categories" do
+      let(:worker) { FactoryGirl.create(:worker, job_categories: job_categories) }
+
+      it "should return correct value" do
+        expect(worker.filter_rating(filter_params)).to eq(job_categories.count)
+      end
+    end
+
+    context "worker with only our skills" do
+      let(:worker) { FactoryGirl.create(:worker, skills: skills) }
+
+      it "should return correct value" do
+        expect(worker.filter_rating(filter_params)).to eq(skills.count)
+      end
+    end
+
+    context "worker with only our locations" do
+      let(:worker) { FactoryGirl.create(:worker, locations: locations) }
+
+      it "should return correct value" do
+        expect(worker.filter_rating(filter_params)).to eq(locations.count)
+      end
+    end
+
+    context "worker with all our attributes" do
+      let(:worker) { FactoryGirl.create(:worker, job_categories: job_categories, skills: skills, locations: locations) }
+
+      it "should return correct value" do
+        correct_value = job_categories.count + skills.count + locations.count
+        expect(worker.filter_rating(filter_params)).to eq(correct_value)
+      end
+    end
+
+    context "worker with attributes but none of ours" do
+      let(:new_job_categories) { FactoryGirl.create_list(:job_category, 10) }
+      let(:new_skills) { FactoryGirl.create_list(:skill, 10) }
+      let(:new_locations) { FactoryGirl.create_list(:location, 3) }
+      let(:worker) { FactoryGirl.create(:worker, job_categories: new_job_categories, skills: new_skills, locations: new_locations) }
+
+      it "should return correct value" do
+        expect(worker.filter_rating(filter_params)).to eq(0)
       end
     end
   end

@@ -56,6 +56,19 @@ class Worker < ActiveRecord::Base
     [first_name, last_name].reject { |el| el.empty? }.join(" ")
   end
 
+  def filter_rating(filter_params)
+    raw_rating = 0
+    filter_params.slice(:job_categories, :skills, :locations).each do |key, ids|
+      raw_rating += self.public_send(key).where({ id: ids }).count if ids.present?
+    end
+    raw_rating
+  end
+
+  def review_rating
+    # TODO implement properly with review model etc...
+    rand(1..5)
+  end
+
   protected
 
   def ensure_referral_token

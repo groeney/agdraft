@@ -13,7 +13,7 @@ class Job < ActiveRecord::Base
   scope :locations, -> (location_ids) { where(location_id: location_ids) }
   scope :job_categories, -> (job_category_ids) { joins(:job_categories).where(job_categories: { id: job_category_ids }) }
   scope :skills, -> (skill_ids) { joins(:skills).where(skills: { id: skill_ids }) }
-  scope :availability, -> (start_date, end_date) { where("start_date >= ? AND end_date <= ?", start_date, end_date) }
+  scope :date_range, -> (start_date, end_date) { where("start_date >= ? AND end_date <= ?", start_date, end_date) }
 
   accepts_nested_attributes_for :skills
 
@@ -42,4 +42,13 @@ class Job < ActiveRecord::Base
     return "" unless location
     [location.region, location.state].reject { |el| el.empty? }.join(", ")
    end
+
+  def filter_rating(filter_params)
+    raw_rating = 0
+    filter_params.slice(:skills, :job_categories, :location).each do |key, ids|
+      raw_rating += self.public_send(key).where({ id: ids }).count if ids.present?
+    end
+    raw_rating += 1 if filter_params[:locations].include?(self.location.id)
+    raw_rating
+  end
 end

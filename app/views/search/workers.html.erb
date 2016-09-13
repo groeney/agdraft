@@ -1,4 +1,4 @@
-<%= render "search/search_resource_form", search_resource_path: search_workers_path, resource_name: "worker" %>
+<%= render "search/search_resource_form", locals: { search_resource_path: search_workers_path, resource_name: "worker" } %>
 
 <div class="ui visible message">
   <p>Displaying <%= @workers.count %> of <%= Worker.all.count %> workers</p>
@@ -6,6 +6,6 @@
 
 <div class="ui cards">
  <% @workers.each do |worker| %>
-  <%= render "worker_card", worker: worker, worker_profile_path: "#" %>
+  <%= render "worker_card", locals: { worker: worker, worker_profile_path: "#" } %>
  <% end %>
 </div>
