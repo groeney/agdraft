@@ -1,10 +1,14 @@
 <div class="ui basic padded segment">
-  <div class="ui cards">
+  <div class="ui label-list">
     <% @selected_skills.each do |skill| %>
-      <%= render "workers/skills/card", skill: skill, selected: true %>
+      <div class="ui label huge" data-id="<%= skill.id %>">
+        <%= skill.title %>
+      </div>
     <% end %>
     <% @eligible_skills.each do |skill| %>
-      <%= render "workers/skills/card", skill: skill, selected: false %>
+      <div class="ui label huge disabled" data-id="<%= skill.id %>">
+        <%= skill.title %>
+      </div>
     <% end %>
   </div>
 </div>

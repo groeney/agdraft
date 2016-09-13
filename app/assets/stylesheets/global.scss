@@ -19,3 +19,13 @@
     display:block!important;
   }
 }
+
+.label-list{
+  .label{
+    margin-bottom:5px;
+
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}

@@ -15,10 +15,11 @@ $(document).on('turbolinks:load', function(){
           contentType: 'application/json',
           dataType: 'json',
           success: function(data, textStatus, jqXHR){
-            $(this).toggleClass(activeClass);
+            
           },
           error: function(jqXHR, textStatus, errorThrown){
             toastr['error'](errorThrown);
+            $(this).toggleClass(activeClass);
           }
         })
       } else {
@@ -35,13 +36,15 @@ $(document).on('turbolinks:load', function(){
             id: jobCategoryID
           }),
           success: function(data, textStatus, jqXHR){
-            $(this).toggleClass(activeClass);
+            
           },
           error: function(jqXHR, textStatus, errorThrown){
             toastr['error'](errorThrown);
+            $(this).toggleClass(activeClass);
           }
-        })
+        });
       }
+      $(this).toggleClass(activeClass);
     });
   });
 });
