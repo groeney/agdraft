@@ -1,4 +1,5 @@
 class Job < ActiveRecord::Base
+  include Filterable
   belongs_to :farmer
   belongs_to :location
   has_and_belongs_to_many :workers, -> { uniq }
@@ -9,14 +10,21 @@ class Job < ActiveRecord::Base
   validates :end_date, presence: true, date: { after: :start_date, message: "Job end date must be after the start date" }, on: [:update, :create]
   validates :start_date, presence: true, date: { after: Proc.new { Date.today } }, on: [:update, :create]
 
+  scope :locations, -> (location_ids) { where(location_id: location_ids) }
+  scope :job_categories, -> (job_category_ids) { joins(:job_categories).where(job_categories: { id: job_category_ids }) }
+  scope :skills, -> (skill_ids) { joins(:skills).where(skills: { id: skill_ids }) }
+  scope :availability, -> (start_date, end_date) { where("start_date >= ? AND end_date <= ?", start_date, end_date) }
+
   accepts_nested_attributes_for :skills
 
   def start_date_label
-    start_date.strftime("%B %e %Y") if start_date
+    return "" unless start_date
+    start_date.strftime("%B %e %Y")
   end
 
   def end_date_label
-    end_date.strftime("%B %e %Y") if end_date
+    return "" unless end_date
+    end_date.strftime("%B %e %Y")
   end
 
   def publish
@@ -29,4 +37,9 @@ class Job < ActiveRecord::Base
     end
     update_attribute(:published, true)
   end
+
+   def location_name
+    return "" unless location
+    [location.region, location.state].reject { |el| el.empty? }.join(", ")
+   end
 end

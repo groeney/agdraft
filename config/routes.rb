@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   root "pages#home"
   get "/search/workers" => "search#workers", as: :search_workers
+  get "/search/jobs" => "search#jobs", as: :search_jobs
 
   devise_for :admins, controllers: {
     sessions: "farmers/sessions"

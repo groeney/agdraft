@@ -61,6 +61,16 @@ FactoryGirl.define do
     last_name { Faker::Name.last_name }
     sequence(:email){ |n| "farmer-email-#{n}@example.com" }
     password "password"
+
+    trait :with_locations do
+      transient do
+        location nil
+      end
+
+      after(:create) do |farmer, evaluator|
+        farmer.location = evaluator.location || Location.all.try(:sample) || FactoryGirl.create(:location)
+      end
+    end
   end
 
   factory :location do

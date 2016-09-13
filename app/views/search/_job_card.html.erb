@@ -1,0 +1,28 @@
+<a class="ui card" href="<%= job_path %>">
+  <div class="content">
+    <div class="right floated meta"><%= job.location_name %></div>
+    <img class="ui avatar image" src="/assets/farm-job.png">
+  </div>
+
+  <div class="ui basic segment">
+    <h2 class="ui sub header">Job Categories:</h2>
+    <div class="ui horizontal list">
+      <% job.job_categories.each do |job_category| %>
+        <div class="item">
+          <div class="content">
+            <%= job_category.title %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="header"><%= job.business_name %></div>
+    <div class="meta">
+      <span><%= job.title %></span>
+      <br>
+      <span><b>Min:</b><%= number_to_currency(job.pay_min) %> -- <b>Max:</b> <%= number_to_currency(job.pay_max) %></span>
+    </div>
+  </div>
+</a>

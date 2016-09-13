@@ -1,6 +1,5 @@
 $(document).on('turbolinks:load', function(){
-  $('.search.workers').ready(function(){
-
+  $('.search.workers, .search.jobs').ready(function(){
     $('.ui.star.rating').rating({
       interactive: false,
       maxRating: 5
