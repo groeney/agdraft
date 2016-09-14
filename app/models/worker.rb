@@ -47,9 +47,14 @@ class Worker < ActiveRecord::Base
     ISO3166::Country[country]
    end
 
+   def location_name
+    return "" unless location = locations.first
+    [location.region, location.state].reject { |el| el.empty? }.join(", ")
+   end
+
    def full_name
     [first_name, last_name].reject { |el| el.empty? }.join(" ")
-   end
+  end
 
   protected
 

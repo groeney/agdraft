@@ -34,9 +34,9 @@ gem "js-routes"
 gem "date_validator"
 gem "simple_form"
 gem "country_select"
-gem "faker"
 gem "stripe"
 gem "comfortable_mexican_sofa", "~> 1.12.0"
+gem "colorize"
 
 # Use ActiveModel has_secure_password
 # gem "bcrypt", "~> 3.1.7"

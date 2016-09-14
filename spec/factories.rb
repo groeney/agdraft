@@ -1,4 +1,7 @@
 FactoryGirl.define do
+  # For factory :job see spec/factories/job.rb
+  # For factory :worker see spec/factories/worker.rb
+
   factory :payment_audit do
     farmer
     job
@@ -6,10 +9,10 @@ FactoryGirl.define do
     message "MyString"
     success false
   end
+
   factory :certificate do
     title { Faker::Lorem.word }
     issue_date { rand(4.years.ago..1.year.ago) }
-
     worker
   end
 
@@ -17,7 +20,6 @@ FactoryGirl.define do
     school { Faker::University.name }
     start_date { rand(4.years.ago..1.year.ago) }
     end_date { rand(start_date..Time.now) }
-
     worker
   end
 
@@ -33,21 +35,6 @@ FactoryGirl.define do
     end_date { rand(start_date..Time.now) }
 
     worker
-  end
-
-  factory :job do
-    farmer
-    location
-    title "MyString"
-    description "MyText"
-    accomodation_provided false
-    business_name "MyString"
-    business_description "MyText"
-    pay_min "20"
-    pay_max "25"
-    start_date Date.today + 1.days
-    end_date Date.today + 3.days
-    number_of_workers "10-20"
   end
 
   factory :unavailability do
@@ -67,86 +54,6 @@ FactoryGirl.define do
 
   factory :skill do
     sequence(:title) { |n| "Skill #{n}" }
-  end
-
-  factory :worker do
-    first_name { Faker::Name.first_name }
-    last_name { Faker::Name.last_name }
-    nationality { Faker::Address.country }
-    sequence(:email){ |n| "worker-email-#{n}@example.com" }
-    password "password"
-
-    trait :with_job_categories do
-      transient do
-        job_categories nil
-      end
-
-      after(:create) do |worker, evaluator|
-        worker.job_categories << (evaluator.job_categories || JobCategory.all.sample(10) || FactoryGirl.create_list(:job_category, 10))
-      end
-    end
-
-    trait :with_skills do
-      transient do
-        skills nil
-      end
-
-      after(:create) do |worker, evaluator|
-        worker.skills << (evaluator.skills || Skill.all.sample(10) || FactoryGirl.create_list(:skill, 10))
-      end
-    end
-
-    trait :with_locations do
-      transient do
-        locations nil
-      end
-
-      after(:create) do |worker, evaluator|
-        worker.locations << (evaluator.locations || Location.all.sample(3) || FactoryGirl.create_list(:location, 3))
-      end
-    end
-
-    trait :with_unavailabilities do
-      transient do
-        start_date nil
-        end_date nil
-      end
-
-      after(:create) do |worker, evaluator|
-        # Create a singluar unavailability or create multiple
-        if (start_date = evaluator.start_date) && (end_date = evaluator.end_date)
-          FactoryGirl.create(:unavailability, worker: worker, start_date: start_date, end_date: end_date)
-        else
-          5.times do
-            FactoryGirl.create(:unavailability, worker: worker)
-          end
-        end
-      end
-    end
-
-    trait :with_previous_employers do
-      after(:create) do |worker|
-        5.times do
-          FactoryGirl.create(:previous_employer, worker: worker)
-        end
-      end
-    end
-
-    trait :with_certificates do
-      after(:create) do |worker|
-        5.times do
-          FactoryGirl.create(:certificate, worker: worker)
-        end
-      end
-    end
-
-    trait :with_educations do
-      after(:create) do |worker|
-        5.times do
-          FactoryGirl.create(:education, worker: worker)
-        end
-      end
-    end
   end
 
   factory :farmer do

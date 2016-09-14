@@ -1,7 +1,7 @@
 # Seed data for all environments
+require_relative "./seeds/locations"
 require_relative "./seeds/skills"
 require_relative "./seeds/job_categories"
-require_relative "./seeds/locations"
 
 case Rails.env
 when "development" || "test"

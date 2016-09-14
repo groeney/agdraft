@@ -87,6 +87,7 @@ GEM
       rails (>= 4.0.0, < 5)
       rails-i18n (>= 4.0.0)
       sass-rails (>= 4.0.3)
+    colorize (0.7.7)
     concurrent-ruby (1.0.2)
     countries (1.2.5)
       currencies (~> 0.4.2)
@@ -335,6 +336,7 @@ DEPENDENCIES
   bundler
   byebug
   comfortable_mexican_sofa (~> 1.12.0)
+  colorize
   country_select
   database_cleaner
   date_validator
