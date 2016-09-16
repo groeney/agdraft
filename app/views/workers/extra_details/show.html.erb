@@ -5,14 +5,24 @@
 <%= simple_form_for @worker,
   url: worker_extra_details_path,
   remote: true,
-  method: "put", html: {id: "edit-worker"} do |f| %>
+  method: "put", html: { id: "edit-worker" } do |f| %>
   <%= f.input :has_own_transport, as: :boolean, label: "I'll take care of transportation", wrapper_html: { class: "ui toggle checkbox" }%>
   <div class="ui hidden divider"></div>
   <label class="string optional" for="nationality"><b>Nationality<b></label>
   <br>
   <%= f.country_select :nationality, { include_blank: "Nationality" }, { class: "ui dropdown" } %>
   <div class="ui hidden divider"></div>
+  <div class="field">
+    <label>Date of birth</label>
+    <div class="ui calendar range-end">
+      <div class="ui input left icon">
+        <i class="calendar icon"></i>
+        <%= f.input_field :dob, as: "string", placeholder: "DOB" %>
+      </div>
+    </div>
+    <%= f.error :end_date %>
+  </div>
   <%= f.input :tax_file_number %>
-  <%= f.input :mobile_number %>
+  <%= f.input :mobile_number, required: true %>
   <%= f.button :submit %>
 <% end %>

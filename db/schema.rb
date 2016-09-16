@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160913083624) do
+ActiveRecord::Schema.define(version: 20160916062147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -380,6 +380,7 @@ ActiveRecord::Schema.define(version: 20160913083624) do
     t.string   "profile_photo_content_type"
     t.integer  "profile_photo_file_size"
     t.datetime "profile_photo_updated_at"
+    t.date     "dob"
   end
 
   add_index "workers", ["confirmation_token"], name: "index_workers_on_confirmation_token", unique: true, using: :btree

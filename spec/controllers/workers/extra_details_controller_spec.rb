@@ -34,6 +34,13 @@ RSpec.describe Workers::ExtraDetailsController, type: :controller do
       expect(worker.mobile_number).to eq(mobile_number)
     end
 
+    it "should update dob" do
+      dob = 22.years.ago.to_date
+      put :update, worker: { dob: dob }, format: :json
+      worker.reload
+      expect(worker.dob).to eq(dob)
+    end
+
     it "should not update first name" do
       new_first_name = Faker::Name.first_name
       put :update, worker: { first_name: new_first_name }, format: :json
