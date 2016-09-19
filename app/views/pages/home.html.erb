@@ -2,7 +2,9 @@
 <div class="ui inverted vertical masthead center aligned segment">
   <div class="ui container">
     <div class="ui large secondary inverted pointing menu">
-      <%= image_tag "header-logo-edit-2.png", class: "header item" %>
+      <%= link_to root_path, class: "logo" do %>
+        <%= image_tag "header-logo-edit-2.png", class: "header item" %>
+      <%end%>
       <a class="toc item">
         <i class="sidebar icon"></i>
       </a>
@@ -15,8 +17,8 @@
       Connecting Workers to Farm Operators
     </h1>
     <h2>Reliable work when you need it</h2>
-    <a id="farmers-link" href="#" class="ui huge teal button basic">Farmers</a>
-    <a href="#" class="ui huge teal button">Workers</a>
+    <%= link_to "Farmers", new_farmer_registration_path, class: "ui huge teal button basic", id: "farmers-link" %>
+    <%= link_to "Workers", new_worker_registration_path, class: "ui huge teal button" %>
   </div>
 
 </div>
@@ -73,16 +75,6 @@
     <% end %>
   </div>
 </div>
-<p>
-  Worker:
-  <%= link_to('Sign up', new_worker_registration_path)  %> |
-  <%= link_to('Sign in', new_worker_session_path)  %>
-</p>
-<p>
-  Farmer:
-  <%= link_to('Sign up', new_farmer_registration_path)  %> |
-  <%= link_to('Sign in', new_farmer_session_path)  %>
-</p>
 <p>
   Admin:
   <%= link_to('Sign in', new_admin_session_path)  %>

@@ -1,14 +1,14 @@
-<%= link_to "Home", root_path, class: "#{@nav_item == 'home' ? 'active' : ''} item" %>
 <a href="/about" class="<%= @cms_page.try(:slug) == 'about' ? 'active' : '' %> item">About</a>
-<a class="item">Company</a>
-<a class="item">Careers</a>
+<a class="item">Find a Job</a>
+<a class="item">Find Workers</a>
+<%= link_to "Get Started", get_started_path, class: "item" %>
 
 <% if sidebar %>
   <a class="item">Login</a>
-  <a class="item">Signup</a>
+  <%= link_to "Sign Up", get_started_path %>
 <%else%>
   <div class="right item">
-    <a class="ui inverted button">Log in</a>
-    <a class="ui teal button">Sign Up</a>
+    <%= link_to "Login", login_path, class: "ui teal button basic" %>
+    <%= link_to "Sign Up", get_started_path, class: "ui teal button" %>
   </div>
 <%end%>

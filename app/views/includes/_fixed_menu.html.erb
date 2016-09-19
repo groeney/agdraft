@@ -1,6 +1,8 @@
 <div class="ui large top <%= action_name == 'home' ? 'fixed hidden' : 'visible' %> menu">
   <div class="ui container">
-    <%= image_tag "header-logo.png", class: "header item" %>
+    <%= link_to root_path do %>
+      <%= image_tag "header-logo.png", class: "header item" %>
+    <%end%>
     <%= render partial: "includes/menu_items", locals: {sidebar: false} %>    
   </div>
 </div>

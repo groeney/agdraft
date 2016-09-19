@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root "pages#home"
   get "/search/workers" => "search#workers", as: :search_workers
   get "/search/jobs" => "search#jobs", as: :search_jobs
+  get "/get_started" => "pages#get_started", as: :get_started
+  get "/login" => "pages#login", as: :login
 
   devise_for :admins, controllers: {
     sessions: "farmers/sessions"

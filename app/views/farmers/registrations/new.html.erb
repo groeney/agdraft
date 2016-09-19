@@ -1,19 +1,101 @@
-<h2>Sign up</h2>
+<div class="hero-image-container" id="farmer-signup-hero">
+  <div class="ui stackable two column grid">
+    
+    <div class="ui column">
+      <div class="ui very padded segment basic">
+        <div class="signup-content-block">
+          <h1 class="ui center aligned inverted header">Your gateway to reliable rural workers</h1>
+          <h4 class="ui center aligned inverted header">Setup a free business profile today. You will be able to post job advertisments and recieve expressions of interest from our pool of prescreened workers. Feel free to also browse our database of workers and invite them to apply for your job posting!</h4>
+        </div>
+      </div>
+    </div>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :first_name, required: true, autofocus: true %>
-    <%= f.input :last_name, required: true, autofocus: true %>
-    <%= f.input :email, required: true, autofocus: true %>
-    <%= f.input :referred_by_token, autofocus: true %>
-    <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+    <div class="ui column very padded segment basic">
+      <div class="ui very padded segment basic">
+        <div class="ui segment"> 
+          <h3 class="ui center aligned header">Sign Up as a Farmer</h3>
+          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= f.error_notification %>
+            <div class="form-inputs">
+              <div class="ui stackable grid">
+                <div class="ui eight wide column">
+                  <%= f.input :first_name, required: true, autofocus: true %>
+                </div>
+                <div class="ui eight wide column">
+                  <%= f.input :last_name, required: true, autofocus: true %>
+                </div>
+                <div class="ui eight wide column">
+                  <%= f.input :email, required: true, autofocus: true %>
+                </div>
+                <div class="ui eight wide column">
+                  <%= f.input :contact_number, required: true, autofocus: true %>
+                </div>
+                <div class="ui eight wide column">
+                  <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+                </div>
+                <div class="ui eight wide column">
+                  <%= f.input :referred_by_token, autofocus: true %>
+                </div>
+              </div>
+            </div>
+            <div class="ui divider hidden"></div>
+            <div class="form-actions">
+              <%= f.button :submit, "Sign up" %>
+            </div>
+            <%= render "farmers/shared/links" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
+<div class="ui stackable two column grid">
+  <div class="ui teal column">
+    <div class="ui very padded segment basic">
+      <i class="ui world icon huge"></i>
+      <h3>Extend your reach</h3>
+      <p>Connect with reviewed contractors & workers from across regional Australia and overseas right from your back paddock – for free.</p>
+    </div>
   </div>
-<% end %>
-
-<%= render "farmers/shared/links" %>
+  <div class="ui teal column">
+    <div class="ui very padded segment basic">
+      <i class="ui users icon huge"></i>
+      <h3>Trusted workers</h3>
+      <p>Choose from a network of verified workers who have been referred by farmers, perhaps farmers you may even know.</p>
+    </div>
+  </div>
+  <div class="ui teal column">
+    <div class="ui very padded segment basic">
+      <i class="ui checked calendar icon huge"></i>
+      <h3>Control the hiring process</h3>
+      <p>Review workers profiles & bids to select the best worker for your job at the best price.</p>
+    </div>
+  </div>
+  <div class="ui teal column">
+    <div class="ui very padded segment basic">
+      <i class="ui rocket icon huge"></i>
+      <h3>Save time</h3>
+      <p>Once you post a jobs interested workers will come to you. You will receive notification of by email to review only the most suited and recommended workers.</p>
+    </div>
+  </div>
+</div>
+<div class="ui very padded segment basic">
+  <h1>Workers Available with these skills</h1>
+  <div class="ui label-list">
+    <% Skill.all.each do |skill| %>
+      <div class="ui huge label"><%= skill.title %></div>
+    <%end%>
+  </div>
+</div>
+<div class="ui very padded brown inverted segment basic no-margin">
+  <div class="ui stackable column grid">
+    <div class="ui ten wide column">
+      <h2>Stay up-to-date on our blog</h2>
+      <h4>Get tips on how you can land more farming jobs.</h4>
+    </div>
+    <div class="ui six wide column">
+      <%= link_to "Read Now", "http://blog.agdraft.com.au", class: "ui teal massive button" %>
+    </div>
+  </div>
+</div>

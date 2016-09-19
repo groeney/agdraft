@@ -1,7 +1,15 @@
 class PagesController < ApplicationController
+  layout "hero"
+  
   def home
     redirect_to worker_dashboard_path if current_worker
     redirect_to farmer_dashboard_path if current_farmer
     redirect_to admin_dashboard_path if current_admin
+  end
+
+  def get_started
+  end
+
+  def login
   end
 end

@@ -2,6 +2,7 @@ class Workers::RegistrationsController < Devise::RegistrationsController
   before_filter :dashboard_type, only: [:edit, :update]
   before_filter :nav_item, only: [:edit, :update]
   layout "dashboard", only: [:edit, :update]
+  layout "hero", only: [:new, :create]
   
   protected
   # The path used after sign up.

@@ -22,10 +22,13 @@
 
 .label-list{
   .label{
-    margin-bottom:5px;
+    margin-bottom:5px!important;
 
     &:hover{
       cursor: pointer;
     }
   }
+}
+.no-margin{
+  margin:0!important;
 }
