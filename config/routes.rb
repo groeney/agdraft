@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admins, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   comfy_route :cms_admin, :path => '/cms'
 
   root "pages#home"
@@ -7,9 +9,6 @@ Rails.application.routes.draw do
   get "/get_started" => "pages#get_started", as: :get_started
   get "/login" => "pages#login", as: :login
 
-  devise_for :admins, controllers: {
-    sessions: "farmers/sessions"
-  }
   devise_for :farmers, controllers: {
     registrations: "farmers/registrations",
     sessions: "farmers/sessions",
@@ -20,11 +19,6 @@ Rails.application.routes.draw do
     sessions: "workers/sessions",
     confirmations: "workers/confirmations"
   }
-  scope "admin", as: "admin", module: "admins" do
-    get "/" => "workers#index", as: :dashboard
-    delete "/farmer/signout" => "farmer_sessions#destroy", as: :destroy_farmer_session
-    delete "/worker/signout" => "worker_sessions#destroy", as: :destroy_worker_session
-  end
 
   scope "farmer", as: "farmer", module: "farmers" do
     get "/" => "overview#index", as: :dashboard
@@ -73,6 +67,13 @@ Rails.application.routes.draw do
       get "job_categories" => "onboard#job_categories"
       get "skills" => "onboard#skills"
     end
+  end
+
+  scope "admin", as: "admin", module: "admins" do
+    get "farmer/:id/session" => "farmer_sessions#create", as: :create_farmer_session
+    get "worker/:id/session" => "worker_sessions#create", as: :create_worker_session
+    delete "/farmer/signout" => "farmer_sessions#destroy", as: :destroy_farmer_session
+    delete "/worker/signout" => "worker_sessions#destroy", as: :destroy_worker_session
   end
 
   # Make sure this routeset is defined last
