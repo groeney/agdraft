@@ -9,6 +9,7 @@ if @seed_search_data
     worker = FactoryGirl.create(:worker, :with_skills, :with_job_categories)
   end
 
+  begin
     FactoryGirl.create_list(:worker, 10)
   rescue ActiveRecord::RecordInvalid
     puts "Failed to create workers (likely already created).".red
