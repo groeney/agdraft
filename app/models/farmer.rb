@@ -13,6 +13,7 @@ class Farmer < ActiveRecord::Base
   has_many :payment_audtis
   validates_attachment_content_type :profile_photo, :content_type => /\Aimage\/.*\Z/
   validates_presence_of :first_name, :last_name
+  validate :credit_cannot_be_negative
 
   attr_accessor :referred_by_token
 
@@ -37,6 +38,10 @@ class Farmer < ActiveRecord::Base
   end
 
   protected
+
+  def credit_cannot_be_negative
+    errors.add(:credit, "cannot be a negative value") if credit.negative?
+  end
 
   def ensure_referral_token
     return if referral_token?

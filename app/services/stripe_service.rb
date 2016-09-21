@@ -75,7 +75,7 @@ class StripeService
         job_id: job.id, 
         message: error.to_s, 
         action: "Charge", 
-        amount: amount, 
+        amount: amount / 100, #stripe recieves charges in cents so convert to dollars here
         success: false
       )
       return false
@@ -84,7 +84,7 @@ class StripeService
       farmer_id: job.farmer_id, 
       job_id: job.id, 
       action: "Charge", 
-      amount: amount, 
+      amount: amount / 100, #stripe recieves charges in cents so convert to dollars here
       success: true
     )
     return true

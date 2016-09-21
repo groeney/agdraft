@@ -48,7 +48,7 @@ class Farmers::JobsController < Farmers::BaseController
   end
 
   def publish
-    @job = Job.find(params[:id])
+    @job = Job.find(params[:id])    
     if @job.publish
       flash[:success] = "You have successfully published your job advertisment. An e-mail receipt will be delivered to you shortly"
       redirect_to farmer_published_jobs_path

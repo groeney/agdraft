@@ -10,6 +10,49 @@ RSpec.describe Job, type: :model do
       before do
         expect_any_instance_of(Farmer).to receive(:has_valid_payment?).and_return true
       end
+      context "when the farmer has credit" do
+        it "charges the farmer the correct amount" do
+          credit = JOB_PRICE / 2
+          job.farmer.update_attribute(:credit, credit)
+          expect(StripeService).to receive(:charge_job).with(job.id, JOB_PRICE - credit).and_return true
+          
+          job.publish
+          
+          expect(job.farmer.reload.credit).to eq (0)
+          pa = PaymentAudit.last
+          expect(pa.farmer_id).to eq job.farmer.id
+          expect(pa.action).to eq "Credit Applied"
+          expect(pa.success).to eq true
+          expect(pa.amount).to eq JOB_PRICE/2
+        end
+        it "does not charge when enough credit to cover entire payment" do
+          credit = JOB_PRICE * 2
+          job.farmer.update_attribute(:credit, credit)
+          expect(StripeService).to_not receive(:charge_job)
+          
+          job.publish
+          
+          expect(job.farmer.reload.credit).to eq JOB_PRICE
+          pa = PaymentAudit.last
+          expect(pa.farmer_id).to eq job.farmer.id
+          expect(pa.action).to eq "Credit Applied"
+          expect(pa.success).to eq true
+          expect(pa.amount).to eq JOB_PRICE
+        end
+        it "does not charge when credit is exact price of job" do
+          job.farmer.update_attribute(:credit, JOB_PRICE)
+          expect(StripeService).to_not receive(:charge_job)
+          
+          job.publish
+          
+          expect(job.farmer.reload.credit).to eq 0
+          pa = PaymentAudit.last
+          expect(pa.farmer_id).to eq job.farmer.id
+          expect(pa.action).to eq "Credit Applied"
+          expect(pa.success).to eq true
+          expect(pa.amount).to eq JOB_PRICE
+        end
+      end
       context "stripe successfully charges the user" do
         before do
           expect(StripeService).to receive(:charge_job).with(job.id, JOB_PRICE).and_return true

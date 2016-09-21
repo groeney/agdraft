@@ -29,13 +29,23 @@ class Job < ActiveRecord::Base
 
   def publish
     return true if published
-    unless farmer.has_valid_payment?
-      return false
+    # Ultimately this would be better in a CreditService object that could handle all the complexity of a credit system
+    # this is just a very basic implimentation to get this V1 out the door
+    value_to_charge = JOB_PRICE
+    if farmer.credit > 0
+      credit = credit_to_apply
+      value_to_charge = JOB_PRICE - credit
+      farmer.update_attribute(:credit, farmer.credit - credit)
+      PaymentAudit.create(farmer: farmer, action: "Credit Applied", amount: credit, success: true)
     end
-    unless StripeService.charge_job(id, JOB_PRICE)
-      return false
+    if value_to_charge > 0
+      unless farmer.has_valid_payment? && StripeService.charge_job(id, value_to_charge * 100) #stripe charges in cents hence multiply by 100
+        return false
+      end
     end
+
     update_attribute(:published, true)
+    true
   end
 
    def location_name
@@ -50,5 +60,9 @@ class Job < ActiveRecord::Base
     end
     raw_rating += 1 if filter_params[:locations].include?(self.location.id)
     raw_rating
+  end
+
+  def credit_to_apply
+    (JOB_PRICE - farmer.credit) < 1 ? JOB_PRICE : farmer.credit
   end
 end
