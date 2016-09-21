@@ -1,6 +1,6 @@
 class Admins::FarmerSessionsController < Admins::BaseController
   def create
-    session[:farmer_id] = id
+    session[:farmer_id] = params[:id]
     redirect_to farmer_dashboard_path
   end
 

@@ -39,8 +39,8 @@
     <% end %>
   </div>
 </div>
-<% if current_worker %>
+<% if current_admin %>
+  <%= link_to "Log Out", admin_destroy_worker_session_path, :method => :delete, class: "item right" %>
+<%else%>
   <%= link_to "Log Out", destroy_worker_session_path, :method => :delete, class: "item right" %>
-<% elsif current_admin %>
-  <%= link_to "Log Out", destroy_admin_worker_session_path, :method => :delete, class: "item right" %>
 <%end%>

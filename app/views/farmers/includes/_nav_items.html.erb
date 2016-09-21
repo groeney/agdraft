@@ -35,8 +35,8 @@
 </div>
 
 <%= link_to "Jobs", farmer_jobs_path, class: "item right" %>
-<% if current_farmer %>
+<% if current_admin %>
+  <%= link_to "Log Out", admin_destroy_farmer_session_path, :method => :delete, class: "item right" %>
+<%else%>
   <%= link_to "Log Out", destroy_farmer_session_path, :method => :delete, class: "item right" %>
-<% elsif current_admin %>
-  <%= link_to "Log Out", destroy_admin_farmer_session_path, :method => :delete, class: "item right" %>
 <%end%>

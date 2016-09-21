@@ -9,7 +9,7 @@
     <%= f.input :skills, collection: Skill.all, input_html: {multiple: true, class: "ui fluid dropdown"}, prompt: "Select Skills", selected: @job.skills.map{|s| s.id } %>
   </div>
   <div class="ui eight wide column">
-    <%= f.input :location_id, collection: Location.all.map{|l| [l.label, l.id]}, input_html: {class: "ui fluid dropdown"}, selected: current_farmer.location.try(:id) %>
+    <%= f.input :location_id, collection: Location.all.map{|l| [l.label, l.id]}, input_html: {class: "ui fluid dropdown"}, selected: (@job.location_id || current_farmer.location.try(:id)) %>
   </div>
   <div class="ui eight wide column">
     <div class="ui divider hidden"></div>
