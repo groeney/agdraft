@@ -1,7 +1,7 @@
 ActiveAdmin.register Farmer do
   permit_params :email, :password, :password_confirmation, :first_name, :last_name, :location, :business_name, :business_description, :contact_name, :contact_number
   actions :index, :show, :update, :edit, :delete
-  
+
   index do
     selectable_column
     id_column
@@ -10,7 +10,7 @@ ActiveAdmin.register Farmer do
     column :first_name
     column :business_name
     column :location do |farmer|
-      farmer.location.label
+      farmer.location.try(:label)
     end
     actions
   end
@@ -39,7 +39,7 @@ ActiveAdmin.register Farmer do
   sidebar "Details", only: :show do
     attributes_table_for farmer do
       row :jobs do
-        link_to "#{farmer.jobs.length} listed jobs", :controller => "jobs", :action => "index", 'q[farmer_email_contains]' => "#{farmer.email}".html_safe
+        link_to "#{farmer.jobs.length} listed jobs", :controller => "jobs", :action => "index", 'q[farmer_email_equals]' => "#{farmer.email}".html_safe
       end
       row :god_mode do
         link_to "Access Account", :controller => "admins/farmer_sessions", :action => "create", :id => farmer.id
