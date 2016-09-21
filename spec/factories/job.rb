@@ -9,8 +9,8 @@ FactoryGirl.define do
     business_description { Faker::Company.catch_phrase }
     pay_min { rand(10..20).to_s }
     pay_max { rand(20..30).to_s }
-    start_date { 1.day.from_now }
-    end_date { 3.days.from_now }
+    start_date { 1.day.from_now.round }
+    end_date { 3.days.from_now.round }
     number_of_workers { rand(1..5).to_s + "-" + rand(5..15).to_s }
 
     trait :with_job_categories do
