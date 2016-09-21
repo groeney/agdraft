@@ -15,10 +15,16 @@
 <h2 class="ui center aligned header">Review Job Advertisment Details</h2>
 <div class="ui segment basic">
   <%= render 'job_details' %>
-  <h2>Price to Publish: $<%= JOB_PRICE %></h2>
+  <%if @job.credit_to_apply > 0%>
+    <h3>Publishing price: $<%= JOB_PRICE %></h2>
+    <h3>Credits on your account: $<%= current_farmer.credit %></h2>
+    <h2>You will be charged: $<%= JOB_PRICE - @job.credit_to_apply %></h2>
+  <%else%>
+    <h2>Price to Publish: $<%= JOB_PRICE %></h2>
+  <%end%>
 </div>
 
 <%= form_tag farmer_publish_job_path, method: "POST" do %>
   <%= link_to "Cancel", farmer_jobs_path, class: "ui primary button basic" %>
-  <%= button_to "Publish", farmer_publish_job_path, class: "ui primary button", disabled: !current_farmer.has_valid_payment? %>
+  <%= button_to "Publish", farmer_publish_job_path, class: "ui primary button", disabled: (@job.credit_to_apply != JOB_PRICE && !current_farmer.has_valid_payment?) %>
 <% end %>

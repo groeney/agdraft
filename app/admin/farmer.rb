@@ -1,5 +1,5 @@
 ActiveAdmin.register Farmer do
-  permit_params :email, :password, :password_confirmation, :first_name, :last_name, :location, :business_name, :business_description, :contact_name, :contact_number
+  permit_params :email, :password, :password_confirmation, :first_name, :last_name, :location, :business_name, :business_description, :contact_name, :contact_number, :credit
   actions :index, :show, :update, :edit, :delete
   
   index do
@@ -32,6 +32,7 @@ ActiveAdmin.register Farmer do
       f.input :business_description
       f.input :contact_name
       f.input :contact_number
+      f.input :credit
     end
     f.actions
   end

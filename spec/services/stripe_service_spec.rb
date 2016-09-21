@@ -126,12 +126,12 @@ RSpec.describe Worker, type: :object do
     context "stripe charge succeeds" do
       it "creates a payment audit record and returns true" do
         message = "foobar"
-        amount = "100"
+        amount = 100
         charge = double('charge')
 
         expect(Stripe::Charge).to receive(:create).with(
             customer: job.farmer.stripe_customer_id,
-            amount: amount,
+            amount: amount * 100,
             currency: "AUD"
           ).and_return charge
         
@@ -149,7 +149,7 @@ RSpec.describe Worker, type: :object do
     context "stripe returns an error" do
       it "creates a payment audit record and returns false" do
         error = Stripe::InvalidRequestError.new("foo", nil, 400)
-        amount = "ssss"
+        amount = 10
 
         expect(Stripe::Charge).to receive(:create).and_raise(error)
 

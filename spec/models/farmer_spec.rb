@@ -48,4 +48,12 @@ RSpec.describe Farmer, type: :model do
       end
     end
   end
+
+  describe "validations" do
+    it "validates credit to be a positive value" do
+      farmer = FactoryGirl.create(:farmer)
+      farmer.credit = -100
+      expect(farmer.valid?).to eq false
+    end
+  end
 end

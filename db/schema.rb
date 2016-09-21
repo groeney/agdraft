@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921092239) do
+ActiveRecord::Schema.define(version: 20160922064716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -326,9 +326,9 @@ ActiveRecord::Schema.define(version: 20160921092239) do
     t.string   "action"
     t.string   "message"
     t.boolean  "success"
-    t.string   "amount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "amount",     default: 0
   end
 
   add_index "payment_audits", ["farmer_id"], name: "index_payment_audits_on_farmer_id", using: :btree

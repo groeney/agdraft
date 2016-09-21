@@ -66,7 +66,7 @@ class StripeService
     begin
       charge = Stripe::Charge.create(
         customer: job.farmer.stripe_customer_id,
-        amount: amount,
+        amount: amount * 100, #stripe recieves charges in cents so convert from dollars to cents here
         currency: "AUD"
       )
     rescue Exception => error
@@ -75,7 +75,7 @@ class StripeService
         job_id: job.id, 
         message: error.to_s, 
         action: "Charge", 
-        amount: amount, 
+        amount: amount,
         success: false
       )
       return false
@@ -84,7 +84,7 @@ class StripeService
       farmer_id: job.farmer_id, 
       job_id: job.id, 
       action: "Charge", 
-      amount: amount, 
+      amount: amount,
       success: true
     )
     return true
