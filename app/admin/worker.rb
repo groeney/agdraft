@@ -1,5 +1,5 @@
 ActiveAdmin.register Worker do
-  permit_params :email, :password, :password_confirmation
+  permit_params :verified, :email, :password
   actions :index, :show, :update, :edit, :delete
   
   index do
@@ -18,10 +18,10 @@ ActiveAdmin.register Worker do
   filter :locations, member_label: :label
 
   form do |f|
-    f.inputs "Worker Details" do
+    f.inputs "Worker Verified" do
       f.input :email
       f.input :password
-      f.input :password_confirmation
+      f.input :verified
     end
     f.actions
   end
@@ -31,6 +31,13 @@ ActiveAdmin.register Worker do
       row :god_mode do
         link_to "Access Account", :controller => "admins/worker_sessions", :action => "create", :id => worker.id
       end
+    end
+  end
+
+  controller do
+    def update_resource(object, attributes)
+      update_method = attributes.first[:password].present? ? :update_attributes : :update_without_password
+      object.send(update_method, *attributes)
     end
   end
 
