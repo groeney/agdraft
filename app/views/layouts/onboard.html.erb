@@ -9,7 +9,7 @@
     <%= render "includes/analytics" %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>">
-    <%= render "flashes" -%>
+    <%= render partial: "includes/flash_notices" %>
     <%= yield %>
   </body>
 </html>

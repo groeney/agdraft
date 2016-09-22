@@ -75,7 +75,8 @@ Rails.application.routes.draw do
     delete "/farmer/signout" => "farmer_sessions#destroy", as: :destroy_farmer_session
     delete "/worker/signout" => "worker_sessions#destroy", as: :destroy_worker_session
   end
-
+  
+  resources :workers, only: [:show]
   # Make sure this routeset is defined last
   comfy_route :cms, :path => '/', :sitemap => false
 end

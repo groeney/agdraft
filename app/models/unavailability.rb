@@ -5,4 +5,14 @@ class Unavailability < ActiveRecord::Base
   validates_presence_of :worker
   validates :start_date, presence: true, date: { after_or_equal_to: Proc.new { Date.yesterday }, message: "must be at least #{(Date.yesterday + 1).to_s}" }, on: [:update, :create]
   validates :end_date, presence: true, date: { after: :start_date}, on: [:update, :create]
+
+  def start_date_label
+    return "" unless start_date
+    start_date.strftime("%B %e %Y")
+  end
+
+  def end_date_label
+    return "" unless end_date
+    end_date.strftime("%B %e %Y")
+  end
 end
