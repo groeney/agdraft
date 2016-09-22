@@ -1,0 +1,91 @@
+<div class="ui stackable two column grid segment">
+  <div class="ui five wide column">
+
+    <h2>
+      <% if current_farmer || current_worker %>
+        <%= @worker.full_name %>
+      <%else%>
+        <%= @worker.first_name %>
+      <%end%>
+    </h2>
+
+    <div class="ui image">
+      <%= image_tag @worker.profile_photo.url(:display) %>
+    </div>
+
+    <%if current_farmer %>
+      <button class="ui teal fluid button">Invite</button>
+    <%end%>
+
+    <div class="ui celled list middle aligned">
+      <%if @worker.verified%>
+        <div class="item">
+          <i class="check large icon"></i>
+          <div class="content">
+            Verified
+          </div>
+        </div>
+      <%end%>
+
+      <% if current_farmer || current_worker %>
+        <div class="item">
+          <i class="phone large icon"></i>
+          <div class="content">
+            <%= @worker.mobile_number ? @worker.mobile_number : "Not Available" %>
+          </div>
+        </div>
+      <%end%>
+
+      <div class="item">
+        <i class="star large icon"></i>
+        <div class="content">
+          Not yet rated
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+  <div class="ui eleven wide column">
+    <p>
+      <h2>Available in these locations:</h2>
+      <div class="label-list">
+        <% @worker.locations.each do |location| %>
+          <div class="ui label">
+            <%= location.label %>
+          </div>
+        <%end%>
+      </div>
+    </p>
+    <p>
+      <h2>Has experience with these types of jobs:</h2>
+      <div class="label-list">
+        <% @worker.job_categories.each do |jc| %>
+          <div class="ui label">
+            <%= jc.title %>
+          </div>
+        <%end%>
+      </div>
+    </p>
+    <p>
+      <h2>Has these skills:</h2>
+      <div class="label-list">
+        <% @worker.skills.each do |skill| %>
+          <div class="ui label">
+            <%= skill.title %>
+          </div>
+        <%end%>
+      </div>
+    </p>
+    <%if !@worker.unavailabilities.empty? %>
+      <p>
+        <h2>Unavailable on these dates:</h2>
+        <ul>
+          <% @worker.unavailabilities.each do |date| %>
+            <li><%= date.start_date_label %> - <%= date.end_date_label %></li>
+          <% end %>
+        </ul>
+      </p>
+    <%end%>
+  </div>
+</div>

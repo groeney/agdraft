@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get "/get_started" => "pages#get_started", as: :get_started
   get "/login" => "pages#login", as: :login
 
+  resources :workers, only: [:show]
+
   devise_for :farmers, controllers: {
     registrations: "farmers/registrations",
     sessions: "farmers/sessions",
