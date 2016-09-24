@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922084247) do
+ActiveRecord::Schema.define(version: 20160924150702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -274,6 +274,17 @@ ActiveRecord::Schema.define(version: 20160922084247) do
     t.integer "worker_id",       null: false
   end
 
+  create_table "job_workers", force: :cascade do |t|
+    t.integer  "job_id"
+    t.integer  "worker_id"
+    t.string   "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "job_workers", ["job_id"], name: "index_job_workers_on_job_id", using: :btree
+  add_index "job_workers", ["worker_id"], name: "index_job_workers_on_worker_id", using: :btree
+
   create_table "jobs", force: :cascade do |t|
     t.integer  "farmer_id"
     t.string   "title"
@@ -406,6 +417,8 @@ ActiveRecord::Schema.define(version: 20160922084247) do
   add_index "workers", ["email"], name: "index_workers_on_email", unique: true, using: :btree
   add_index "workers", ["reset_password_token"], name: "index_workers_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "job_workers", "jobs"
+  add_foreign_key "job_workers", "workers"
   add_foreign_key "jobs", "farmers"
   add_foreign_key "jobs", "locations"
   add_foreign_key "payment_audits", "farmers"

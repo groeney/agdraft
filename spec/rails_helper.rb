@@ -8,6 +8,8 @@ require "spec_helper"
 require "rspec/rails"
 require "devise"
 require 'rack/test'
+require 'aasm/rspec'
+
 Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |file| require file }
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
