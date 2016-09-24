@@ -1,48 +1,50 @@
 <div class="ui stackable two column grid segment">
   <div class="ui five wide column">
+    <div class="ui segment basic">
+      <h2>
+        <% if current_farmer || current_worker %>
+          <%= @worker.full_name %>
+        <%else%>
+          <%= @worker.first_name %>
+        <%end%>
+      </h2>
 
-    <h2>
-      <% if current_farmer || current_worker %>
-        <%= @worker.full_name %>
-      <%else%>
-        <%= @worker.first_name %>
-      <%end%>
-    </h2>
-
-    <div class="ui image">
-      <%= image_tag @worker.profile_photo.url(:display) %>
-    </div>
-
-    <%if current_farmer %>
-      <button class="ui teal fluid button">Invite</button>
-    <%end%>
-
-    <div class="ui celled list middle aligned">
-      <%if @worker.verified%>
-        <div class="item">
-          <i class="check large icon"></i>
-          <div class="content">
-            Verified
-          </div>
-        </div>
-      <%end%>
-
-      <% if current_farmer || current_worker %>
-        <div class="item">
-          <i class="phone large icon"></i>
-          <div class="content">
-            <%= @worker.mobile_number ? @worker.mobile_number : "Not Available" %>
-          </div>
-        </div>
-      <%end%>
-
-      <div class="item">
-        <i class="star large icon"></i>
-        <div class="content">
-          Not yet rated
-        </div>
+      <div class="ui image">
+        <%= image_tag @worker.profile_photo.url(:display) %>
       </div>
 
+      <div class="ui divider hidden"></div>
+
+      <%if current_farmer %>
+        <button id="invite-worker" class="ui teal fluid button">Invite</button>
+      <%end%>
+
+      <div class="ui celled list middle aligned">
+        <%if @worker.verified%>
+          <div class="item">
+            <i class="check large icon"></i>
+            <div class="content">
+              Verified
+            </div>
+          </div>
+        <%end%>
+
+        <% if current_farmer || current_worker %>
+          <div class="item">
+            <i class="phone large icon"></i>
+            <div class="content">
+              <%= @worker.mobile_number.present? ? @worker.mobile_number : "Not Available" %>
+            </div>
+          </div>
+        <%end%>
+
+        <div class="item">
+          <i class="star large icon"></i>
+          <div class="content">
+            Not yet rated
+          </div>
+        </div>
+      </div>  
     </div>
   </div>
   
@@ -101,3 +103,5 @@
     <%end%>
   </div>
 </div>
+
+<%= render "jobs_modal" if current_farmer %>

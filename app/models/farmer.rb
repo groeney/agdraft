@@ -37,6 +37,10 @@ class Farmer < ActiveRecord::Base
     !stripe_customer_id.nil? && !stripe_delinquent
   end
 
+  def jobs_for_worker(worker_id)
+    jobs.where(published: true).map{|j| {job: j, invited: !JobWorker.where(job_id: j.id, worker_id: worker_id).empty? } }
+  end
+
   protected
 
   def credit_cannot_be_negative

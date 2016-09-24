@@ -40,6 +40,8 @@ Rails.application.routes.draw do
     post "jobs/:id/publish" => "jobs#publish", as: :publish_job
     get "jobs/published" => "jobs#published", as: :published_jobs
     put "jobs/:id/live" => "jobs#live", as: :job_live
+    get "jobs/:id/manage" => "jobs#manage", as: :manage_job
+    get "jobs/:id/recommend_workers" => "jobs#recommended_workers", as: :job_recommended_workers
     resources :jobs
 
     get "payments" => "payments#show", as: :payment
@@ -77,6 +79,11 @@ Rails.application.routes.draw do
   end
   
   resources :workers, only: [:show]
+
+  get "job_workers/:job_id" => "job_workers#index", as: :job_workers
+  post "job_workers/:job_id/express_interest" => "job_workers#express_interest", as: :worker_express_interest
+  post "jobs/:job_id/shortlist" => "job_workers#shortlist", as: :farmer_shortlist_worker
+  post "job_workers/:job_worker_id/:transition" => "job_workers#transition", as: :job_worker_transition
   # Make sure this routeset is defined last
   comfy_route :cms, :path => '/', :sitemap => false
 end

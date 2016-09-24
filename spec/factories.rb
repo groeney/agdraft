@@ -1,4 +1,27 @@
 FactoryGirl.define do
+  factory :job_worker do
+    job
+    worker
+
+    trait :new do
+      state :new
+    end
+    trait :shortlisted do
+      state :shortlisted
+    end
+    trait :interested do
+      state :interested
+    end
+    trait :declined do
+      state :declined
+    end
+    trait :hired do
+      state :hired
+    end
+    trait :not_interested do
+      state :not_interested
+    end
+  end
   # For factory :job see spec/factories/job.rb
   # For factory :worker see spec/factories/worker.rb
 
@@ -69,6 +92,12 @@ FactoryGirl.define do
 
       after(:create) do |farmer, evaluator|
         farmer.location = evaluator.location || Location.all.try(:sample) || FactoryGirl.create(:location)
+      end
+    end
+
+    trait :with_job do
+      after(:create) do |farmer|
+        FactoryGirl.create(:job, farmer: farmer)
       end
     end
   end

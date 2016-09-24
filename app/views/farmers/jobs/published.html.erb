@@ -12,6 +12,7 @@
       <th>Number of Workers</th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -28,6 +29,9 @@
         </td>
         <td>
           <%= job.number_of_workers %>
+        </td>
+        <td>
+          <%= link_to "Manage", farmer_manage_job_path(job.id), class: "ui primary button basic" %>
         </td>
         <td>
           <div class="field boolean optional job_live ui toggle checkbox" data-job-id="<%= job.id %>">

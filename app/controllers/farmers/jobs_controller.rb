@@ -64,6 +64,16 @@ class Farmers::JobsController < Farmers::BaseController
     render_201
   end
 
+  def manage
+    @job = Job.find(params[:id])
+    @nav_item = "jobs_published"
+  end
+
+  def recommended_workers
+    job = current_farmer.jobs.find(params[:id])
+    render json: job.recommended_workers
+  end
+
   protected
 
   def nav_item

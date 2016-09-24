@@ -48,7 +48,7 @@ class Job < ActiveRecord::Base
     true
   end
 
-   def location_name
+  def location_name
     return "" unless location
     [location.region, location.state].reject { |el| el.empty? }.join(", ")
    end
@@ -64,5 +64,9 @@ class Job < ActiveRecord::Base
 
   def credit_to_apply
     (JOB_PRICE - farmer.credit) < 1 ? JOB_PRICE : farmer.credit
+  end
+
+  def recommended_workers
+    Worker.last(5)
   end
 end

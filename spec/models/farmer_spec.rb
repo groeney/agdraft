@@ -56,4 +56,39 @@ RSpec.describe Farmer, type: :model do
       expect(farmer.valid?).to eq false
     end
   end
+
+  describe "#jobs_for_worker" do
+    let(:farmer){ FactoryGirl.create(:farmer, :with_job) }
+    context "when farmer has published jobs" do
+      before do
+        farmer.jobs.first.update_attribute(:published, true)
+      end
+      context "and worker has been added to job" do
+        before do
+          @worker = FactoryGirl.create(:worker)
+          JobWorker.create(worker_id: @worker.id, job_id: farmer.jobs.first.id, state: "interested")
+        end
+
+        it "returns the job with invited true" do
+          jobs = farmer.jobs_for_worker(@worker.id)
+          expect(jobs.is_a? Array).to eq true
+          expect(jobs.first[:job]).to eq farmer.jobs.first
+          expect(jobs.first[:invited]).to eq true
+        end
+      end
+      context "and worker has not been added to any jobs" do
+        it "returns the job with invited false" do
+          jobs = farmer.jobs_for_worker(FactoryGirl.create(:worker).id)
+          expect(jobs.is_a? Array).to eq true
+          expect(jobs.first[:job]).to eq farmer.jobs.first
+          expect(jobs.first[:invited]).to eq false
+        end
+      end
+    end
+    context "when farmer has no published jobs" do
+      it "returns an empty array" do
+        expect(farmer.jobs_for_worker(FactoryGirl.create(:worker).id)).to eq []
+      end
+    end
+  end
 end

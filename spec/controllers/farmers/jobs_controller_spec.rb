@@ -2,11 +2,11 @@ require "rails_helper"
 
 RSpec.describe Farmers::JobsController, type: :controller do
   let(:farmer) { FactoryGirl.create(:farmer) }
-  before do
-    sign_in farmer
-  end
 
   describe "#create" do
+    before do
+      sign_in farmer
+    end
     it "should create the job and associate with farmer" do
       job_params = FactoryGirl.build(:job, farmer: nil).attributes
       job_params[:skills] = []
@@ -34,11 +34,49 @@ RSpec.describe Farmers::JobsController, type: :controller do
   end
 
   describe "#live" do
+    before do
+      sign_in farmer
+    end
     it "should toggle the live value of a job" do
       job = FactoryGirl.create(:job)
       live = job.live
       put :live, id: job.id, format: :json      
       expect(job.reload.live).to eq !live
+    end
+  end
+
+  describe "#recommended_workers" do
+    context "when a farmer is signed in" do
+      before do
+        @farmer = FactoryGirl.create(:farmer, :with_job)
+        sign_in @farmer
+      end
+      context "when job_id is valid" do
+        it "returns recommended workers" do
+          expect_any_instance_of(Job).to receive(:recommended_workers).and_return([])
+          FactoryGirl.create(:worker)
+          get :recommended_workers, id: @farmer.jobs.first.id, format: :json
+          expect(response.status).to eq 200
+        end
+      end
+      context "when job_id invalid" do
+        it "should return a 404" do
+          get :recommended_workers, id: 0, format: :json
+          expect(response.status).to eq 404
+        end
+      end
+      context "when job_id does not belong to farmer" do
+        it "should return a 404" do
+          get :recommended_workers, id: FactoryGirl.create(:job).id, format: :json
+          expect(response.status).to eq 404
+        end
+      end
+    end
+    context "when not signed in" do
+      it "returns a 401" do
+        get :recommended_workers, id: 0, format: :json
+        expect(response.status).to eq 401
+      end
     end
   end
 end

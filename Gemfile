@@ -38,6 +38,8 @@ gem "stripe"
 gem "comfortable_mexican_sofa", "~> 1.12.0"
 gem "colorize"
 gem "activeadmin", "~> 1.0.0.pre4"
+gem "aasm"
+gem 'active_model_serializers', '~> 0.10.0.rc3'
 
 # Use ActiveModel has_secure_password
 # gem "bcrypt", "~> 3.1.7"
