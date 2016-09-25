@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
     render_400
   end
 
+  rescue_from ActiveRecord::InvalidForeignKey do
+    render_400
+  end
+
   rescue_from ActionController::ParameterMissing do
     render_400
   end

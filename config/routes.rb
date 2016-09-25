@@ -77,6 +77,11 @@ Rails.application.routes.draw do
   end
   
   resources :workers, only: [:show]
+
+  get "job_workers/:job_id" => "job_workers#index", as: :job_workers
+  post "job_worker/:job_id/express_interest" => "job_workers#express_interest", as: :worker_express_interest
+  post "job_worker/:job_id/shortlist" => "job_workers#shortlist", as: :farmer_shortlist_worker
+  post "job_worker/:job_worker_id/:transition" => "job_workers#transition", as: :job_worker_transition
   # Make sure this routeset is defined last
   comfy_route :cms, :path => '/', :sitemap => false
 end

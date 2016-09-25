@@ -94,6 +94,12 @@ FactoryGirl.define do
         farmer.location = evaluator.location || Location.all.try(:sample) || FactoryGirl.create(:location)
       end
     end
+
+    trait :with_job do
+      after(:create) do |farmer|
+        FactoryGirl.create(:job, farmer: farmer)
+      end
+    end
   end
 
   factory :location do
