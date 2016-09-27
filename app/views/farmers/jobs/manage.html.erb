@@ -1,0 +1,82 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: {header: "Worker Management", icon: "users", description: "Manage the workers you want for this job", live_link: false } %>
+<%end%>
+
+<h1><%= @job.title %></h1>
+<div id="main-content"></div>
+
+<script type="text/template" id="js-manage-job-layout">
+  <div class="ui segment basic">
+    <h2>Shortlist</h2>
+    <div id="shortlisted"></div>
+  </div>
+
+  <div class="ui segment basic">
+    <h2>Interested</h2>
+    <div id="interested"></div>
+  </div>
+
+  <div class="ui segment basic">
+    <h2>Recommended</h2>
+    <div id="recommended"></div>
+  </div>
+</script>
+
+<script type="text/template" id="js-shortlist-worker">
+    <div class="ui grid segment">
+      <div class="four wide column">
+        <img class="image-thumbnail" src="<%%- profile_photo %>"/>
+      </div>
+      <div class="six wide column">
+        <h3><%%- full_name %></h3>
+        <p>
+          <i class="ui phone icon"></i><%%- mobile_number == null ? "Number Unavailable" : mobile_number %>
+        </p>
+        <a href="<%%- Routes.worker_path(worker_id) %>" target="_blank">View Profile</a>
+      </div>
+      <div class="six wide middle aligned column">
+        <%% if(state=="shortlisted"){%>
+          <div class="ui form">
+            <div class="field">
+              <select class="ui dropdown">
+                <option value="">Choose Action</option>
+                <option value="hire">Hire</option>
+                <option value="decline">Decline</option>
+                <option value="no_interest">Not Interested</option>
+              </select>
+            </div>
+            <button class="ui primary button state-transition">Save</button>
+          </div>
+        <%%}else{%>
+          <%% display = {not_interested: {color: "blue", icon: "remove user", text: "Uninterested"}, hired: {color: "green", icon: "checkmark box", text: "Hired"}, declined: {color: "red", icon: "thumbs down", text: "Rejected"}} %>
+          <h3 class="ui <%%- display[state].color %> header"><i class="ui <%%- display[state].icon %> icon"></i><%%- display[state].text %></h3>
+        <%%}%>
+      </div>
+    </div>
+</script>
+
+<script type="text/template" id="js-interested-worker">
+  <div class="ui grid segment">
+    <div class="six wide column">
+      <img class="image-thumbnail" src="<%%- profile_photo %>"/>
+    </div>
+    <div class="ten wide column">
+      <h3 class="no-margin"><%%- full_name %></h3>
+      <p><a href="<%%- Routes.worker_path(worker_id) %>" target="_blank">View Profile</a></p>
+      <button class="ui primary button js-shortlist">Add to Shortlist</button>
+    </div>
+  </div>
+</script>
+
+<script type="text/template" id="js-recommended-worker">
+  <div class="ui grid segment">
+    <div class="six wide column">
+      <img class="image-thumbnail" src="<%%- profile_photo %>"/>
+    </div>
+    <div class="ten wide column">
+      <h3 class="no-margin"><%%- full_name %></h3>
+      <p><a href="<%%- Routes.worker_path(id) %>" target="_blank">View Profile</a></p>
+      <button class="ui primary button js-shortlist">Add to Shortlist</button>
+    </div>
+  </div>
+</script>

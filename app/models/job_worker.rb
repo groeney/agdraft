@@ -4,6 +4,7 @@ class JobWorker < ActiveRecord::Base
   belongs_to :job
   belongs_to :worker
   validates_uniqueness_of :worker_id, scope: :job_id
+  validates_presence_of :worker_id, :job_id
 
   aasm column: :state, whiny_transitions: false do
     state :new, initial: true
@@ -45,5 +46,16 @@ class JobWorker < ActiveRecord::Base
   end
   def after_enter_not_interested_state
 
+  end
+
+  def include_worker_hash
+    {
+      id: id,
+      state: state,
+      worker_id: worker.id,
+      full_name: worker.full_name,
+      profile_photo: worker.profile_photo.url(:display),
+      mobile_number: worker.mobile_number,
+    }
   end
 end

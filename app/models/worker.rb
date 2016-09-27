@@ -14,7 +14,7 @@ class Worker < ActiveRecord::Base
   has_many                :educations
   has_many                :certificates
   has_secure_token        :referral_token
-  has_attached_file       :profile_photo, :styles => { :display => "200x200#" }, :default_url => "missing_worker_profile_photo.png"
+  has_attached_file       :profile_photo, :styles => { :display => "200x200#" }, :default_url => "/assets/missing_worker_profile_photo.png"
   belongs_to              :referral_user, polymorphic: true
 
   scope :locations, -> (location_ids) { joins(:locations).where(locations: { id: location_ids }) }
@@ -67,6 +67,14 @@ class Worker < ActiveRecord::Base
   def review_rating
     # TODO implement properly with review model etc...
     rand(1..5)
+  end
+
+  def to_hash
+    {
+      id: id,
+      full_name: full_name,
+      profile_photo: profile_photo.url(:display),
+    }
   end
 
   protected

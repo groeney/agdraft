@@ -64,6 +64,17 @@ class Farmers::JobsController < Farmers::BaseController
     render_201
   end
 
+  def manage
+    @job = Job.find(params[:id])
+    @nav_item = "jobs_published"
+  end
+
+  def recommended_workers
+    job = Job.find(params[:id])
+    return render_401 "Unauthorized access to this record" unless job.farmer_id == current_farmer.id
+    render json: job.recommended_workers.map{|w| w.to_hash}
+  end
+
   protected
 
   def nav_item
