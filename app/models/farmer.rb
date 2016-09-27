@@ -4,7 +4,7 @@ class Farmer < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_secure_token :referral_token
-  has_attached_file :profile_photo, :styles => { :display => "200x200#" }
+  has_attached_file :profile_photo, :styles => { :display => "200x200#" }, :default_url => "/assets/missing_farmer_profile_photo.png"
   has_attached_file :cover_photo, :styles => { :display => "1400x300#" }
   before_create :ensure_referral_token, :set_referral_user
   belongs_to :referral_user, polymorphic: true
@@ -39,6 +39,10 @@ class Farmer < ActiveRecord::Base
 
   def jobs_for_worker(worker_id)
     jobs.where(published: true).map{|j| {job: j, invited: !JobWorker.where(job_id: j.id, worker_id: worker_id).empty? } }
+  end
+
+  def full_name
+    [first_name, last_name].reject { |el| el.empty? }.join(" ")
   end
 
   protected
