@@ -79,6 +79,7 @@ Rails.application.routes.draw do
   end
   
   resources :workers, only: [:show]
+  resources :farmers, only: [:show]
 
   get "job_workers/:job_id" => "job_workers#index", as: :job_workers
   post "job_workers/:job_id/express_interest" => "job_workers#express_interest", as: :worker_express_interest

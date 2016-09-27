@@ -42,17 +42,17 @@ class Worker < ActiveRecord::Base
     end
   end
 
-   def country_name
+  def country_name
     country = self.nationality
     ISO3166::Country[country]
-   end
+  end
 
-   def location_name
+  def location_name
     return "" unless location = locations.first
     [location.region, location.state].reject { |el| el.empty? }.join(", ")
-   end
+  end
 
-   def full_name
+  def full_name
     [first_name, last_name].reject { |el| el.empty? }.join(" ")
   end
 

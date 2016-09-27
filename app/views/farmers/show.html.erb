@@ -1,0 +1,59 @@
+<div class="ui stackable two column grid segment">
+  <div class="ui five wide column">
+    <div class="ui segment basic">
+      <h2>
+        <% if current_farmer || current_worker %>
+          <%= @farmer.full_name %>
+        <%else%>
+          <%= @farmer.first_name %>
+        <%end%>
+      </h2>
+
+      <div class="ui image">
+        <%= image_tag @farmer.profile_photo.url(:display) %>
+      </div>
+
+      <div class="ui divider hidden"></div>
+
+      <div class="ui celled list middle aligned">
+        <% if current_farmer || current_worker %>
+          <div class="item">
+            <div class="content">
+              Contact Name: <%= @farmer.contact_name ? @farmer.contact_name : "Not Available" %>
+            </div>
+          </div>
+          <div class="item">
+            <div class="content">
+              Contact Number: <%= @farmer.contact_number ? @farmer.contact_number : "Not Available" %>
+            </div>
+          </div>
+        <%end%>
+
+        <div class="item">
+          <div class="content">
+            Rating: Not yet rated
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>
+  
+  <div class="ui eleven wide column">
+    <p>
+      <h2>Business Name</h2>
+      <%if @farmer.business_name.present? %>
+        <%= @farmer.business_name %>
+      <%else%>
+        <i>This farmer has not yet specified their business name</i>
+      <%end%>
+    </p>
+    <p>
+      <h2>Business Description</h2>
+      <%if @farmer.business_description.present?%>
+        <p><%= @farmer.business_description %></p>
+      <%else%>
+        <i>This farmer has not yet specified their business description</i>
+      <%end%>
+    </p>
+  </div>
+</div>
