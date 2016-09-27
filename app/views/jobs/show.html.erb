@@ -1,0 +1,60 @@
+<div class="hero-image-container very-padded" style="background-image:url('<%= asset_path @job.farmer.cover_photo.url(:display) %>')!important;"></div>
+<div class="ui container">
+  <div class="ui segment basic">
+    <div class="ui stackable grid">
+      <div class="ui eight wide column">
+        <h4>Title</h4>
+        <%= @job.title %>
+      </div>
+      <div class="ui eight wide column">
+        <h4>Location</h4> 
+        <%= @job.location.label %>
+      </div>
+      <div class="ui eight wide column">
+        <h4>Job Types</h4>
+        <% @job.job_categories.each do |jc| %>
+          <div class="ui label">
+            <%= jc.title %>
+          </div>
+        <%end%>
+      </div>
+      <div class="ui eight wide column">
+        <h4>Skills Needed</h4>
+        <% @job.skills.each do |s| %>
+          <div class="ui label">
+            <%= s.title %>
+          </div>
+        <%end%>
+      </div>
+      <div class="ui eight wide column">
+        <h4>Description</h4> 
+        <%= @job.description %>
+      </div>
+      <div class="ui eight wide column">
+        <h4>Accomodation Provided</h4> 
+        <%= @job.accomodation_provided ? "Yes" : "No" %>
+      </div>
+      <div class="ui eight wide column">
+        <h4>Pay Rate</h4> 
+        $<%= @job.pay_min %>-<%= @job.pay_max %>/hr
+      </div>
+      <div class="ui eight wide column">
+        <h4>Date</h4> 
+        <%= @job.start_date_label %> - <%= @job.end_date_label %>
+      </div>
+      <div class="ui eight wide column">
+        <h4>Number of Workers Needed</h4> 
+        <%= @job.number_of_workers %>
+      </div>
+      <div class="ui eight wide column">
+        <h4>Farmer</h4> 
+        <%= link_to @job.farmer.full_name, farmer_path(@job.farmer.id) %><br/>
+        <div class="ui huge star rating" data-rating="<%= @job.farmer.rating %>" data-max-rating="5"></div>
+      </div>
+    </div>
+    <div class="ui divider hidden"></div>
+    <%if current_worker%>
+      <button id="apply-for-job" class="ui teal button <%= 'disabled' if @applied %>">Apply</button>
+    <%end%>
+  </div>
+</div>
