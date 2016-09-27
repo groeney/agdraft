@@ -31,10 +31,7 @@
 <div class="item">
   <div class="header">Jobs</div>
   <div class="menu">
-    <%= link_to "#", class: "#{@nav_item == "account" ? "active" : ""} item" do %>
-      <i class="trophy icon"></i>Offers
-    <% end %>
-    <%= link_to "#", class: "#{@nav_item == "edit_user" ? "active" : ""} item" do %>
+    <%= link_to worker_job_workers_path, class: "#{@nav_item == "applications" ? "active" : ""} item" do %>
       <i class="shop icon"></i>Applications
     <% end %>
   </div>
