@@ -33,7 +33,7 @@
           <div class="item">
             <i class="phone large icon"></i>
             <div class="content">
-              <%= @worker.mobile_number ? @worker.mobile_number : "Not Available" %>
+              <%= @worker.mobile_number.present? ? @worker.mobile_number : "Not Available" %>
             </div>
           </div>
         <%end%>

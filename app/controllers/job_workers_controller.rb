@@ -5,7 +5,7 @@ class JobWorkersController < ApplicationController
 
   def index
     return render_401 "Farmer not authorized to access this record" unless current_farmer.jobs.map{|j| j.id}.include?(params[:job_id].to_i)
-    render json: JobWorker.where(job_id: params[:job_id]).map{|j| j.include_worker_hash}
+    render json: JobWorker.where(job_id: params[:job_id])
   end
 
   def express_interest
@@ -27,7 +27,7 @@ class JobWorkersController < ApplicationController
 
     #ensure user is authorized to make changes to this record
     return render_401 "Worker not authorized to modify this record" if current_worker && job_worker.worker_id != current_worker.id
-    return render_401 "Farmer not authorized to modify this record" if current_farmer && !current_farmer.jobs.map{|j| j.id}.include?(job_worker.job_id)
+    return render_401 "Farmer not authorized to modify this record" if current_farmer && !current_farmer.jobs.exists?(job_worker.job_id)
 
     #worker can only call no_interest event    
     return render_400 if current_worker && params[:transition] != "no_interest"        

@@ -69,14 +69,6 @@ class Worker < ActiveRecord::Base
     rand(1..5)
   end
 
-  def to_hash
-    {
-      id: id,
-      full_name: full_name,
-      profile_photo: profile_photo.url(:display),
-    }
-  end
-
   protected
 
   def ensure_referral_token

@@ -70,9 +70,8 @@ class Farmers::JobsController < Farmers::BaseController
   end
 
   def recommended_workers
-    job = Job.find(params[:id])
-    return render_401 "Unauthorized access to this record" unless job.farmer_id == current_farmer.id
-    render json: job.recommended_workers.map{|w| w.to_hash}
+    job = current_farmer.jobs.find(params[:id])
+    render json: job.recommended_workers
   end
 
   protected

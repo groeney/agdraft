@@ -54,6 +54,7 @@ RSpec.describe Farmers::JobsController, type: :controller do
       context "when job_id is valid" do
         it "returns recommended workers" do
           expect_any_instance_of(Job).to receive(:recommended_workers).and_return([])
+          FactoryGirl.create(:worker)
           get :recommended_workers, id: @farmer.jobs.first.id, format: :json
           expect(response.status).to eq 200
         end
@@ -65,9 +66,9 @@ RSpec.describe Farmers::JobsController, type: :controller do
         end
       end
       context "when job_id does not belong to farmer" do
-        it "should return a 401" do
+        it "should return a 404" do
           get :recommended_workers, id: FactoryGirl.create(:job).id, format: :json
-          expect(response.status).to eq 401
+          expect(response.status).to eq 404
         end
       end
     end

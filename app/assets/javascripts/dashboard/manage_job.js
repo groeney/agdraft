@@ -9,7 +9,7 @@ $(document).on('turbolinks:load', function(){
           url: Routes.job_worker_transition_path({job_worker_id: this.get("id"), transition: event}),
           method: "POST",
           success: function(data, status, jqXHR){
-            self.set("state", data.state);
+            self.set(data);
           },
           error: function(jqXHR, textStatus, errorThrown){
             toastr.error(errorThrown);
@@ -30,7 +30,7 @@ $(document).on('turbolinks:load', function(){
           url: Routes.farmer_shortlist_worker_path(jobID),
           method: "POST",
           data: {worker_id: this.id},
-          success: function(data, status){
+          success: function(data, status, jqXHR){
             App.recommendedWorkers.remove(self.id);
             App.jobWorkers.fetch();
           },

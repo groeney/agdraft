@@ -54,7 +54,7 @@ class JobWorker < ActiveRecord::Base
       state: state,
       worker_id: worker.id,
       full_name: worker.full_name,
-      profile_photo: worker.profile_photo.url(:display),
+      profile_photo_url: worker.profile_photo.url(:display),
       mobile_number: worker.mobile_number,
     }
   end
