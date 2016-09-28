@@ -1,6 +1,6 @@
 <a href="/about" class="<%= @cms_page.try(:slug) == 'about' ? 'active' : '' %> item">About</a>
-<a class="item">Find a Job</a>
-<a class="item">Find Workers</a>
+<%= link_to "Find a Job", search_jobs_path, class: "item" %>
+<%= link_to "Find Workers", search_workers_path, class: "item" %>
 <%= link_to "Get Started", get_started_path, class: "item" %>
 
 <% if sidebar %>
