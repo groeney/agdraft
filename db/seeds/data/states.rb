@@ -2,21 +2,36 @@
   {
     name: "QLD",
     regions: [
-      "Bundaberg",
-      "Gladstone",
-      "Fraser Coast",
-      "Cairns & District",
-      "Rockhampton"
+      "Central Queensland",
+      "Darling Downs",
+      "North Queensland",
+      "South East Queensland",
+      "Far North Queensland",
+      "South West Queensland",
+      "Mackay",
+      "Issac",
+      "Whitsundays",
+      "Wide Bay Burnett"
     ]
   },
   {
     name: "NSW",
     regions: [
+      "North Coast",
+      "Central Coast",
+      "Sydney",
+      "Blue Mountains",
+      "South Coast",
+      "Illawarra",
       "Central West",
-      "Dubbo",
+      "South Highlands",
+      "Southern Tablelands",
+      "Monaro",
+      "North West Slope",
+      "Riverina",
+      "Orana",
       "Far West",
-      "Murray Region",
-      "Riverina"
+      "New England"
     ]
   },
   {
@@ -32,10 +47,12 @@
   {
     name: "VIC",
     regions: [
-      "North Western",
-      "North Eastern",
-      "Macedon Ranges",
-      "Gippsland"
+      "Surf Coast",
+      "Western District",
+      "Goldfields-Mallee",
+      "Murray-Alpine",
+      "Gippsland",
+      "Bass Coast"
     ]
   },
   {
@@ -45,34 +62,46 @@
       "West Coast",
       "Hobart",
       "Glenorchy",
-      "Eastern Shore"
+      "Eastern Shore",
+      "North West",
+      "North East"
     ]
   },
   {
     name: "SA",
     regions: [
-      "Barossa Valley",
-      "Mid North",
+      "Outback & Flinders Ranges",
+      "Eyre Peninsula",
       "Clare Valley",
-      "Riverland",
-      "Far North"
+      "York Peninsula",
+      "Murray River",
+      "Limestone Coast",
+      "Kangaroo Is & Fleurieu Pen",
+      "Adelaide"
     ]
   },
   {
     name: "NT",
     regions: [
-      "Alice Springs",
-      "Darwin Area"
+      "Barkley",
+      "Katherine",
+      "Alice Springs Region",
+      "East Arnhem",
+      "Top End Rural",
+      "Darwin"
     ]
   },
   {
     name: "WA",
     regions: [
-      "Bunbury",
-      "Denmark",
-      "Albany",
-      "East",
-      "Margaret River"
+      "Kimberley",
+      "Pilbara",
+      "Midwest",
+      "Goldfields",
+      "Wheatbelt",
+      "Great Southern",
+      "South West",
+      "Perth"
     ]
   }
 ]

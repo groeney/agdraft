@@ -19,5 +19,6 @@
 app/assets/images/farmers/*
 app/assets/images/workers/*
 app/assets/images/comfy/*
+app/assets/images/job_category_images/*
 
 *.DS_Store
