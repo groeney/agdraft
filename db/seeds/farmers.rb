@@ -1,6 +1,7 @@
 begin
   20.times do |n|
-    FactoryGirl.create(:farmer, location: Location.all.sample)
+    image = File.new(Dir["seed_assets/headshots/*"].sample)
+    FactoryGirl.create(:farmer, location: Location.all.sample, profile_photo: image)
   end
 rescue ActiveRecord::RecordInvalid
   puts "Failed to create farmers (likely already created).".red

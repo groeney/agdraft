@@ -12,7 +12,8 @@ FactoryGirl.define do
       end
 
       after(:create) do |worker, evaluator|
-        worker.job_categories << (evaluator.job_categories || JobCategory.all.sample(10) || FactoryGirl.create_list(:job_category, 10))
+        num = rand(1..4)
+        worker.job_categories << (evaluator.job_categories || JobCategory.all.sample(num) || FactoryGirl.create_list(:job_category, num))
       end
     end
 
@@ -22,7 +23,8 @@ FactoryGirl.define do
       end
 
       after(:create) do |worker, evaluator|
-        worker.skills << (evaluator.skills || Skill.all.sample(10) || FactoryGirl.create_list(:skill, 10))
+        num = rand(3..15)
+        worker.skills << (evaluator.skills || Skill.all.sample(num) || FactoryGirl.create_list(:skill, num))
       end
     end
 
