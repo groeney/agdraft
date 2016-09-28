@@ -24,8 +24,9 @@ module Filterable
 
     def filter_availability(filter_params)
       start_date, end_date = [filter_params[:start_date], filter_params[:end_date]]
-      return self.all.pluck(:id) if start_date.blank? || end_date.blank?
-      self.availability(start_date, end_date).pluck(:id)
+      return self.all.pluck(:id) if start_date.blank? || end_date.blank?          
+      return self.availability(start_date, end_date).pluck(:id) if self.to_s == "Worker"
+      return self.date_range(start_date, end_date).pluck(:id) if self.to_s == "Job"
     end
   end
 end
