@@ -41,8 +41,11 @@ gem "activeadmin", "~> 1.0.0.pre4"
 gem "aasm"
 gem 'active_model_serializers', '~> 0.10.0.rc3'
 
-# Use ActiveModel has_secure_password
-# gem "bcrypt", "~> 3.1.7"
+#allow seeding data in staging and dev
+group :development, :test, :staging do
+  gem "faker"
+  gem "factory_girl_rails"
+end
 
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
@@ -50,9 +53,7 @@ group :development, :test do
   gem "dotenv-rails"
   gem "pry-rails"
   gem "pry"
-  gem "factory_girl_rails"
   gem "rspec-rails", "~> 3.5"
-  gem "faker"
 end
 
 group :development do
