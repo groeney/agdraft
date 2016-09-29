@@ -1,7 +1,7 @@
 class Farmer < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_secure_token :referral_token
   has_attached_file :profile_photo, :styles => { :display => "200x200#" }, :default_url => "/assets/missing_farmer_profile_photo.png"

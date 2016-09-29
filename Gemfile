@@ -39,7 +39,9 @@ gem "comfortable_mexican_sofa", "~> 1.12.0"
 gem "colorize"
 gem "activeadmin", "~> 1.0.0.pre4"
 gem "aasm"
-gem 'active_model_serializers', '~> 0.10.0.rc3'
+gem "active_model_serializers", "~> 0.10.0.rc3"
+gem "devise_invitable"
+
 
 #allow seeding data in staging and dev
 group :development, :test, :staging do

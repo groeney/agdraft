@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930215551) do
+ActiveRecord::Schema.define(version: 20160930121702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,12 +207,12 @@ ActiveRecord::Schema.define(version: 20160930215551) do
   end
 
   create_table "farmers", force: :cascade do |t|
-    t.string   "email",                                 default: "", null: false
-    t.string   "encrypted_password",                    default: "", null: false
+    t.string   "email",                      default: "",    null: false
+    t.string   "encrypted_password",         default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         default: 0,  null: false
+    t.integer  "sign_in_count",              default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -220,10 +220,10 @@ ActiveRecord::Schema.define(version: 20160930215551) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
-    t.string   "first_name",                            default: "", null: false
-    t.string   "last_name",                             default: "", null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.string   "first_name",                 default: "",    null: false
+    t.string   "last_name",                  default: "",    null: false
     t.string   "referral_token"
     t.integer  "referral_user_id"
     t.string   "referral_user_type"
@@ -242,20 +242,29 @@ ActiveRecord::Schema.define(version: 20160930215551) do
     t.string   "contact_number"
     t.string   "stripe_customer_id"
     t.boolean  "stripe_delinquent"
-    t.integer  "credit",                                default: 0
-    t.string   "authentication_token",       limit: 30
+    t.integer  "credit",                     default: 0
+    t.boolean  "migrated",                   default: false
+    t.string   "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit"
+    t.integer  "invited_by_id"
+    t.string   "invited_by_type"
+    t.integer  "invitations_count",          default: 0
   end
 
-  add_index "farmers", ["authentication_token"], name: "index_farmers_on_authentication_token", unique: true, using: :btree
   add_index "farmers", ["confirmation_token"], name: "index_farmers_on_confirmation_token", unique: true, using: :btree
   add_index "farmers", ["email"], name: "index_farmers_on_email", unique: true, using: :btree
+  add_index "farmers", ["invitation_token"], name: "index_farmers_on_invitation_token", unique: true, using: :btree
+  add_index "farmers", ["invitations_count"], name: "index_farmers_on_invitations_count", using: :btree
+  add_index "farmers", ["invited_by_id"], name: "index_farmers_on_invited_by_id", using: :btree
   add_index "farmers", ["reset_password_token"], name: "index_farmers_on_reset_password_token", unique: true, using: :btree
 
   create_table "job_categories", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "archived",   default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "job_categories_jobs", id: false, force: :cascade do |t|
@@ -364,9 +373,8 @@ ActiveRecord::Schema.define(version: 20160930215551) do
 
   create_table "skills", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "archived",   default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "skills_workers", id: false, force: :cascade do |t|
@@ -383,25 +391,25 @@ ActiveRecord::Schema.define(version: 20160930215551) do
   end
 
   create_table "workers", force: :cascade do |t|
-    t.string   "first_name",                            default: "",    null: false
-    t.string   "last_name",                             default: "",    null: false
-    t.boolean  "has_own_transport",                     default: false, null: false
+    t.string   "first_name",                 default: "",    null: false
+    t.string   "last_name",                  default: "",    null: false
+    t.boolean  "has_own_transport",          default: false, null: false
     t.string   "referral_token"
     t.string   "tax_file_number"
     t.string   "mobile_number"
     t.string   "nationality"
-    t.string   "email",                                 default: "",    null: false
-    t.string   "encrypted_password",                    default: "",    null: false
+    t.string   "email",                      default: "",    null: false
+    t.string   "encrypted_password",         default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         default: 0,     null: false
+    t.integer  "sign_in_count",              default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "referral_user_id"
     t.string   "referral_user_type"
     t.string   "confirmation_token"
@@ -412,14 +420,24 @@ ActiveRecord::Schema.define(version: 20160930215551) do
     t.integer  "profile_photo_file_size"
     t.datetime "profile_photo_updated_at"
     t.date     "dob"
-    t.boolean  "verified",                              default: false
-    t.string   "authentication_token",       limit: 30
-    t.string   "description",                           default: ""
+    t.boolean  "verified",                   default: false
+    t.boolean  "migrated",                   default: false
+    t.string   "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit"
+    t.integer  "invited_by_id"
+    t.string   "invited_by_type"
+    t.integer  "invitations_count",          default: 0
+    t.string   "description",                default: ""
   end
 
-  add_index "workers", ["authentication_token"], name: "index_workers_on_authentication_token", unique: true, using: :btree
   add_index "workers", ["confirmation_token"], name: "index_workers_on_confirmation_token", unique: true, using: :btree
   add_index "workers", ["email"], name: "index_workers_on_email", unique: true, using: :btree
+  add_index "workers", ["invitation_token"], name: "index_workers_on_invitation_token", unique: true, using: :btree
+  add_index "workers", ["invitations_count"], name: "index_workers_on_invitations_count", using: :btree
+  add_index "workers", ["invited_by_id"], name: "index_workers_on_invited_by_id", using: :btree
   add_index "workers", ["reset_password_token"], name: "index_workers_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "job_workers", "jobs"

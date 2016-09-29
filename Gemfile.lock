@@ -137,6 +137,9 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
+    devise_invitable (1.6.0)
+      actionmailer (>= 3.2.6)
+      devise (>= 3.2.0)
     diff-lcs (1.2.5)
     domain_name (0.5.20160826)
       unf (>= 0.0.5, < 1.0.0)
@@ -394,6 +397,7 @@ DEPENDENCIES
   date_validator
   delayed_job_active_record
   devise
+  devise_invitable
   dotenv-rails
   factory_girl_rails
   faker

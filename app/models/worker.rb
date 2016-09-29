@@ -2,7 +2,7 @@ class Worker < ActiveRecord::Base
   include Filterable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   has_and_belongs_to_many :skills, -> { uniq }
@@ -24,7 +24,7 @@ class Worker < ActiveRecord::Base
   scope :availability, -> (start_date, end_date) { where.not(id: Worker.unavailability(start_date, end_date).pluck(:id) ) }
 
   validates_attachment_content_type :profile_photo, :content_type => /\Aimage\/.*\Z/
-  validates_presence_of             :first_name, :last_name
+  validates_presence_of             :first_name
 
   before_create :ensure_referral_token, :set_referral_user
 
