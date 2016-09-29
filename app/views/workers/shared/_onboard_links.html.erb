@@ -1,22 +1,18 @@
-<%= link_to worker_dashboard_path do %>
-  <button class="ui button">
-   Skip for now
-  </button>
-<% end %>
-
-<!-- Extract into view helpers -->
-<%- if action_name == "job_categories" %>
-  <%= link_to worker_onboard_skills_path do %>
-    <button class="ui primary button">
-     Next
-    </button>
+<div class="ui two bottom attached buttons">
+  <%= link_to worker_dashboard_path, { class: "ui button" } do %>
+    Skip for now
   <% end %>
-<% end -%>
 
-<%- if action_name == "skills" %>
-  <%= link_to worker_dashboard_path do %>
-    <button class="ui green button">
-     Done
-    </button>
-  <% end %>
-<% end -%>
+  <!-- Extract into view helpers -->
+  <%- if action_name == "job_categories" %>
+    <%= link_to worker_onboard_skills_path, { class: "ui primary button" } do %>
+      Next
+    <% end %>
+  <% end -%>
+
+  <%- if action_name == "skills" %>
+    <%= link_to worker_dashboard_path, { class: "ui green button" } do %>
+      Done
+    <% end %>
+  <% end -%>
+</div>

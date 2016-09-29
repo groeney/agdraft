@@ -9,7 +9,10 @@
     <%= render "includes/analytics" %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>">
-    <%= render partial: "includes/flash_notices" %>
-    <%= yield %>
+    <%= render "includes/onboard_menu" %>
+    <%= render "includes/flash_notices" %>
+    <div class="ui container" style="padding-bottom: 5%;">
+      <%= yield %>
+    </div>
   </body>
 </html>
