@@ -1,1 +1,11 @@
-<h2>Farmer Dashboard</h2>
+<h2>Recommended workers</h2>
+<div class="ui primary icon button">
+  <i class="search icon"></i>
+  Find more workers
+</div>
+<div class="ui hidden divider"></div>
+<div class="ui cards">
+  <% @recommended_workers.each do |worker| %>
+    <%= render partial: "search/worker_card", locals: { worker: worker } %>
+  <% end %>
+</div>

@@ -19,93 +19,15 @@
 </div>
 <div class="ui hidden divider"></div>
 <h2>Opportunities for People like you</h2>
-<div class="ui search">
-  <div class="ui icon input">
-    <input class="prompt" type="text" placeholder="Search by region or job type..." style="width:340px;">
-    <i class="search icon"></i>
-  </div>
-  <div class="results"></div>
+<div class="ui primary icon button">
+  <i class="search icon"></i>
+  Find other jobs
 </div>
 <div class="ui hidden divider"></div>
-<div class="ui three column grid">
-  <div class="column">
-    <div class="ui fluid card">
-      <a class="image" href="#">
-        <%= image_tag "farm.jpg" %>
-      </a>
-      <div class="content">
-        <a class="header" href="#">Job number one</a>
-        <div class="meta">
-          <a>Posted 2 days ago</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="column">
-    <div class="ui fluid card">
-      <a class="image" href="#">
-        <%= image_tag "farm.jpg" %>
-      </a>
-      <div class="content">
-        <a class="header" href="#">Other job</a>
-        <div class="meta">
-          <a>Posted 1 week ago</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="column">
-    <div class="ui fluid card">
-      <a class="image" href="#">
-        <%= image_tag "farm.jpg" %>
-      </a>
-      <div class="content">
-        <a class="header" href="#">Great job</a>
-        <div class="meta">
-          <a>Posted today</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="column">
-    <div class="ui fluid card">
-      <a class="image" href="#">
-        <%= image_tag "farm.jpg" %>
-      </a>
-      <div class="content">
-        <a class="header" href="#">Steve Jobes</a>
-        <div class="meta">
-          <a>Last Seen 2 days ago</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="column">
-    <div class="ui fluid card">
-      <a class="image" href="#">
-        <%= image_tag "farm.jpg" %>
-      </a>
-      <div class="content">
-        <a class="header" href="#">Steve Jobes</a>
-        <div class="meta">
-          <a>Last Seen 2 days ago</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="column">
-    <div class="ui fluid card">
-      <a class="image" href="#">
-        <%= image_tag "farm.jpg" %>
-      </a>
-      <div class="content">
-        <a class="header" href="#">Steve Jobes</a>
-        <div class="meta">
-          <a>Last Seen 2 days ago</a>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="ui cards">
+  <% @recommended_jobs.each do |job| %>
+    <%= render partial: "search/job_card", locals: { job: job } %>
+  <% end %>
 </div>
 
 <% content_for :javascripts do %>

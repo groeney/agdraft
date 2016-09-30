@@ -70,7 +70,7 @@ class Worker < ActiveRecord::Base
     rand(1..5)
   end
 
-  def recommend_jobs
+  def recommended_jobs
     Job.recommend({ skills: skill_ids, job_categories: job_category_ids },
                   job_workers.pluck(:job_id))
   end

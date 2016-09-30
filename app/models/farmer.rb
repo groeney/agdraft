@@ -49,7 +49,7 @@ class Farmer < ActiveRecord::Base
     rand(2..5)
   end
 
-  def recommend_workers
+  def recommended_workers
     Worker.recommend({ skills: skill_ids, job_categories: job_category_ids, locations: location_ids })
   end
 

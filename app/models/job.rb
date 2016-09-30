@@ -69,7 +69,7 @@ class Job < ActiveRecord::Base
     (JOB_PRICE - farmer.credit) < 1 ? JOB_PRICE : farmer.credit
   end
 
-  def recommend_workers
+  def recommended_workers
     Worker.recommend({ skills: skill_ids, job_categories: job_category_ids, locations: [location.id] },
                      workers.pluck(:id))
   end
