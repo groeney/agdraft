@@ -84,6 +84,7 @@ Rails.application.routes.draw do
   resources :jobs, only: [:show]
 
   get "job_workers/:job_id" => "job_workers#index", as: :job_workers
+  get "job_workers/:id/not_interested" => "job_workers#not_interested", as: :worker_not_interested
   post "job_workers/:job_id/express_interest" => "job_workers#express_interest", as: :worker_express_interest
   post "jobs/:job_id/shortlist" => "job_workers#shortlist", as: :farmer_shortlist_worker
   post "job_workers/:job_worker_id/:transition" => "job_workers#transition", as: :job_worker_transition

@@ -1,5 +1,7 @@
 class Worker < ActiveRecord::Base
   include Recommendable, Filterable
+  acts_as_token_authenticatable
+  include Filterable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,

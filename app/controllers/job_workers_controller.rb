@@ -1,5 +1,6 @@
 class JobWorkersController < ApplicationController
-  before_filter :authenticate_worker!, only: [:express_interest]
+  acts_as_token_authentication_handler_for Worker, only: [:not_interested]
+  before_filter :authenticate_worker!, only: [:express_interest, :not_interested]
   before_filter :authenticate_farmer!, only: [:shortlist, :index]
   before_filter :authenticate_user
 
@@ -15,6 +16,24 @@ class JobWorkersController < ApplicationController
     return render_400 unless job_worker.valid?
     job_worker.express_interest!
     render_201
+  end
+
+  def not_interested
+    job_worker = current_worker.job_workers.where(id: params[:id]).first
+    if !job_worker
+      flash[:error] = "Unauthorized access" 
+    elsif !job_worker.no_interest!
+      flash[:error] = "This job record has already been updated"
+    else
+      flash[:success] = "Successfully updated your job application and notified the farmer that you are not interested in the job"
+    end
+
+    #this is to delete an unavailablity record if the worker was hired but then rejected the offer
+    if unavailability = Unavailability.where(id: params[:unavailability_id], worker_id: current_worker.id).first
+      unavailability.delete
+    end
+
+    return redirect_to root_url
   end
 
   def shortlist

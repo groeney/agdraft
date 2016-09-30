@@ -120,6 +120,10 @@ GEM
     country_select (2.5.2)
       countries (~> 1.2.0)
       sort_alphabetical (~> 1.0)
+    createsend (4.1.0)
+      hashie (~> 3.0)
+      httparty (~> 0.10)
+      json (~> 1.0)
     currencies (0.4.2)
     database_cleaner (1.5.3)
     date_validator (0.9.0)
@@ -174,6 +178,7 @@ GEM
       activesupport (>= 3.2, < 5)
     has_secure_token (1.0.0)
       activerecord (>= 3.0)
+    hashie (3.4.6)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
       haml (~> 4.0.0)
@@ -181,6 +186,8 @@ GEM
       ruby_parser (~> 3.5)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     i18n_data (0.7.0)
     inherited_resources (1.6.0)
@@ -220,6 +227,7 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     multi_json (1.12.1)
+    multi_xml (0.5.5)
     netrc (0.11.0)
     newrelic_rpm (3.16.2.321)
     nokogiri (1.6.8)
@@ -341,6 +349,10 @@ GEM
     simple_form (3.2.1)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
+    simple_token_authentication (1.14.0)
+      actionmailer (>= 3.2.6, < 6)
+      actionpack (>= 3.2.6, < 6)
+      devise (>= 3.2, < 6)
     slop (3.6.0)
     sort_alphabetical (1.0.2)
       unicode_utils (>= 1.2.2)
@@ -393,6 +405,7 @@ DEPENDENCIES
   colorize
   comfortable_mexican_sofa (~> 1.12.0)
   country_select
+  createsend
   database_cleaner
   date_validator
   delayed_job_active_record
@@ -419,6 +432,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   shoulda-matchers
   simple_form
+  simple_token_authentication (~> 1.0)
   spring
   spring-commands-rspec
   stripe

@@ -27,5 +27,6 @@ module Agdraft
                                            "bower_components"
                                           )
     config.autoload_paths << Rails.root.join('lib')
+    routes.default_url_options[:host] = ENV.fetch("APPLICATION_HOST")
   end
 end

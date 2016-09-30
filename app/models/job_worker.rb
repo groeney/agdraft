@@ -1,4 +1,5 @@
 class JobWorker < ActiveRecord::Base
+  include TokenSignin
   include AASM
   
   belongs_to :job
@@ -29,23 +30,73 @@ class JobWorker < ActiveRecord::Base
     end
     event :no_interest do
       transitions from: :shortlisted, to: :not_interested
+      transitions from: :hired, to: :not_interested
     end
   end
 
   def after_enter_interested_state
-
+    EmailService.new.send_email(
+      Rails.application.config.smart_email_ids[:worker_expressed_interest_for_job], 
+      job.farmer.email, 
+      {
+        job_title: job.title, 
+        job_url: Rails.application.routes.url_helpers.job_url(job_id),
+        worker_full_name: worker.full_name, 
+        manage_job_url: Rails.application.routes.url_helpers.farmer_manage_job_url(job_id) + token_signin(job.farmer)
+      }
+    )
   end
   def after_enter_shortlisted_state
-
+    EmailService.new.send_email(
+      Rails.application.config.smart_email_ids[:worker_added_to_shortlist], 
+      worker.email,
+      {
+        job_title: job.title, 
+        job_url: Rails.application.routes.url_helpers.job_url(job_id),
+        not_interested_url: Rails.application.routes.url_helpers.worker_not_interested_url(id) + token_signin(worker)
+      }
+    )
   end
   def after_enter_hired_state
-
+    unavailability = Unavailability.create(start_date: job.start_date, end_date: job.end_date, worker_id: worker.id)
+    EmailService.new.send_email(
+      Rails.application.config.smart_email_ids[:worker_hired_by_farmer], 
+      worker.email,
+      {
+        job_title: job.title, 
+        job_url: Rails.application.routes.url_helpers.job_url(job_id),
+        worker_first_name: worker.first_name,
+        start_date: job.start_date_label,
+        end_date: job.end_date_label,
+        unavailability_url: Rails.application.routes.url_helpers.worker_unavailabilities_url + token_signin(worker),
+        not_interested_url: Rails.application.routes.url_helpers.worker_not_interested_url(id) + token_signin(worker) + "&unavailability_id=#{unavailability.id}"
+      }
+    )
   end
   def after_enter_declined_state
-
+    EmailService.new.send_email(
+      Rails.application.config.smart_email_ids[:worker_declined_by_farmer], 
+      worker.email,
+      {
+        job_title: job.title, 
+        job_url: Rails.application.routes.url_helpers.job_url(job_id),
+        worker_first_name: worker.first_name,
+        search_jobs_url: Rails.application.routes.url_helpers.search_jobs_url
+      }
+    )
   end
   def after_enter_not_interested_state
-
+    EmailService.new.send_email(
+      Rails.application.config.smart_email_ids[:worker_not_interested], 
+      job.farmer.email,
+      {
+        job_title: job.title, 
+        job_url: Rails.application.routes.url_helpers.job_url(job_id),
+        worker_full_name: worker.full_name,
+        worker_url: Rails.application.routes.url_helpers.worker_url(worker_id),
+        search_workers_url: Rails.application.routes.url_helpers.search_workers_url
+      }
+    )
   end
 
   def include_worker_hash
