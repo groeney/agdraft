@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160924150702) do
+ActiveRecord::Schema.define(version: 20160930121702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -251,9 +251,8 @@ ActiveRecord::Schema.define(version: 20160924150702) do
 
   create_table "job_categories", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "archived",   default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "job_categories_jobs", id: false, force: :cascade do |t|
@@ -362,9 +361,8 @@ ActiveRecord::Schema.define(version: 20160924150702) do
 
   create_table "skills", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "archived",   default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "skills_workers", id: false, force: :cascade do |t|
@@ -411,6 +409,7 @@ ActiveRecord::Schema.define(version: 20160924150702) do
     t.datetime "profile_photo_updated_at"
     t.date     "dob"
     t.boolean  "verified",                   default: false
+    t.string   "description",                default: ""
   end
 
   add_index "workers", ["confirmation_token"], name: "index_workers_on_confirmation_token", unique: true, using: :btree

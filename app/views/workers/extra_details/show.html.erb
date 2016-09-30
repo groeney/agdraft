@@ -24,5 +24,7 @@
   </div>
   <%= f.input :tax_file_number %>
   <%= f.input :mobile_number, required: true %>
+  <%= f.input :description, as: :text %>
+  <div class="ui hidden divider"></div>
   <%= f.button :submit %>
 <% end %>

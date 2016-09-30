@@ -3,7 +3,8 @@ $(document).on('turbolinks:load', function(){
     $('.ui.dropdown').dropdown();
     $('.ui.calendar').calendar({
       type: 'date',
-      startMode: 'year'
+      startMode: 'year',
+      maxDate: new Date(),
     });
 
     $('#edit-worker').on('ajax:success', function(e, data, status, xhr){
