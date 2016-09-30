@@ -17,7 +17,7 @@ module Filterable
       filter_params.except(:start_date, :end_date).each do |key, value|
         ids << results.public_send(key, value).pluck(:id) if value.present?
       end
-      results.where({ id: ids.uniq }).sort_by { |r| r.filter_rating(filter_params) }.reverse
+      results.where({ id: ids.flatten.uniq }).sort_by { |r| r.filter_rating(filter_params) }.reverse
     end
 
     protected

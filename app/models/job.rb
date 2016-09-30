@@ -1,5 +1,6 @@
 class Job < ActiveRecord::Base
-  include Filterable
+  include Recommendable, Filterable
+
   belongs_to :farmer
   belongs_to :location
   has_and_belongs_to_many :workers, -> { uniq }
@@ -55,10 +56,12 @@ class Job < ActiveRecord::Base
 
   def filter_rating(filter_params)
     raw_rating = 0
-    filter_params.slice(:skills, :job_categories, :location).each do |key, ids|
+    filter_params.slice(:skills, :job_categories).each do |key, ids|
       raw_rating += self.public_send(key).where({ id: ids }).count if ids.present?
     end
-    raw_rating += 1 if filter_params[:locations].include?(self.location.id)
+    if filter_params[:locations] && filter_params[:locations].include?(self.location.id)
+      raw_rating += 1
+    end
     raw_rating
   end
 
@@ -66,7 +69,16 @@ class Job < ActiveRecord::Base
     (JOB_PRICE - farmer.credit) < 1 ? JOB_PRICE : farmer.credit
   end
 
-  def recommended_workers
-    Worker.last(5)
+  def recommend_workers
+    Worker.recommend({ skills: skill_ids, job_categories: job_category_ids, locations: [location.id] },
+                     workers.pluck(:id))
+  end
+
+  def skill_ids
+    skills.pluck(:id)
+  end
+
+  def job_category_ids
+    job_categories.pluck(:id)
   end
 end

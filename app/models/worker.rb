@@ -1,5 +1,5 @@
 class Worker < ActiveRecord::Base
-  include Filterable
+  include Recommendable, Filterable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
@@ -13,6 +13,7 @@ class Worker < ActiveRecord::Base
   has_many                :previous_employers
   has_many                :educations
   has_many                :certificates
+  has_many                :job_workers
   has_secure_token        :referral_token
   has_attached_file       :profile_photo, :styles => { :display => "200x200#" }, :default_url => "/assets/missing_worker_profile_photo.png"
   belongs_to              :referral_user, polymorphic: true
@@ -69,7 +70,20 @@ class Worker < ActiveRecord::Base
     rand(1..5)
   end
 
+  def recommend_jobs
+    Job.recommend({ skills: skill_ids, job_categories: job_category_ids },
+                  job_workers.pluck(:job_id))
+  end
+
   protected
+
+  def skill_ids
+    skills.pluck(:id)
+  end
+
+  def job_category_ids
+    job_categories.pluck(:id)
+  end
 
   def ensure_referral_token
     return if referral_token?

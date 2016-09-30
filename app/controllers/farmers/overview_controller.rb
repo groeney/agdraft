@@ -1,5 +1,6 @@
 class Farmers::OverviewController < Farmers::BaseController
   def index
+    @recommended_workers = current_farmer.recommend_workers
   end
 
   protected
