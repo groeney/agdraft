@@ -1,0 +1,13 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: { header: "Notifications", icon: "bell", description: "Recent account activity", live_link: false } %>
+<% end %>
+
+<div class="ui very relaxed divided list">
+  <% if @notifications.count > 0 %>
+    <% @notifications.each do |notification| %>
+      <%= render partial: "includes/notification", locals: { notification: notification } %>
+    <% end %>
+  <% else %>
+    <div class="ui info message">You have no recent account activity.</div>
+  <% end %>
+</div>

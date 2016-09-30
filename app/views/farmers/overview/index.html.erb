@@ -1,8 +1,21 @@
-<h2>Recommended workers</h2>
-<div class="ui primary icon button">
-  <i class="search icon"></i>
-  Find more workers
+<div class="ui stackable grid">
+  <a class="ui primary icon button two wide column" href="<%= search_workers_path %>" target="_blank">
+    <i class="search icon"></i>
+    Find workers
+  </a>
+  <div class="ui right floated column">
+    <% if @unseen_notifications %>
+      <a class="item" data-tooltip="You have new notifications." data-inverted="" data-position="bottom center" href="<%= farmer_notifications_path %>" style="color: black;">
+        <span class="ui empty mini floating circular blue notification label"></span>
+    <% else %>
+      <a class="item" href="<%= farmer_notifications_path %>" style="color: black;">
+    <% end %>
+        <i class="large bell icon"></i>
+    </a>
+  </div>
+
 </div>
+<h2>Recommended workers</h2>
 <div class="ui hidden divider"></div>
 <div class="ui cards">
   <% @recommended_workers.each do |worker| %>

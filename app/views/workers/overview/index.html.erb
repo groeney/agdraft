@@ -1,8 +1,8 @@
 <% content_for :dashboard_header do %>
 <%end%>
 
-<div class="ui stackable two columns grid">
-  <div class="ui column">
+<div class="ui stackable grid">
+  <div class="ui seven wide column">
     <h3>Profile</h3>
     <p>Complete your profile so employers know more about you</p>
     <div class="ui progress yellow" data-percent="33" id="progress">
@@ -12,9 +12,19 @@
       <div class="label">Only 33% complete. Keep going!</div>
     </div>
   </div>
-  <div class="ui column">
+  <div class="ui seven wide column">
     <h3>Jobs</h3>
-    <p>You current have <b>0 job offers</b> and <b>0 job applications</b>. Search for work below and apply for a job!</p>
+    <p>You currently have <b>0 job offers</b> and <b>0 job applications</b>. Search for work below and apply for a job!</p>
+  </div>
+  <div class="ui two wide column">
+    <% if @unseen_notifications %>
+      <a class="item" data-tooltip="You have new notifications." data-inverted="" data-position="bottom center" href="<%= worker_notifications_path %>" style="color: black;">
+        <span class="ui empty mini floating circular blue notification label"></span>
+    <% else %>
+      <a class="item" href="<%= worker_notifications_path %>" style="color: black;">
+    <% end %>
+        <i class="large bell icon"></i>
+    </a>
   </div>
 </div>
 <div class="ui hidden divider"></div>

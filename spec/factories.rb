@@ -1,4 +1,12 @@
 FactoryGirl.define do
+  # For factory :job see spec/factories/job.rb
+  # For factory :worker see spec/factories/worker.rb
+
+  factory :notification do
+    header { Faker::Lorem.words(4).join(" ") }
+    description { Faker::Lorem.sentence }
+  end
+
   factory :job_worker do
     job
     worker
@@ -22,8 +30,6 @@ FactoryGirl.define do
       state :not_interested
     end
   end
-  # For factory :job see spec/factories/job.rb
-  # For factory :worker see spec/factories/worker.rb
 
   factory :payment_audit do
     farmer
@@ -98,6 +104,12 @@ FactoryGirl.define do
     trait :with_job do
       after(:create) do |farmer|
         FactoryGirl.create(:job, farmer: farmer)
+      end
+    end
+
+    trait :with_notifications do
+      after(:create) do |farmer|
+        farmer.notifications << FactoryGirl.create_list(:notification, 5)
       end
     end
   end

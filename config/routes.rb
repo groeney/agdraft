@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     get "location" => "locations#show", as: :show_location
     resources :locations, only: [:update]
     resources :farmers, only: [:edit, :update]
+    resources :notifications, only: [:index, :show]
 
     get "jobs/:id/publish/confirm" => "jobs#publish_confirm", as: :publish_job_confirm
     post "jobs/:id/publish" => "jobs#publish", as: :publish_job
@@ -65,6 +66,7 @@ Rails.application.routes.draw do
     resources :educations, only: [:new, :create, :destroy]
     resources :certificates, only: [:new, :create, :destroy]
     resources :job_workers, only: [:index]
+    resources :notifications, only: [:index, :show]
 
     scope "onboard", as: "onboard" do
       get "job_categories" => "onboard#job_categories"
@@ -78,7 +80,7 @@ Rails.application.routes.draw do
     delete "/farmer/signout" => "farmer_sessions#destroy", as: :destroy_farmer_session
     delete "/worker/signout" => "worker_sessions#destroy", as: :destroy_worker_session
   end
-  
+
   resources :workers, only: [:show]
   resources :farmers, only: [:show]
   resources :jobs, only: [:show]

@@ -12,6 +12,7 @@ class Farmer < ActiveRecord::Base
   belongs_to :location
   has_many :jobs
   has_many :payment_audtis
+  has_many :notifications, as: :resource, dependent: :destroy
   validates_attachment_content_type :profile_photo, :content_type => /\Aimage\/.*\Z/
   validates_presence_of :first_name, :last_name
   validate :credit_cannot_be_negative

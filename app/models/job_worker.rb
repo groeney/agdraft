@@ -1,7 +1,6 @@
 class JobWorker < ActiveRecord::Base
-  include TokenSignin
-  include AASM
-  
+  include AASM, Rails.application.routes.url_helpers, TokenSignin
+
   belongs_to :job
   belongs_to :worker
   validates_uniqueness_of :worker_id, scope: :job_id
@@ -36,22 +35,22 @@ class JobWorker < ActiveRecord::Base
 
   def after_enter_interested_state
     EmailService.new.send_email(
-      Rails.application.config.smart_email_ids[:worker_expressed_interest_for_job], 
-      job.farmer.email, 
+      Rails.application.config.smart_email_ids[:worker_expressed_interest_for_job],
+      job.farmer.email,
       {
-        job_title: job.title, 
+        job_title: job.title,
         job_url: Rails.application.routes.url_helpers.job_url(job_id),
-        worker_full_name: worker.full_name, 
+        worker_full_name: worker.full_name,
         manage_job_url: Rails.application.routes.url_helpers.farmer_manage_job_url(job_id) + token_signin(job.farmer)
       }
     )
   end
   def after_enter_shortlisted_state
     EmailService.new.send_email(
-      Rails.application.config.smart_email_ids[:worker_added_to_shortlist], 
+      Rails.application.config.smart_email_ids[:worker_added_to_shortlist],
       worker.email,
       {
-        job_title: job.title, 
+        job_title: job.title,
         job_url: Rails.application.routes.url_helpers.job_url(job_id),
         not_interested_url: Rails.application.routes.url_helpers.worker_not_interested_url(id) + token_signin(worker)
       }
@@ -60,10 +59,10 @@ class JobWorker < ActiveRecord::Base
   def after_enter_hired_state
     unavailability = Unavailability.create(start_date: job.start_date, end_date: job.end_date, worker_id: worker.id)
     EmailService.new.send_email(
-      Rails.application.config.smart_email_ids[:worker_hired_by_farmer], 
+      Rails.application.config.smart_email_ids[:worker_hired_by_farmer],
       worker.email,
       {
-        job_title: job.title, 
+        job_title: job.title,
         job_url: Rails.application.routes.url_helpers.job_url(job_id),
         worker_first_name: worker.first_name,
         start_date: job.start_date_label,
@@ -75,10 +74,10 @@ class JobWorker < ActiveRecord::Base
   end
   def after_enter_declined_state
     EmailService.new.send_email(
-      Rails.application.config.smart_email_ids[:worker_declined_by_farmer], 
+      Rails.application.config.smart_email_ids[:worker_declined_by_farmer],
       worker.email,
       {
-        job_title: job.title, 
+        job_title: job.title,
         job_url: Rails.application.routes.url_helpers.job_url(job_id),
         worker_first_name: worker.first_name,
         search_jobs_url: Rails.application.routes.url_helpers.search_jobs_url
@@ -87,10 +86,10 @@ class JobWorker < ActiveRecord::Base
   end
   def after_enter_not_interested_state
     EmailService.new.send_email(
-      Rails.application.config.smart_email_ids[:worker_not_interested], 
+      Rails.application.config.smart_email_ids[:worker_not_interested],
       job.farmer.email,
       {
-        job_title: job.title, 
+        job_title: job.title,
         job_url: Rails.application.routes.url_helpers.job_url(job_id),
         worker_full_name: worker.full_name,
         worker_url: Rails.application.routes.url_helpers.worker_url(worker_id),

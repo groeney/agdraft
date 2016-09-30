@@ -16,6 +16,7 @@ class Worker < ActiveRecord::Base
   has_many                :educations
   has_many                :certificates
   has_many                :job_workers
+  has_many                :notifications, as: :resource, dependent: :destroy
   has_secure_token        :referral_token
   has_attached_file       :profile_photo, :styles => { :display => "200x200#" }, :default_url => "/assets/missing_worker_profile_photo.png"
   belongs_to              :referral_user, polymorphic: true

@@ -79,5 +79,11 @@ FactoryGirl.define do
         end
       end
     end
+
+    trait :with_notifications do
+      after(:create) do |worker|
+        worker.notifications << FactoryGirl.create_list(:notification, 5)
+      end
+    end
   end
 end

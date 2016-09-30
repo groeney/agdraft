@@ -349,6 +349,21 @@ ActiveRecord::Schema.define(version: 20160930215551) do
   add_index "locations_workers", ["location_id", "worker_id"], name: "index_locations_workers_on_location_id_and_worker_id", using: :btree
   add_index "locations_workers", ["worker_id", "location_id"], name: "index_locations_workers_on_worker_id_and_location_id", using: :btree
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.string   "action_path",            default: "#"
+    t.string   "thumbnail_file_name"
+    t.string   "thumbnail_content_type"
+    t.integer  "thumbnail_file_size"
+    t.datetime "thumbnail_updated_at"
+    t.string   "header",                 default: ""
+    t.string   "description",            default: ""
+    t.boolean  "unseen",                 default: true
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
   create_table "payment_audits", force: :cascade do |t|
     t.integer  "farmer_id"
     t.integer  "job_id"
