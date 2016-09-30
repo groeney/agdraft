@@ -8,7 +8,7 @@ module Filterable
       filter_params.except(:start_date, :end_date).each do |key, value|
         results = results.public_send(key, value).distinct if value.present?
       end
-      results
+      results.sort_by { |r| r.filter_rating(filter_params) }.reverse
     end
 
     def filter_or(filter_params)
@@ -17,14 +17,14 @@ module Filterable
       filter_params.except(:start_date, :end_date).each do |key, value|
         ids << results.public_send(key, value).pluck(:id) if value.present?
       end
-      results.where({ id: ids.uniq })
+      results.where({ id: ids.uniq }).sort_by { |r| r.filter_rating(filter_params) }.reverse
     end
 
     protected
 
     def filter_availability(filter_params)
       start_date, end_date = [filter_params[:start_date], filter_params[:end_date]]
-      return self.all.pluck(:id) if start_date.blank? || end_date.blank?          
+      return self.all.pluck(:id) if start_date.blank? || end_date.blank?
       return self.availability(start_date, end_date).pluck(:id) if self.to_s == "Worker"
       return self.date_range(start_date, end_date).pluck(:id) if self.to_s == "Job"
     end
