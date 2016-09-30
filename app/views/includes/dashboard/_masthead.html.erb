@@ -6,5 +6,6 @@
   </div>
 </h1>
 <% if live_link %>
-  <%= link_to "View Your Profile", "#", class: "ui primary button" %>
-<%end%>
+  <% profile_path = profile_path ? profile_path : "#" %>
+  <%= link_to "View Your Profile", profile_path, class: "ui primary button", target: "_blank" %>
+<% end %>

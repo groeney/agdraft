@@ -1,5 +1,5 @@
 <% content_for :dashboard_header do %>
-  <%= render partial: "includes/dashboard/masthead", locals: {header: "Profile", icon: "protect", description: "Display your logo to your customers", live_link: true } %>
+  <%= render partial: "includes/dashboard/masthead", locals: {header: "Profile", icon: "protect", description: "Display your logo to your customers", live_link: true, profile_path: farmer_path(@farmer.id) } %>
 <%end%>
 
 <% if @farmer.profile_photo_file_name %>

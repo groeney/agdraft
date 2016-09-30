@@ -27,11 +27,11 @@ class JobWorkersController < ApplicationController
   def transition
     job_worker = JobWorker.find(params[:job_worker_id])
 
-    #ensure user is authorized to make changes to this record
+    # Ensure user is authorized to make changes to this record
     return render_401 "Worker not authorized to modify this record" if current_worker && job_worker.worker_id != current_worker.id
     return render_401 "Farmer not authorized to modify this record" if current_farmer && !current_farmer.jobs.exists?(job_worker.job_id)
 
-    #worker can only call no_interest event
+    # Worker can only call no_interest event
     return render_400 if current_worker && params[:transition] != "no_interest"
     return render_400 unless job_worker.send(params[:transition] + "!")
     render json: job_worker
