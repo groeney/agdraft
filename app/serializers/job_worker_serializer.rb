@@ -1,5 +1,5 @@
 class JobWorkerSerializer < ActiveModel::Serializer
-  attributes :id, :state, :worker_id, :full_name, :profile_photo_url, :mobile_number
+  attributes :id, :state, :worker_id, :full_name, :profile_photo_url, :mobile_number, :email
   
   def full_name
     object.worker.full_name
@@ -11,5 +11,9 @@ class JobWorkerSerializer < ActiveModel::Serializer
 
   def mobile_number
     object.worker.mobile_number
+  end
+
+  def email
+    object.worker.email
   end
 end

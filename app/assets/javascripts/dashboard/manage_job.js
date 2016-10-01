@@ -51,7 +51,7 @@ $(document).on('turbolinks:load', function(){
       events: {
         "click .state-transition": "transition"
       },
-      className: "eight wide column",
+      className: "sixteen wide column",
       transition: function(e){
         var transition = this.$el.find('select').val();
         if(transition != ""){

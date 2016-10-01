@@ -23,14 +23,16 @@
 </script>
 
 <script type="text/template" id="js-shortlist-worker">
-    <div class="ui grid segment">
+    <div class="ui grid stackable segment">
       <div class="four wide column">
         <img class="image-thumbnail" src="<%%- profile_photo_url %>"/>
       </div>
       <div class="six wide column">
         <h3><%%- full_name %></h3>
         <p>
-          <i class="ui phone icon"></i><%%- mobile_number == null ? "Number Unavailable" : mobile_number %>
+          <i class="ui phone icon"></i><%%- mobile_number == null ? "Number Unavailable" : mobile_number %><br/>
+          <a class="js-view-email desktop-only" href="#" data-tooltip="<%%- email %>" onclick="event.preventDefault();">View Email Address</a>
+          <span class="mobile-only"><%%- email %></span>
         </p>
         <a href="<%%- Routes.worker_path(worker_id) %>" target="_blank">View Profile</a>
       </div>
