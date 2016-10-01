@@ -2,6 +2,7 @@
   <%= render partial: "includes/dashboard/masthead", locals: {header: "Worker Management", icon: "users", description: "Manage the workers you want for this job", live_link: false } %>
 <%end%>
 
+<%= link_to "Search for more Workers", search_workers_path, class: "ui teal button", target: "blank" %>
 <h1><%= @job.title %></h1>
 <div id="main-content"></div>
 
