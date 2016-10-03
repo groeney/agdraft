@@ -14,7 +14,7 @@ RSpec.describe JobWorkersController, type: :controller do
           expect(response.status).to eq 200
           data = JSON.parse(response.body)
           expect(data.length).to eq 1
-          expect(data[0]).to eq JSON.parse(job_worker.include_worker_hash.to_json)
+          expect(data[0]).to eq JSON.parse(job_worker.to_json)
         end
       end
       context "with an invalid job_id" do
@@ -59,7 +59,7 @@ RSpec.describe JobWorkersController, type: :controller do
           end
         end
         context "when a workers has already express interest in a job" do
-          before do 
+          before do
             JobWorker.create(job: @job, worker: @worker).express_interest
           end
           it "returns a 400" do
@@ -146,7 +146,7 @@ RSpec.describe JobWorkersController, type: :controller do
         it "returns the job_worker id and status" do
           @job_worker.shortlist!
           post :transition, job_worker_id: @job_worker.id, transition: "hire", format: :json
-          json = JSON.parse(response.body)          
+          json = JSON.parse(response.body)
           expect(json["state"]).to eq "hired"
         end
         it "returns 400 on invalid state transition" do
