@@ -55,6 +55,12 @@ class JobWorker < ActiveRecord::Base
         not_interested_url: Rails.application.routes.url_helpers.worker_not_interested_url(id) + token_signin(worker)
       }
     )
+    Notification.create(resource: job.farmer,
+                        action_path: worker_path(worker.id),
+                        thumbnail: worker.profile_photo,
+                        header: "You have been hired!",
+                        description: "#{job.farmer.full_name} has hired you."
+                        )
   end
   def after_enter_hired_state
     unavailability = Unavailability.create(start_date: job.start_date, end_date: job.end_date, worker_id: worker.id)
@@ -71,7 +77,15 @@ class JobWorker < ActiveRecord::Base
         not_interested_url: Rails.application.routes.url_helpers.worker_not_interested_url(id) + token_signin(worker) + "&unavailability_id=#{unavailability.id}"
       }
     )
+
+    Notification.create(resource: worker,
+                        action_path: job_path(job.id),
+                        thumbnail: job.farmer.profile_photo,
+                        header: "You have been hired!",
+                        description: "#{job.farmer.full_name} has hired you."
+                        )
   end
+
   def after_enter_declined_state
     EmailService.new.send_email(
       Rails.application.config.smart_email_ids[:worker_declined_by_farmer],
@@ -84,6 +98,7 @@ class JobWorker < ActiveRecord::Base
       }
     )
   end
+
   def after_enter_not_interested_state
     EmailService.new.send_email(
       Rails.application.config.smart_email_ids[:worker_not_interested],
