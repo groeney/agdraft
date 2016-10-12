@@ -22,6 +22,7 @@ class JobWorker < ActiveRecord::Base
       transitions from: :interested, to: :shortlisted
     end
     event :hire do
+      transitions from: :new, to: :hired
       transitions from: :shortlisted, to: :hired
     end
     event :decline do

@@ -28,7 +28,49 @@ $(document).on('turbolinks:load', function(){
         error: function(){
           toastr.error('Something has gone wrong, please contact customer support');
         }
-      })
-    })
+      });
+    });
+
+    $('.js-hire-workers').bind('ajax:beforeSend', function() {
+      $(this).addClass('loading');
+    });
+
+    $('.js-hire-workers').bind('ajax:complete', function() {
+      $(this).removeClass('loading');
+    });
+
+    $('.js-shortlist-workers').bind('ajax:beforeSend', function() {
+      $(this).addClass('loading');
+    });
+
+    $('.js-shortlist-workers').bind('ajax:complete', function() {
+      $(this).removeClass('loading');
+    });
+
+    $('.js-attract-workers').bind('ajax:beforeSend', function() {
+      $(this).addClass('loading');
+    });
+
+    $('.js-attract-workers').bind('ajax:complete', function() {
+      $(this).removeClass('loading');
+    });
+  });
+
+  $('.jobs.index').ready(function(){
+    $('.js-spawn-jobs').bind('ajax:beforeSend', function() {
+      $(this).addClass('loading');
+    });
+
+    $('.js-spawn-jobs').bind('ajax:complete', function() {
+      $(this).removeClass('loading');
+    });
+
+    $('.js-spawn-workers').bind('ajax:beforeSend', function() {
+      $(this).addClass('loading');
+    });
+
+    $('.js-spawn-workers').bind('ajax:complete', function() {
+      $(this).removeClass('loading');
+    });
   });
 });

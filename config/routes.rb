@@ -37,6 +37,12 @@ Rails.application.routes.draw do
     resources :farmers, only: [:edit, :update]
     resources :notifications, only: [:index, :show]
 
+    post "seeds/jobs" => "seeds#spawn_jobs", as: :seed_jobs
+    post "seeds/workers" => "seeds#spawn_workers", as: :seed_workers
+    post "seeds/hire_workers/:job_id" => "seeds#hire", as: :hire_seed_workers
+    post "seeds/shortlist_workers/:job_id" => "seeds#shortlist", as: :shortlist_seed_workers
+    post "seeds/attract_workers/:job_id" => "seeds#attract", as: :attract_seed_workers
+
     get "jobs/:id/publish/confirm" => "jobs#publish_confirm", as: :publish_job_confirm
     post "jobs/:id/publish" => "jobs#publish", as: :publish_job
     get "jobs/published" => "jobs#published", as: :published_jobs
