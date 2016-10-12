@@ -1,5 +1,5 @@
 <% content_for :dashboard_header do %>
-  <%= render partial: "includes/dashboard/masthead", locals: {header: "Worker Management", icon: "users", description: "Manage the workers you want for this job", live_link: false } %>
+  <%= render partial: "includes/dashboard/masthead", locals: { header: "Worker Management", icon: "users", description: "Manage the workers you want for this job", live_link: false } %>
 <%end%>
 
 <%= link_to "Search for more Workers", search_workers_path, class: "ui teal button", target: "blank" %>

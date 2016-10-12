@@ -3,7 +3,7 @@ FactoryGirl.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     nationality { Faker::Address.country }
-    sequence(:email){ |n| "worker-email-#{n}@example.com" }
+    sequence(:email){ |n| "worker-email-#{SecureRandom.hex(3)}@example.com" }
     password "password"
 
     trait :with_job_categories do

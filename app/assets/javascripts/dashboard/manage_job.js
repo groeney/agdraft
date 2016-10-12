@@ -1,12 +1,12 @@
 $(document).on('turbolinks:load', function(){
   $('.jobs.manage').ready(function(){
     jobID = /^\/farmer\/jobs\/[0-9]*\/manage/.exec(window.location.pathname)[0].split("/")[3]
-    
+
     var JobWorker = Backbone.Model.extend({
       transition: function(event){
         var self = this;
         $.ajax({
-          url: Routes.job_worker_transition_path({job_worker_id: this.get("id"), transition: event}),
+          url: Routes.job_worker_transition_path({ job_worker_id: this.get("id"), transition: event }),
           method: "POST",
           success: function(data, status, jqXHR){
             self.set(data);

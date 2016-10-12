@@ -88,10 +88,10 @@ FactoryGirl.define do
   factory :farmer do
     first_name {  Faker::Name.first_name }
     last_name { Faker::Name.last_name }
-    sequence(:email){ |n| "farmer-email-#{n}@example.com" }
+    sequence(:email){ |n| "farmer-email-#{SecureRandom.hex(3)}@example.com" }
     password "password"
 
-    trait :with_locations do
+    trait :with_location do
       transient do
         location nil
       end

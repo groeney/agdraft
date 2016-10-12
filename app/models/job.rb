@@ -70,8 +70,9 @@ class Job < ActiveRecord::Base
   end
 
   def recommended_workers
+    invalid_worker_ids = JobWorker.where({ job_id: id }).pluck(:worker_id)
     Worker.recommend({ skills: skill_ids, job_categories: job_category_ids, locations: [location.id] },
-                     workers.pluck(:id))
+                     invalid_worker_ids)
   end
 
   def skill_ids

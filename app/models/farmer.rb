@@ -52,22 +52,10 @@ class Farmer < ActiveRecord::Base
   end
 
   def recommended_workers
-    Worker.recommend({ skills: skill_ids, job_categories: job_category_ids, locations: location_ids })
+    jobs.map{ |job| job.recommended_workers }.flatten.uniq
   end
 
   protected
-
-  def skill_ids
-    jobs.map { |j| j.skills.pluck(:id) }.flatten.uniq
-  end
-
-  def job_category_ids
-    jobs.map { |j| j.job_categories.pluck(:id) }.flatten.uniq
-  end
-
-  def location_ids
-    jobs.map { |j| j.location.id }.flatten.uniq
-  end
 
   def credit_cannot_be_negative
     errors.add(:credit, "cannot be a negative value") if credit.negative?

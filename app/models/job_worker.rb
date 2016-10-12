@@ -8,11 +8,11 @@ class JobWorker < ActiveRecord::Base
 
   aasm column: :state, whiny_transitions: false do
     state :new, initial: true
-    state :interested,   after_enter: :after_enter_interested_state
-    state :shortlisted,   after_enter: :after_enter_shortlisted_state
-    state :hired,   after_enter: :after_enter_hired_state
-    state :declined,   after_enter: :after_enter_declined_state
-    state :not_interested,   after_enter: :after_enter_not_interested_state
+    state :interested, after_enter: :after_enter_interested_state
+    state :shortlisted, after_enter: :after_enter_shortlisted_state
+    state :hired, after_enter: :after_enter_hired_state
+    state :declined, after_enter: :after_enter_declined_state
+    state :not_interested, after_enter: :after_enter_not_interested_state
 
     event :express_interest do
       transitions from: :new, to: :interested
