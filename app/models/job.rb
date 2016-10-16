@@ -15,6 +15,7 @@ class Job < ActiveRecord::Base
   scope :job_categories, -> (job_category_ids) { joins(:job_categories).where(job_categories: { id: job_category_ids }) }
   scope :skills, -> (skill_ids) { joins(:skills).where(skills: { id: skill_ids }) }
   scope :date_range, -> (start_date, end_date) { where("start_date >= ? AND end_date <= ?", start_date, end_date) }
+  scope :visibles, -> () { where(published: true) }
 
   accepts_nested_attributes_for :skills
 

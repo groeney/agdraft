@@ -26,6 +26,7 @@ class Worker < ActiveRecord::Base
   scope :skills, -> (skill_ids) { joins(:skills).where(skills: { id: skill_ids }) }
   scope :unavailability, -> (start_date, end_date) { where(id: Unavailability.in_range(start_date, end_date).pluck(:worker_id).uniq) }
   scope :availability, -> (start_date, end_date) { where.not(id: Worker.unavailability(start_date, end_date).pluck(:id) ) }
+  scope :visibles, -> () { where(verified: true) }
 
   validates_attachment_content_type :profile_photo, :content_type => /\Aimage\/.*\Z/
   validates_presence_of             :first_name

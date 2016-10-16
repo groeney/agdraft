@@ -9,21 +9,21 @@ RSpec.describe SearchController, type: :controller do
     let(:end_date) { 30.days.from_now }
     let!(:plain_workers) { FactoryGirl.create_list(:worker, 20) }
     let!(:unavailable_workers) { FactoryGirl.create_list(:worker, 20, :with_unavailabilities, start_date: start_date, end_date: end_date) }
-    let!(:allrounder_workers) { FactoryGirl.create_list(:worker, 20, :with_skills, :with_job_categories, :with_locations, skills: skill, job_categories: job_category, locations: location) }
+    let!(:allrounder_workers) { FactoryGirl.create_list(:worker, 20, :with_skills, :with_job_categories, :with_locations, skills: skill, job_categories: job_category, locations: location, verified: true) }
 
     context "no search filters set (initial search page load)" do
       it "should return correct number and correct Workers" do
         get :workers
-        expect(assigns(:workers).count).to eq Worker.all.count
-        Worker.find_each do |worker|
+        expect(assigns(:workers).count).to eq Worker.visibles.count
+        Worker.visibles.each do |worker|
           expect(assigns(:workers)).to include worker
         end
       end
 
       it "should return correct number and correct Workers" do
         get :workers, search: {}
-        expect(assigns(:workers).count).to eq Worker.all.count
-        Worker.find_each do |worker|
+        expect(assigns(:workers).count).to eq Worker.visibles.count
+        Worker.visibles.each do |worker|
           expect(assigns(:workers)).to include worker
         end
       end
@@ -59,21 +59,21 @@ RSpec.describe SearchController, type: :controller do
     let(:end_date) { 30.days.from_now }
 
     let!(:plain_jobs) { FactoryGirl.create_list(:job, 20) }
-    let!(:allrounder_jobs) { FactoryGirl.create_list(:job, 20, :with_skills, :with_job_categories, skills: skill, job_categories: job_category, location: location) }
+    let!(:allrounder_jobs) { FactoryGirl.create_list(:job, 20, :with_skills, :with_job_categories, skills: skill, job_categories: job_category, location: location, published: true) }
 
     context "no search filters set (initial search page load)" do
       it "should return correct number and correct Jobs" do
         get :jobs
-        expect(assigns(:jobs).count).to eq Job.all.count
-        Job.find_each do |job|
+        expect(assigns(:jobs).count).to eq Job.visibles.count
+        Job.visibles.each do |job|
           expect(assigns(:jobs)).to include job
         end
       end
 
       it "should return correct number and correct Jobs" do
         get :jobs, skills: {}
-        expect(assigns(:jobs).count).to eq Job.all.count
-        Job.find_each do |job|
+        expect(assigns(:jobs).count).to eq Job.visibles.count
+        Job.visibles.each do |job|
           expect(assigns(:jobs)).to include job
         end
       end
