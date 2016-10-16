@@ -13,6 +13,8 @@ class Farmer < ActiveRecord::Base
   has_many :jobs
   has_many :payment_audtis
   has_many :notifications, as: :resource, dependent: :destroy
+  has_many :reviews_of, as: :reviewee, dependent: :destroy
+  has_many :reviews_by, as: :reviewer, dependent: :destroy
   validates_attachment_content_type :profile_photo, :content_type => /\Aimage\/.*\Z/
   validates_presence_of :first_name, :last_name
   validate :credit_cannot_be_negative
@@ -40,7 +42,19 @@ class Farmer < ActiveRecord::Base
   end
 
   def jobs_for_worker(worker_id)
-    jobs.where(published: true).map{|j| {job: j, invited: !JobWorker.where(job_id: j.id, worker_id: worker_id).empty? } }
+    jobs.where(published: true).map{ |j| { job: j, invited: !JobWorker.where(job_id: j.id, worker_id: worker_id).empty? } }
+  end
+
+  def employees
+    Worker.where({ id: published_jobs.map{ |job| job.hired_job_workers.pluck(:worker_id) }.flatten })
+  end
+
+  def can_review(worker_id)
+    employees.where({ id: worker_id }).exists?
+  end
+
+  def has_reviewed_worker(worker_id)
+    reviews_by.where({ reviewee_id: worker_id, reviewee_type: "Worker" }).exists?
   end
 
   def full_name
@@ -53,6 +67,25 @@ class Farmer < ActiveRecord::Base
 
   def recommended_workers
     jobs.map{ |job| job.recommended_workers }.flatten.uniq
+  end
+
+  def published_jobs
+    jobs.where({ published: true })
+  end
+
+  def reviews
+    query = "(reviewee_type = :farmer_type and reviewee_id = :farmer_id) or (reviewer_type = :farmer_type and reviewer_id = :farmer_id)"
+    Review.where(query, farmer_id: id, farmer_type: "Farmer")
+  end
+
+  def reviews_by
+    query = "reviewer_type = :farmer_type and reviewer_id = :farmer_id"
+    Review.where(query, farmer_id: id, farmer_type: "Farmer")
+  end
+
+  def reviews_of
+    query = "reviewee_type = :farmer_type and reviewee_id = :farmer_id"
+    Review.where(query, farmer_id: id, farmer_type: "Farmer")
   end
 
   protected

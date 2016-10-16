@@ -1,3 +1,4 @@
+include ActionDispatch::TestProcess # For image upload helpers
 FactoryGirl.define do
   # For factory :job see spec/factories/job.rb
   # For factory :worker see spec/factories/worker.rb
@@ -5,6 +6,11 @@ FactoryGirl.define do
   factory :notification do
     header { Faker::Lorem.words(4).join(" ") }
     description { Faker::Lorem.sentence }
+  end
+
+  factory :review do
+    rating { rand(1..5) }
+    feedback { Faker::Lorem.paragraph }
   end
 
   factory :job_worker do
@@ -110,6 +116,22 @@ FactoryGirl.define do
     trait :with_notifications do
       after(:create) do |farmer|
         farmer.notifications << FactoryGirl.create_list(:notification, 5)
+      end
+    end
+
+    trait :with_reviews do
+      after(:create) do |farmer|
+        job = FactoryGirl.create(:job, farmer: farmer, published: true)
+        workers = FactoryGirl.create_list(:worker, 10)
+        workers.each do |worker|
+          job_worker = FactoryGirl.create(:job_worker, job_id: job.id, worker: worker)
+          job_worker.hire!
+          if rand(2) > 0
+            FactoryGirl.create(:review, reviewer: farmer, reviewee: worker)
+          else
+            FactoryGirl.create(:review, reviewer: worker, reviewee: farmer)
+          end
+        end
       end
     end
   end

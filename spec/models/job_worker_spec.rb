@@ -20,14 +20,15 @@ RSpec.describe JobWorker, type: :model do
         @job_worker = FactoryGirl.create(:job_worker, :new)
       end
 
+      it { expect(@job_worker).to_not allow_event(:hired) }
       it { expect(@job_worker).to allow_event(:express_interest) }
       it { expect(@job_worker).to allow_event(:shortlist) }
-      it { expect(@job_worker).to_not allow_event(:hired) }
       it { expect(@job_worker).to_not allow_event(:declined) }
       it { expect(@job_worker).to_not allow_event(:not_interested) }
 
       it { expect(@job_worker).to transition_from(:new).to(:interested).on_event(:express_interest) }
       it { expect(@job_worker).to transition_from(:new).to(:shortlisted).on_event(:shortlist) }
+      it { expect(@job_worker).to transition_from(:new).to(:hired).on_event(:hire) }
 
       it "triggers state submitted event on interested" do
         expect(@job_worker).to receive(:after_enter_interested_state)

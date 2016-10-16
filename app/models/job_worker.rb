@@ -27,6 +27,7 @@ class JobWorker < ActiveRecord::Base
     end
     event :decline do
       transitions from: :shortlisted, to: :declined
+      transitions from: :hired, to: :declined
     end
     event :no_interest do
       transitions from: :shortlisted, to: :not_interested

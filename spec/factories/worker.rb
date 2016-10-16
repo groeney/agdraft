@@ -87,5 +87,23 @@ FactoryGirl.define do
         worker.notifications << FactoryGirl.create_list(:notification, 5)
       end
     end
+
+    trait :with_reviews do
+      after(:create) do |worker|
+        farmers = FactoryGirl.create_list(:farmer, 10)
+        farmers.each do |farmer|
+          job = FactoryGirl.create(:job, farmer: farmer, published: true)
+          job_worker = FactoryGirl.create(:job_worker, job_id: job.id, worker: worker)
+          job_worker.hire!
+          worker.reload
+          if rand(2) > 0
+            FactoryGirl.create(:review, reviewer: farmer, reviewee: worker)
+          else
+            FactoryGirl.create(:review, reviewer: worker, reviewee: farmer)
+          end
+        end
+
+      end
+    end
   end
 end

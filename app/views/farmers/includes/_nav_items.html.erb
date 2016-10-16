@@ -20,6 +20,12 @@
     <%= link_to farmer_cover_photo_path, class: "#{@nav_item == "cover_photo" ? "active" : ""} item" do %>
       <i class="camera retro icon"></i>Cover Photo
     <% end %>
+    <%= link_to farmer_reviews_by_path, class: "#{@nav_item == "reviews_by" ? "active" : ""} item" do %>
+      <i class="announcement icon"></i>Reviews by you
+    <% end %>
+    <%= link_to farmer_reviews_of_path, class: "#{@nav_item == "reviews_of" ? "active" : ""} item" do %>
+      <i class="announcement icon"></i>Reviews of you
+    <% end %>
   </div>
 </div>
 <div class="item">

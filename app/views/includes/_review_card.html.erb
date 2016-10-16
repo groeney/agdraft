@@ -1,0 +1,14 @@
+<a class="ui card" href="<%= review.reviewee_path %>" target="_blank">
+  <div class="content">
+    <div class="right floated meta"><%= review.reviewee.full_name %></div>
+    <img class="ui avatar image" src="<%= review.reviewer.profile_photo %>">
+  </div>
+
+  <div class="content">
+    <div class="ui star rating" data-rating="<%= review.rating %>"></div>
+    <div class="header"><%= review.reviewer.full_name %> said:</div>
+    <div class="meta">
+      <span><%= review.feedback %></span>
+    </div>
+  </div>
+</a>

@@ -43,6 +43,11 @@ Rails.application.routes.draw do
     post "seeds/shortlist_workers/:job_id" => "seeds#shortlist", as: :shortlist_seed_workers
     post "seeds/attract_workers/:job_id" => "seeds#attract", as: :attract_seed_workers
 
+    get "worker_review/:worker_id" => "reviews#new", as: :new_worker_review
+    resources :reviews, only: [:create]
+    get "inbound_reviews" => "reviews#index_of", as: :reviews_of
+    get "outbound_reviews" => "reviews#index_by", as: :reviews_by
+
     get "jobs/:id/publish/confirm" => "jobs#publish_confirm", as: :publish_job_confirm
     post "jobs/:id/publish" => "jobs#publish", as: :publish_job
     get "jobs/published" => "jobs#published", as: :published_jobs
@@ -73,6 +78,11 @@ Rails.application.routes.draw do
     resources :certificates, only: [:new, :create, :destroy]
     resources :job_workers, only: [:index]
     resources :notifications, only: [:index, :show]
+
+    get "farmer_review/:farmer_id" => "reviews#new", as: :new_farmer_review
+    resources :reviews, only: [:create]
+    get "inbound_reviews" => "reviews#index_of", as: :reviews_of
+    get "outbound_reviews" => "reviews#index_by", as: :reviews_by
 
     scope "onboard", as: "onboard" do
       get "job_categories" => "onboard#job_categories"

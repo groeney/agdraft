@@ -79,6 +79,37 @@ class Worker < ActiveRecord::Base
                   job_workers.pluck(:job_id))
   end
 
+  def job_history
+    job_workers.where({ state: "hired" }).map{ |job_worker| job_worker.job }
+  end
+
+  def employers
+    Farmer.where({ id: job_history.map{ |job| job.farmer_id }.flatten })
+  end
+
+  def can_review(farmer_id)
+    employers.where({ id: farmer_id }).exists?
+  end
+
+  def has_reviewed_farmer(farmer_id)
+    reviews_by.where({ reviewee_id: farmer_id, reviewee_type: "Farmer" }).exists?
+  end
+
+  def reviews
+    query = "(reviewee_type = :worker_type and reviewee_id = :worker_id) or (reviewer_type = :worker_type and reviewer_id = :worker_id)"
+    Review.where(query, worker_id: id, worker_type: "Worker")
+  end
+
+  def reviews_by
+    query = "reviewer_type = :worker_type and reviewer_id = :worker_id"
+    Review.where(query, worker_id: id, worker_type: "Worker")
+  end
+
+  def reviews_of
+    query = "reviewee_type = :worker_type and reviewee_id = :worker_id"
+    Review.where(query, worker_id: id, worker_type: "Worker")
+  end
+
   protected
 
   def skill_ids

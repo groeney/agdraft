@@ -1,0 +1,9 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: { header: "Review", icon: "announcement", description: "Review for #{@farmer.full_name}", live_link: false } %>
+<% end %>
+
+<%= simple_form_for @review, url: worker_reviews_path do |f| %>
+  <%= f.error_notification %>
+  <%= render partial: "includes/review_form", locals: { f: f, reviewer_id: current_worker.id, reviewee_id: @farmer.id }%>
+  <%= f.submit "Save", class: "ui primary button" %>
+<% end %>

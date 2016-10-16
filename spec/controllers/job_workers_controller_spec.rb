@@ -14,7 +14,8 @@ RSpec.describe JobWorkersController, type: :controller do
           expect(response.status).to eq 200
           data = JSON.parse(response.body)
           expect(data.length).to eq 1
-          expect(data[0]).to eq JSON.parse(job_worker.to_json)
+          job_worker_serialized = JobWorkerSerializer.new job_worker
+          expect(data[0].symbolize_keys!).to eq job_worker_serialized.attributes
         end
       end
       context "with an invalid job_id" do

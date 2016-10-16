@@ -3,7 +3,7 @@ class Job < ActiveRecord::Base
 
   belongs_to :farmer
   belongs_to :location
-  has_and_belongs_to_many :workers, -> { uniq }
+  has_many :job_workers
   has_and_belongs_to_many :job_categories, -> { uniq }
   has_and_belongs_to_many :skills, -> { uniq }
   has_many :payment_audits
@@ -82,5 +82,9 @@ class Job < ActiveRecord::Base
 
   def job_category_ids
     job_categories.pluck(:id)
+  end
+
+  def hired_job_workers
+    job_workers.where({ state: "hired" })
   end
 end
