@@ -26,6 +26,10 @@ class Workers::PreviousEmployersController < Workers::BaseController
 
   protected
 
+  def nav_item
+    @nav_item = "previous_employer"
+  end
+
   def secure_params
     params.require(:previous_employer)
           .permit(:business_name, :contact_name, :contact_phone, :contact_email, :job_title, :job_description, :start_date, :end_date)

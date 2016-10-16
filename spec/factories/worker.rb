@@ -1,9 +1,11 @@
+include ActionDispatch::TestProcess # For image upload helpers
 FactoryGirl.define do
   factory :worker do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     nationality { Faker::Address.country }
     sequence(:email){ |n| "worker-email-#{SecureRandom.hex(3)}@example.com" }
+    profile_photo { fixture_file_upload(File.new(Dir["seed_assets/headshots/*"].sample), "image/jpg") }
     password "password"
 
     trait :with_job_categories do

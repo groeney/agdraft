@@ -32,8 +32,8 @@
         <h3><%%- full_name %></h3>
         <p>
           <i class="ui phone icon"></i><%%- mobile_number == null ? "Number Unavailable" : mobile_number %><br/>
-          <a class="js-view-email desktop-only" href="#" data-tooltip="<%%- email %>" onclick="event.preventDefault();">View Email Address</a>
-          <span class="mobile-only"><%%- email %></span>
+          <a href="mailto:<%%- email %>"><%%- email %></a><br/>
+          <a href="<%%- Routes.farmer_new_worker_review_path(worker_id) %>" target="_blank">Review worker</a>
         </p>
         <a href="<%%- Routes.worker_path(worker_id) %>" target="_blank">View Profile</a>
       </div>

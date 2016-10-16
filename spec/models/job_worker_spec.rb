@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe JobWorker, type: :model do
   context "associations" do
@@ -15,9 +15,9 @@ RSpec.describe JobWorker, type: :model do
   end
 
   context "state machine" do
-    context 'when state is new' do
+    context "when state is new" do
       before do
-        @job_worker = FactoryGirl.build(:job_worker, :new)
+        @job_worker = FactoryGirl.create(:job_worker, :new)
       end
 
       it { expect(@job_worker).to allow_event(:express_interest) }
@@ -43,13 +43,13 @@ RSpec.describe JobWorker, type: :model do
       before do
         @job_worker = FactoryGirl.build(:job_worker, :interested)
       end
-      
+
       it { expect(@job_worker).to allow_event(:shortlist) }
       it { expect(@job_worker).to_not allow_event(:express_interest) }
       it { expect(@job_worker).to_not allow_event(:hire) }
       it { expect(@job_worker).to_not allow_event(:decline) }
       it { expect(@job_worker).to_not allow_event(:no_interest) }
-      
+
       it "triggers state submitted event on shortlisted" do
         expect(@job_worker).to receive(:after_enter_shortlisted_state)
         @job_worker.shortlist
@@ -89,8 +89,8 @@ RSpec.describe JobWorker, type: :model do
       it { expect(@job_worker).to_not allow_event(:shortlist) }
       it { expect(@job_worker).to_not allow_event(:express_interest) }
       it { expect(@job_worker).to_not allow_event(:hire) }
-      it { expect(@job_worker).to_not allow_event(:decline) }
-      it { expect(@job_worker).to_not allow_event(:no_interest) }
+      it { expect(@job_worker).to allow_event(:decline) }
+      it { expect(@job_worker).to allow_event(:no_interest) }
     end
 
     context "when state is declined" do

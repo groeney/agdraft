@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
         render json: { error: "404 not-found" }.to_json, status: 404
       }
       format.html{
-        render :file => 'public/404.html', :status => :not_found, :layout => false
+        render :file => "public/404.html", status: :not_found, layout: false
       }
     end
   end
@@ -55,6 +55,9 @@ class ApplicationController < ActionController::Base
       format.json {
         render json: { error: message }.to_json, status: 401
       }
+      format.html{
+        render :file => "public/422.html", status: 401, layout: false
+      }
     end
   end
 
@@ -62,6 +65,9 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.json {
         render json: { error: "400 client sent a poorly formed request" }.to_json, status: 400
+      }
+      format.html{
+        render :file => "public/422.html", status: 400, layout: false
       }
     end
   end

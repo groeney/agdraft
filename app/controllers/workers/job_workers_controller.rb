@@ -1,6 +1,6 @@
 class Workers::JobWorkersController < Workers::BaseController
   def index
-    @job_workers = JobWorker.where(worker_id: current_worker.id)
+    @job_workers = current_worker.job_workers
   end
 
   protected
