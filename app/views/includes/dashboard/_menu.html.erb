@@ -1,0 +1,30 @@
+<div class="ui container">
+  <div class="ui right floated icon text menu">
+    <% if @unseen_notifications %>
+      <a class="item right aligned" data-tooltip="You have new notifications." data-inverted="" data-position="bottom center" href="<%= worker_notifications_path %>" style="color: black;">
+        <span class="ui empty mini floating circular blue notification label"></span>
+    <% else %>
+      <a class="item right aligned" href="<%= worker_notifications_path %>" style="color: black;">
+    <% end %>
+        <i class="bell icon"></i>
+      </a>
+    <%= link_to "Log Out", destroy_worker_session_path, method: :delete, class: "item right aligned" %>
+  </div>
+  <div class="ui text menu">
+    <div class="header item">
+      Dashboard
+    </div>
+    <a class="item">
+      Contact Us
+    </a>
+    <a class="item">
+      About us
+    </a>
+    <a class="item">
+      FAQ
+    </a>
+    <a class="item">
+      Blog
+    </a>
+  </div>
+</div>

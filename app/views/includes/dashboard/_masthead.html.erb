@@ -1,11 +1,19 @@
-<h1 class="ui header">
-  <i class="<%= icon %> icon"></i>
-  <div class="content">
-    <%= header %>
-    <div class="sub header"><%= description.html_safe %></div>
-  </div>
-</h1>
-<% if live_link %>
-  <% profile_path = profile_path ? profile_path : "#" %>
-  <%= link_to "View Your Profile", profile_path, class: "ui primary button", target: "_blank" %>
+<div class="page header">
+  <%= render partial: "includes/dashboard/menu" %>
+</div>
+<div class="ui hidden divider"></div>
+<div class="ui hidden divider"></div>
+
+<% if defined? header %>
+  <h1 class="ui header">
+    <i class="<%= icon %> icon"></i>
+    <div class="content">
+      <%= header %>
+      <div class="sub header"><%= description.html_safe %></div>
+    </div>
+  </h1>
+  <% if live_link %>
+    <% profile_path = profile_path ? profile_path : "#" %>
+    <%= link_to "View Your Profile", profile_path, class: "ui primary button", target: "_blank" %>
+  <% end %>
 <% end %>
