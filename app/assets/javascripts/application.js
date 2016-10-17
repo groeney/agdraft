@@ -18,3 +18,4 @@
 //= require global
 //= require_tree ./search
 //= require_tree ./pages
+//= require_tree ./farmers
