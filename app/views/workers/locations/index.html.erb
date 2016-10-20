@@ -1,5 +1,5 @@
 <% content_for :dashboard_header do %>
-  <%= render partial: "includes/dashboard/masthead", locals: {header: "Your Locations", icon: "marker", description: "These are locations you are willing to work at", live_link: false } %>
+  <%= render partial: "includes/dashboard/masthead", locals: { header: "Your Locations", icon: "marker", description: "These are locations you are willing to work at", live_link: false } %>
 <%end%>
 <div class="ui container">
   <% if @locations.empty? %>

@@ -6,7 +6,7 @@
       <div class="ui very padded segment basic">
         <div class="signup-content-block">
           <h1 class="ui center aligned inverted header">Connect with farming jobs today</h1>
-          <h4 class="ui center aligned inverted header">Setup your free worker profile today! You will be able to find paid work in a wide range of agricultural settings. Once you have listed your profile, you will be able to apply to jobs and farmers will be able to see you and invite to jobs they post as well.</h4>
+          <h4 class="ui center aligned inverted header">Setup your free worker profile today! You will be able to find paid work in a wide range of agricultural settings. Once you have listed your profile you will be able to apply to jobs.</h4>
         </div>
       </div>
     </div>
@@ -52,50 +52,42 @@
 
 <div class="ui stackable two column grid">
   <div class="ui teal column">
-    <div class="ui very padded segment basic">
+    <div class="ui very padded segment basic" style="margin-left:20px;">
       <i class="ui add user icon huge"></i>
       <h3>Build your workers profile today</h3>
       <p>Create an online profile showing off all your skills and experience to help you land the best farming jobs - for free.</p>
     </div>
   </div>
   <div class="ui teal column">
-    <div class="ui very padded segment basic">
+    <div class="ui very padded segment basic" style="margin-right:20px;">
       <i class="ui announcement icon huge"></i>
       <h3>Get alerted to jobs</h3>
       <p>Be the first to apply for jobs that match your skills and location when they are sent directly to your inbox – for free</p>
     </div>
   </div>
   <div class="ui teal column">
-    <div class="ui very padded segment basic">
+    <div class="ui very padded segment basic" style="margin-left:20px;">
       <i class="ui dollar icon huge"></i>
       <h3>Set your pay rate</h3>
       <p>Apply with your price on jobs that you choose and negiogate directly with farmers.</p>
     </div>
   </div>
   <div class="ui teal column">
-    <div class="ui very padded segment basic">
+    <div class="ui very padded segment basic" style="margin-right:20px;">
       <i class="ui compass icon huge"></i>
-      <h3>Search the best farming jobs</h3>
+      <h3>Find the best farming jobs</h3>
       <p>Our farmers are reviewed by other workers to ensure a good working experience.</p>
     </div>
   </div>
 </div>
-<div class="ui very padded segment basic">
-  <h1>Jobs listed that required these skills</h1>
-  <div class="ui label-list">
-    <% Skill.all.each do |skill| %>
-      <div class="ui huge label"><%= skill.title %></div>
-    <%end%>
-  </div>
-</div>
-<div class="ui very padded brown inverted segment basic no-margin">
+<div class="ui very padded teal inverted segment basic no-margin">
   <div class="ui stackable column grid">
-    <div class="ui ten wide column">
+    <div class="ui eight wide column" style="margin-left: 20px;">
       <h2>Stay up-to-date on our blog</h2>
       <h4>Get tips on how you can land more farming jobs.</h4>
     </div>
-    <div class="ui six wide column">
-      <%= link_to "Read Now", "http://blog.agdraft.com.au", class: "ui teal massive button" %>
+    <div class="ui six wide column" style="margin-left: 20px;">
+      <%= link_to "Read Now", "http://blog.agdraft.com.au", class: "ui primary massive button" %>
     </div>
   </div>
 </div>
