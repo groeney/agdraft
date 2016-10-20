@@ -66,7 +66,8 @@ class Farmer < ActiveRecord::Base
   end
 
   def recommended_workers
-    jobs.map{ |job| job.recommended_workers }.flatten.uniq
+    recommend = jobs.map{ |job| job.recommended_workers }.flatten.uniq
+    (recommend.any? ? recommend : Worker.all).sample 5
   end
 
   def published_jobs

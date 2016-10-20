@@ -5,8 +5,8 @@
 <%= simple_form_for @farmer,
   url: farmer_farmer_path,
   remote: true,
-  method: "put", html: {id: "edit_farmer"} do |f| %>
-  
+  method: "put", html: { id: "edit_farmer" } do |f| %>
+
   <%= f.input :business_name, label: "Busines/Property Name" %>
   <%= f.input :business_description %>
   <%= f.input :contact_name %>

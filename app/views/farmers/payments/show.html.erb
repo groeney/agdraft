@@ -49,6 +49,17 @@
   <input type="submit" class="ui submit primary button" value="Update Payment Information">
 </form>
 
+<div class="ui grid">
+  <div class="ui info message ten wide">
+    Payment information, is securely transmitted directly to Stripe's servers and is never stored on our database.
+
+    Stripe has been audited by a PCI-certified auditor and is certified to PCI Service Provider Level 1. This is the most stringent level of certification available in the payments industry.
+
+    We make use of best-in-class security tools and practices to maintain a high level of security. Keeping your information safe
+  </div>
+  <img src="assets/pci-logo-white.jpg">
+</div>
+
 <% content_for :javascripts do %>
   <script>
     window.stripe_publishable_key = "<%= @stripe_publishable_key %>";

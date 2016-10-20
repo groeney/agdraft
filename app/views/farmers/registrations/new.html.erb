@@ -32,16 +32,19 @@
                   <%= f.input :contact_number, required: true, autofocus: true %>
                 </div>
                 <div class="ui eight wide column">
-                  <%= f.input :farm_name, required: true, autofocus: true %>
+                  <%= f.input :business_name, required: true, autofocus: true %>
                 </div>
                 <div class="ui eight wide column">
-                  <%= f.input :locations, collection: Location.all.map{ |l| [l.label, l.id] }, input_html: { multiple: true, class: "ui fluid dropdown" }, prompt: "All Locations", required: true, selected: @filter_params.try(:[], :locations) %>
+                  <%= f.input :location_id, label: "Location", collection: Location.all.map{ |l| [l.label, l.id] }, input_html: { multiple: false, class: "ui fluid dropdown" }, prompt: "Select a location", required: true, selected: @filter_params.try(:[], :locations) %>
                 </div>
                 <div class="ui eight wide column">
                   <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
                 </div>
                 <div class="ui eight wide column">
                   <%= f.input :referred_by_token, autofocus: true %>
+                </div>
+                <div class="ui sixteen wide column">
+                  <%= f.input :business_description, autofocus: true %>
                 </div>
               </div>
             </div>
@@ -84,14 +87,6 @@
       <h3>Save time</h3>
       <p>Once you post a jobs interested workers will come to you. You will receive notification of by email to review only the most suited and recommended workers.</p>
     </div>
-  </div>
-</div>
-<div class="ui very padded segment basic">
-  <h1>Workers Available with these skills</h1>
-  <div class="ui label-list">
-    <% Skill.all.each do |skill| %>
-      <div class="ui huge label"><%= skill.title %></div>
-    <%end%>
   </div>
 </div>
 <div class="ui very padded brown inverted segment basic no-margin">

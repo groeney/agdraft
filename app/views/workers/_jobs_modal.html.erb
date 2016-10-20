@@ -10,7 +10,7 @@
       <% @jobs.each do |j| %>
         <div class="ui aligned center column">
           <h3><%= j[:job].title %></h3>
-          <button class="ui primary button <%= 'disabled' if j[:invited] %> js-invite-worker" data-id="<%= j[:job].id %>">Invite</button>
+          <button class="ui primary button <%= 'disabled' if j[:invited] %> js-invite-worker" data-id="<%= j[:job].id %>"><%= j[:invited] ? 'Invited' : 'Invite' %></button>
         </div>
       <%end%>
     <%end%>

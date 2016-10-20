@@ -1,7 +1,7 @@
 <%= render partial: "search/search_resource_form", locals: { search_resource_path: search_workers_path, resource_name: "worker" } %>
 
 <div class="ui visible message">
-  <p>Displaying <%= @workers.count %> of <%= Worker.all.count %> workers</p>
+  <p>Displaying <%= @workers.count %> of <%= Worker.visibles.count %> workers</p>
 </div>
 
 <div class="ui cards">
