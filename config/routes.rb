@@ -72,6 +72,8 @@ Rails.application.routes.draw do
     resources :job_categories, only: [:index, :create, :destroy]
     resources :skills, only: [:index, :create, :destroy]
     resources :locations, only: [:index, :new, :create, :destroy]
+    put "locations/select_all" => "locations#select_all", as: :select_all_locations
+    put "locations/reset" => "locations#reset", as: :reset_locations
     resources :previous_employers, only: [:new, :index, :create, :destroy]
     resources :qualifications, only: [:index]
     resources :educations, only: [:new, :create, :destroy]

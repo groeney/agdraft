@@ -22,6 +22,18 @@ class Workers::LocationsController < Workers::BaseController
     end
   end
 
+  def select_all
+    Location.find_each do |location|
+      current_worker.locations << location
+    end
+    render_201
+  end
+
+  def reset
+    current_worker.locations.destroy_all
+    render_201
+  end
+
   protected
 
   def nav_item
