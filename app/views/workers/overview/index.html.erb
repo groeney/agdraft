@@ -6,12 +6,12 @@
   <div class="ui five wide column">
     <h3>Profile</h3>
     <p>Complete your profile so employers know more about you</p>
-    <div class="ui progress yellow" data-percent="33" id="progress">
+    <a class="ui progress yellow" data-percent="<%= current_worker.profile_completeness %>" id="progress" href="<%= worker_extra_details_path %>">
       <div class="bar">
         <div class="progress"></div>
       </div>
-      <div class="label">Only 33% complete. Keep going!</div>
-    </div>
+      <div class="label">Only <%= current_worker.profile_completeness %>% complete. Click to add more details.</div>
+    </a>
   </div>
   <div class="ui seven wide column">
     <h3>Jobs</h3>
@@ -20,9 +20,9 @@
 </div>
 <div class="ui hidden divider"></div>
 <h2>Opportunities for People like you</h2>
-<a class="ui primary icon button" href="<%= search_workers_path %>" target="_blank">
+<a class="ui primary icon button" href="<%= search_jobs_path %>" target="_blank">
   <i class="search icon"></i>
-  Find other jobs
+  Find more jobs
 </a>
 <div class="ui hidden divider"></div>
 <div class="ui cards">

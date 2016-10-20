@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017120226) do
+ActiveRecord::Schema.define(version: 20161020092456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -465,6 +465,10 @@ ActiveRecord::Schema.define(version: 20161017120226) do
     t.integer  "invitations_count",                     default: 0
     t.string   "description",                           default: ""
     t.string   "authentication_token",       limit: 30
+    t.string   "passport_number"
+    t.string   "abn"
+    t.boolean  "has_own_accommodation",                 default: false
+    t.boolean  "grew_up_on_farm",                       default: false
   end
 
   add_index "workers", ["authentication_token"], name: "index_workers_on_authentication_token", unique: true, using: :btree

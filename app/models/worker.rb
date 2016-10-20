@@ -110,6 +110,13 @@ class Worker < ActiveRecord::Base
     Review.where(query, worker_id: id, worker_type: "Worker")
   end
 
+  def profile_completeness
+    attrs = slice :has_own_transport, :tax_file_number, :mobile_number,
+                  :nationality, :dob, :description, :passport_number, :abn,
+                  :grew_up_on_farm, :has_own_accommodation
+    rand(30..100)
+  end
+
   protected
 
   def skill_ids

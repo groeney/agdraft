@@ -17,6 +17,9 @@ class Workers::ExtraDetailsController < Workers::BaseController
   end
 
   def secure_params
-    params.require(:worker).permit(:tax_file_number, :has_own_transport, :mobile_number, :nationality, :dob)
+    params.require(:worker).permit(:has_own_transport, :tax_file_number, :dob,
+                                   :abn, :mobile_number, :nationality,
+                                  :description, :passport_number,
+                                  :grew_up_on_farm, :has_own_accommodation)
   end
 end
