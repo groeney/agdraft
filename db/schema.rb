@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020092456) do
+ActiveRecord::Schema.define(version: 20161025052144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -243,6 +243,7 @@ ActiveRecord::Schema.define(version: 20161020092456) do
     t.string   "stripe_customer_id"
     t.boolean  "stripe_delinquent"
     t.integer  "credit",                                default: 0
+    t.string   "authentication_token",       limit: 30
     t.boolean  "migrated",                              default: false
     t.string   "invitation_token"
     t.datetime "invitation_created_at"
@@ -252,7 +253,6 @@ ActiveRecord::Schema.define(version: 20161020092456) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",                     default: 0
-    t.string   "authentication_token",       limit: 30
     t.string   "farm_name"
   end
 
@@ -266,8 +266,9 @@ ActiveRecord::Schema.define(version: 20161020092456) do
 
   create_table "job_categories", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.boolean  "archived",           default: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -406,8 +407,9 @@ ActiveRecord::Schema.define(version: 20161020092456) do
 
   create_table "skills", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "archived",   default: false
   end
 
   create_table "skills_workers", id: false, force: :cascade do |t|
@@ -454,6 +456,8 @@ ActiveRecord::Schema.define(version: 20161020092456) do
     t.datetime "profile_photo_updated_at"
     t.date     "dob"
     t.boolean  "verified",                              default: false
+    t.string   "authentication_token",       limit: 30
+    t.string   "description",                           default: ""
     t.boolean  "migrated",                              default: false
     t.string   "invitation_token"
     t.datetime "invitation_created_at"
@@ -463,12 +467,13 @@ ActiveRecord::Schema.define(version: 20161020092456) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",                     default: 0
-    t.string   "description",                           default: ""
-    t.string   "authentication_token",       limit: 30
     t.string   "passport_number"
     t.string   "abn"
     t.boolean  "has_own_accommodation",                 default: false
     t.boolean  "grew_up_on_farm",                       default: false
+    t.boolean  "hidden",                                default: false
+    t.string   "visa"
+    t.string   "visa_number"
   end
 
   add_index "workers", ["authentication_token"], name: "index_workers_on_authentication_token", unique: true, using: :btree

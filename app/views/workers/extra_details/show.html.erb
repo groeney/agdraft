@@ -14,6 +14,9 @@
   <br>
   <%= f.country_select :nationality, { include_blank: "Nationality" }, { class: "ui dropdown" } %>
   <div class="ui hidden divider"></div>
+  <%= f.input :visa, collection: ["Australian Citizen", "Australian Permanent Resident", "Working Holiday Visa", "Tourist Visa", "Other", "None"], input_html: {class: "ui fluid dropdown"}, prompt: "Select Visa Type", selected: @worker.visa %>
+  <%= f.input :visa_number, label: "Visa Number" %>
+  <div class="ui hidden divider"></div>
   <div class="field">
     <label>Date of birth</label>
     <div class="ui calendar range-end">
@@ -24,6 +27,7 @@
     </div>
     <%= f.error :end_date %>
   </div>
+
   <%= f.input :tax_file_number, label: "TFN" %>
   <%= f.input :abn, label: "ABN" %>
   <%= f.input :passport_number %>
