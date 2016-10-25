@@ -11,6 +11,14 @@
         <%= @job.location.label %>
       </div>
       <div class="ui eight wide column">
+        <h4>Business Name</h4>
+        <%= @job.farmer.business_name %>
+      </div>
+      <div class="ui eight wide column">
+        <h4>Business Description</h4>
+        <%= @job.farmer.business_description %>
+      </div>
+      <div class="ui eight wide column">
         <h4>Job Types</h4>
         <% @job.job_categories.each do |jc| %>
           <div class="ui label">
@@ -27,7 +35,7 @@
         <%end%>
       </div>
       <div class="ui eight wide column">
-        <h4>Description</h4> 
+        <h4>Job Description</h4> 
         <%= @job.description %>
       </div>
       <div class="ui eight wide column">
