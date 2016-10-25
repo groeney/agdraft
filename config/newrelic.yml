@@ -10,7 +10,7 @@
 
 common: &default_settings
   # Required license key associated with your New Relic account.
-  license_key: c1a44ee81ad41f5344acf89488b6f08ad8ef67c7
+  license_key: <%= ENV["NEW_RELIC_LICENSE_KEY"] %>
 
   # Your application name. Renaming here affects where data displays in New
   # Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
@@ -45,3 +45,4 @@ staging:
 
 production:
   <<: *default_settings
+  app_name: AgDraft (Production)
