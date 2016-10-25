@@ -1,6 +1,6 @@
 <div class="ui container">
   <div class="ui right floated icon text menu">
-    <% if current_farmer.credit > 0 %>
+    <% if current_farmer && current_farmer.credit > 0 %>
       <h4 class="item aligned right">Credit: $<%= current_farmer.credit %></h4>
     <%end%>
     <% if @unseen_notifications %>
