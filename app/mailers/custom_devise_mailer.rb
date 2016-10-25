@@ -5,8 +5,8 @@ class CustomDeviseMailer < Devise::Mailer
 
   # Overrides same inside Devise::Mailer
   def confirmation_instructions(record, token, opts={})
-    EmailService.new.send_email(Rails.application.config.smart_email_ids[:farmer_signup], record.email, {full_name: record.full_name}) if record.is_a? Farmer
-    EmailService.new.send_email(Rails.application.config.smart_email_ids[:worker_signup], record.email, {full_name: record.full_name}) if record.is_a? Worker
+    EmailService.new.send_email(Rails.application.config.smart_email_ids[:farmer_signup], record.email, {full_name: record.full_name, confirmation_url: confirmation_url(record, confirmation_token: token)}) if record.is_a? Farmer
+    EmailService.new.send_email(Rails.application.config.smart_email_ids[:worker_signup], record.email, {full_name: record.full_name, confirmation_url: confirmation_url(record, confirmation_token: token)}) if record.is_a? Worker
   end
 
   # Overrides same inside Devise::Mailer

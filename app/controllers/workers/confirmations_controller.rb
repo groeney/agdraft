@@ -1,6 +1,7 @@
 class Workers::ConfirmationsController < Devise::ConfirmationsController
+  layout 'application'
   private
   def after_confirmation_path_for(resource_name, resource)
-    worker_dashboard_path
+    root_path
   end
 end
