@@ -20,6 +20,6 @@ class Workers::ExtraDetailsController < Workers::BaseController
     params.require(:worker).permit(:has_own_transport, :tax_file_number, :dob,
                                    :abn, :mobile_number, :nationality,
                                   :description, :passport_number,
-                                  :grew_up_on_farm, :has_own_accommodation)
+                                  :grew_up_on_farm, :has_own_accommodation, :hidden)
   end
 end

@@ -47,5 +47,12 @@ RSpec.describe Workers::ExtraDetailsController, type: :controller do
       worker.reload
       expect(worker.first_name).not_to eq(new_first_name)
     end
+
+    it "should update hidden" do
+      expect(worker.hidden).to eq false
+      put :update, worker: { hidden: true }, format: :json
+      worker.reload
+      expect(worker.hidden).to eq true
+    end
   end
 end
