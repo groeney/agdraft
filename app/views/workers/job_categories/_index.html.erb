@@ -1,10 +1,8 @@
-<div class="ui basic padded segment">
-  <div class="ui cards">
-    <% @selected_job_categories.each do |job_category| %>
-      <%= render "workers/job_categories/card", job_category: job_category, selected: true %>
-    <% end %>
-    <% @eligible_job_categories.each do |job_category| %>
-      <%= render "workers/job_categories/card", job_category: job_category, selected: false %>
-    <% end %>
-  </div>
+<div class="ui cards">
+  <% @selected_job_categories.each do |job_category| %>
+    <%= render "workers/job_categories/card", job_category: job_category, selected: true %>
+  <% end %>
+  <% @eligible_job_categories.each do |job_category| %>
+    <%= render "workers/job_categories/card", job_category: job_category, selected: false %>
+  <% end %>
 </div>

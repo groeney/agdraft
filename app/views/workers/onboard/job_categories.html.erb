@@ -1,3 +1,40 @@
-<h2 class="ui header center aligned">2 more steps! Choose the jobs that you are qualified for</h2>
-<%= render "workers/job_categories/index" %>
-<%= render "workers/shared/onboard_links" %>
+<div class="ui grid">
+  <div class="ui column twelve wide">
+    <h3 class="ui header" style="margin-bottom:7%;margin-top:2%;">
+      <span style="color:#00b5ad;">1 last step!</span>
+      Choose the jobs you qualify for and the skills you have.
+    </h3>
+    <%= render "workers/job_categories/index" %>
+    <span style="display:block;padding:5%;">
+      <%= link_to worker_dashboard_path, { class: "ui basic button", style: "width:45%;" } do %>
+        Skip for now
+      <% end %>
+
+      <!-- Extract into view helpers -->
+      <%= link_to worker_dashboard_path, { class: "ui teal button", style: "width:45%;" } do %>
+        Done
+      <% end %>
+    </span>
+  </div>
+  <div class="ui column four wide" style="padding-left:0px;">
+    <h3 class="ui header" style="margin-top:6%;">Summary</h3>
+    <div class="ui middle aligned relaxed divided list" style="margin-top:18%;">
+    <% JobCategory.find_each do |job_category| %>
+      <% display_job_category = current_worker.job_categories.pluck(:id).include?(job_category.id) ? 'block' : 'none' %>
+      <div class="item" style="display:<%= display_job_category %>" data-job-category-id="<%= job_category.id %>">
+        <div class="content">
+          <span class="header">
+            <%= job_category.title %>
+          </span>
+          <% job_category.skills.each do |skill| %>
+            <% display_skill = current_worker.skills.pluck(:id).include?(skill.id) ? 'inline-block' : 'none' %>
+            <div class="ui label" style="display:<%= display_skill %>" data-skill-id="<%= skill.id %>">
+              <%= skill.title %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>

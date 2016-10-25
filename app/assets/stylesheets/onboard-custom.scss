@@ -1,0 +1,39 @@
+.ui.cards {
+  .job-category {
+    margin:5px;
+    cursor:auto;
+    position:relative;
+    background-color: transparent;
+    max-height:265px;
+    max-width:265px;
+    overflow: hidden;
+    img {
+      opacity: 1;
+    }
+
+    .ui.label {
+      cursor:pointer;
+      position:absolute;
+      top:100px;
+      background:transparent;
+      border:2px solid white;
+      h3 {
+        color:white;
+      }
+    }
+  }
+
+  .job-category.selected {
+    background-color: #00b5ad;
+    img {
+      opacity: 0.5;
+    }
+    .ui.label {
+      background: none #FFFFFF;
+      border: 2px solid rgba(34, 36, 38, 0.15);
+      h3 {
+        color:#00b5ad;
+      }
+    }
+  }
+}
