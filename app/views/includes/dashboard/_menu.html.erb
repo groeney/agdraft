@@ -1,5 +1,8 @@
 <div class="ui container">
   <div class="ui right floated icon text menu">
+    <% if current_farmer.credit > 0 %>
+      <h4 class="item aligned right">Credit: $<%= current_farmer.credit %></h4>
+    <%end%>
     <% if @unseen_notifications %>
       <a class="item right aligned" data-tooltip="You have new notifications." data-inverted="" data-position="bottom center" href="<%= current_farmer ? farmer_notifications_path : worker_notifications_path %>" style="color: black;">
         <span class="ui empty mini floating circular blue notification label"></span>
