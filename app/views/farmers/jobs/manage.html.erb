@@ -53,6 +53,7 @@
         <%%}else{%>
           <%% display = {not_interested: {color: "blue", icon: "remove user", text: "Uninterested"}, hired: {color: "green", icon: "checkmark box", text: "Hired"}, declined: {color: "red", icon: "thumbs down", text: "Rejected"}} %>
           <h3 class="ui <%%- display[state].color %> header"><i class="ui <%%- display[state].icon %> icon"></i><%%- display[state].text %></h3>
+          <a href="#" class="js-undo-state" data-confirm="Are you sure? Continuing will result in sending the worker an e-mail">Undo</a>
         <%%}%>
       </div>
     </div>

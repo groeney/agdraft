@@ -33,6 +33,12 @@ class JobWorker < ActiveRecord::Base
       transitions from: :shortlisted, to: :not_interested
       transitions from: :hired, to: :not_interested
     end
+
+    event :undo do
+      transitions from: :not_interested, to: :shortlisted
+      transitions from: :hired, to: :shortlisted
+      transitions from: :declined, to: :shortlisted
+    end
   end
 
   def after_enter_interested_state
@@ -60,8 +66,8 @@ class JobWorker < ActiveRecord::Base
     Notification.create(resource: job.farmer,
                         action_path: worker_path(worker.id),
                         thumbnail: worker.profile_photo,
-                        header: "You have been hired!",
-                        description: "#{job.farmer.full_name} has hired you."
+                        header: "You have been shortlisted!",
+                        description: "#{job.farmer.full_name} has shortlisted you for a job"
                         )
   end
   def after_enter_hired_state

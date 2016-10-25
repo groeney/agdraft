@@ -49,7 +49,8 @@ $(document).on('turbolinks:load', function(){
     var ShortlistWorker = Mn.View.extend({
       template: "#js-shortlist-worker",
       events: {
-        "click .state-transition": "transition"
+        "click .state-transition": "transition",
+        "click .js-undo-state": "undo"
       },
       className: "sixteen wide column",
       transition: function(e){
@@ -57,6 +58,10 @@ $(document).on('turbolinks:load', function(){
         if(transition != ""){
           this.model.transition(transition);
         }
+      },
+      undo: function(e){
+        e.preventDefault();
+        this.model.transition("undo");
       }
     });
 
