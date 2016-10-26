@@ -63,9 +63,9 @@ class JobWorker < ActiveRecord::Base
         not_interested_url: Rails.application.routes.url_helpers.worker_not_interested_url(id) + token_signin(worker)
       }
     )
-    Notification.create(resource: job.farmer,
-                        action_path: worker_path(worker.id),
-                        thumbnail: worker.profile_photo,
+    Notification.create(resource: worker,
+                        action_path: job_path(job.id),
+                        thumbnail: job.farmer.profile_photo,
                         header: "You have been shortlisted!",
                         description: "#{job.farmer.full_name} has shortlisted you for a job"
                         )
