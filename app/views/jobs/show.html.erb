@@ -7,7 +7,7 @@
         <%= @job.title %>
       </div>
       <div class="ui eight wide column">
-        <h4>Location</h4> 
+        <h4>Location</h4>
         <%= @job.location.label %>
       </div>
       <div class="ui eight wide column">
@@ -35,29 +35,34 @@
         <%end%>
       </div>
       <div class="ui eight wide column">
-        <h4>Job Description</h4> 
+        <h4>Job Description</h4>
         <%= @job.description %>
       </div>
       <div class="ui eight wide column">
-        <h4>Accomodation Provided</h4> 
+        <h4>Accomodation Provided</h4>
         <%= @job.accomodation_provided ? "Yes" : "No" %>
       </div>
       <div class="ui eight wide column">
-        <h4>Pay Rate</h4> 
+        <h4>Pay Rate</h4>
         $<%= @job.pay_min %>-<%= @job.pay_max %>/hr
       </div>
       <div class="ui eight wide column">
-        <h4>Date</h4> 
+        <h4>Date</h4>
         <%= @job.start_date_label %> - <%= @job.end_date_label %>
       </div>
       <div class="ui eight wide column">
-        <h4>Number of Workers Needed</h4> 
+        <h4>Number of Workers Needed</h4>
         <%= @job.number_of_workers %>
       </div>
       <div class="ui eight wide column">
-        <h4>Farmer</h4> 
+        <h4>Farmer</h4>
         <%= link_to @job.farmer.full_name, farmer_path(@job.farmer.id) %><br/>
         <div class="ui huge star rating" data-rating="<%= @job.farmer.rating %>" data-max-rating="5"></div>
+      </div>
+      <div class="ui eight wide column">
+        <h4>Views</h4>
+        <% user_count = @job.impressionist_count(filter: [:user_id]) %>
+        <p><%= [pluralize(user_count, "user"), "has".pluralize(user_count)].join(" ") %> viewed this job.</p>
       </div>
     </div>
     <div class="ui divider hidden"></div>

@@ -1,4 +1,5 @@
 class JobsController < ApplicationController
+  impressionist
   layout "hero"
   def show
     @job = Job.find(params[:id])

@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
     render_400
   end
 
+  def current_user
+    current_worker || current_farmer || current_admin
+  end
+
   protected
 
   def devise_parameter_sanitizer

@@ -43,6 +43,7 @@ gem "devise_invitable"
 gem "active_model_serializers", "~> 0.10.0.rc3"
 gem "createsend"
 gem "simple_token_authentication", "~> 1.0"
+gem "impressionist"
 
 #allow seeding data in staging and dev
 group :development, :test, :staging do

@@ -1,5 +1,6 @@
 class Job < ActiveRecord::Base
   include Recommendable, Filterable
+  is_impressionable
 
   belongs_to :farmer
   belongs_to :location
