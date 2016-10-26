@@ -48,16 +48,20 @@
   <button id="cancel" class="ui primary button basic">Cancel</button>
   <input type="submit" class="ui submit primary button" value="Update Payment Information">
 </form>
-
+<div class="ui hidden divider"></div>
 <div class="ui grid">
-  <div class="ui info message ten wide">
-    Payment information, is securely transmitted directly to Stripe's servers and is never stored on our database.
+  <div class="ui column twelve wide">
+    <div class="ui info message">
+      Payment information, is securely transmitted directly to Stripe's servers and is never stored on our database.
 
-    Stripe has been audited by a PCI-certified auditor and is certified to PCI Service Provider Level 1. This is the most stringent level of certification available in the payments industry.
+      Stripe has been audited by a PCI-certified auditor and is certified to PCI Service Provider Level 1. This is the most stringent level of certification available in the payments industry.
 
-    We make use of best-in-class security tools and practices to maintain a high level of security. Keeping your information safe
+      We make use of best-in-class security tools and practices to maintain a high level of security. Keeping your information safe
+    </div>
   </div>
-  <img src="assets/pci-logo-white.jpg">
+  <div class="ui column four wide">
+    <img class="ui tiny image" src="/assets/PCI-logo.png">
+  </div>
 </div>
 
 <% content_for :javascripts do %>
