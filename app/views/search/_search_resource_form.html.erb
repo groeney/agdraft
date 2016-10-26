@@ -20,7 +20,7 @@
         <div class="ui calendar range-start">
           <div class="ui input left icon">
             <i class="calendar icon"></i>
-            <%= f.input_field :start_date, as: "string", placeholder: "Start", value: @filter_params.try(:[], :start_date) %>
+            <%= f.input_field :start_date, as: "string", required: false, placeholder: "Start", value: @filter_params.try(:[], :start_date) %>
           </div>
         </div>
         <%= f.error :start_date %>
@@ -33,7 +33,7 @@
         <div class="ui calendar range-end">
           <div class="ui input left icon">
             <i class="calendar icon"></i>
-            <%= f.input_field :end_date, as: "string", placeholder: "End", value: @filter_params.try(:[], :end_date) %>
+            <%= f.input_field :end_date, as: "string", required: false, placeholder: "End", value: @filter_params.try(:[], :end_date) %>
           </div>
         </div>
         <%= f.error :end_date %>
