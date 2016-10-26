@@ -82,6 +82,14 @@ class Worker < ActiveRecord::Base
     job_workers.where({ state: "hired" }).map{ |job_worker| job_worker.job }
   end
 
+  def job_offers
+    job_workers.where({ state: ["hired", "shortlisted"] }).map{ |job_worker| job_worker.job }
+  end
+
+  def job_applications
+    job_workers.where({ state: ["interested"] }).map{ |job_worker| job_worker.job }
+  end
+
   def employers
     Farmer.where({ id: job_history.map{ |job| job.farmer_id }.flatten })
   end
