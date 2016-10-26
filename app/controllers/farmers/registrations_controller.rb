@@ -11,7 +11,7 @@ class Farmers::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  # cannot specify two different 'layout' options at the top of the controller 
+  # cannot specify two different 'layout' options at the top of the controller
   # hence needing to use this method to determine appropriate layout
   def determine_layout
     case action_name

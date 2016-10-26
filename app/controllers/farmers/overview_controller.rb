@@ -2,7 +2,7 @@ class Farmers::OverviewController < Farmers::BaseController
   def index
     @recommended_workers = current_farmer.recommended_workers
     @unseen_notifications = current_farmer.notifications.where({ unseen: true }).exists?
-    @notifications = current_farmer.notifications.where({ unseen: true })
+    @notifications = current_farmer.notifications.where({ unseen: true }).reverse
   end
 
   protected

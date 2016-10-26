@@ -119,6 +119,14 @@ class JobWorker < ActiveRecord::Base
         search_workers_url: Rails.application.routes.url_helpers.search_workers_url
       }
     )
+
+    Notification.create(resource: job.farmer,
+                        action_path: worker_path(worker.id),
+                        thumbnail: job.farmer.profile_photo,
+                        header: "Job declined",
+                        description: "#{worker.full_name} is not interested in your #{job.title} job."
+                        )
+
   end
 
   def include_worker_hash

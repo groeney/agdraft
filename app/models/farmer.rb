@@ -1,4 +1,5 @@
 class Farmer < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
   acts_as_token_authenticatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -19,7 +20,62 @@ class Farmer < ActiveRecord::Base
   validates_presence_of :first_name, :last_name
   validate :credit_cannot_be_negative
 
+  after_create :notify_referrer, :signup_notifications
+  after_update :send_notification_after_change
+
   attr_accessor :referred_by_token
+
+  def notify_referrer
+    if referral_user
+      Notification.create(resource: referral_user,
+                          action_path: worker_path(id),
+                          thumbnail: profile_photo,
+                          header: "Kudos! #{full_name} used your referral token to sign up.",
+                          description: "Thank you for referring your friend."
+                          )
+    end
+  end
+
+  def send_notification_after_change
+    if self.credit_changed?
+      Notification.create(resource: self,
+                          action_path: farmer_dashboard_path,
+                          thumbnail: profile_photo,
+                          header: "Credits added!",
+                          description: "You now have #{self.credit} credits on your account."
+                          )
+    end
+  end
+
+  def signup_notifications
+    Notification.create(resource: self,
+                        action_path: edit_farmer_farmer_path(self.id),
+                        thumbnail: profile_photo,
+                        header: "Action step: farm details",
+                        description: "Increase your chances of attracting workers by adding details about your farm."
+                        )
+
+    Notification.create(resource: self,
+                        action_path: farmer_profile_photo_path,
+                        thumbnail: profile_photo,
+                        header: "Action step: profile photo",
+                        description: "Increase your chances of attracting workers by adding a profile photo."
+                        )
+
+    Notification.create(resource: self,
+                        action_path: farmer_cover_photo_path,
+                        thumbnail: profile_photo,
+                        header: "Action step: cover photo",
+                        description: "Increase your chances of attracting workers by adding a cover photo."
+                        )
+
+    Notification.create(resource: self,
+                        action_path: farmer_jobs_path,
+                        thumbnail: profile_photo,
+                        header: "Action step: post a job",
+                        description: "Post a job to attract workers to you farm!"
+                        )
+  end
 
   def update_stripe_customer_source(token)
     begin

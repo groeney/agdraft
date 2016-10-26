@@ -1,7 +1,6 @@
 class Worker < ActiveRecord::Base
-  include Recommendable, Filterable
+  include Recommendable, Filterable, Rails.application.routes.url_helpers
   acts_as_token_authenticatable
-  include Filterable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
@@ -32,8 +31,57 @@ class Worker < ActiveRecord::Base
   validates_presence_of             :first_name
 
   before_create :ensure_referral_token, :set_referral_user
+  after_create :notify_referrer, :signup_notifications
 
   attr_accessor :referred_by_token
+
+  def notify_referrer
+    if referral_user
+      Notification.create(resource: referral_user,
+                          action_path: worker_path(id),
+                          thumbnail: profile_photo,
+                          header: "Kudos! #{full_name} used your referral token to sign up.",
+                          description: "Thank you for referring your friend."
+                          )
+    end
+  end
+
+  def signup_notifications
+    Notification.create(resource: self,
+                        action_path: worker_previous_employers_path,
+                        thumbnail: profile_photo,
+                        header: "Action step: previous employer",
+                        description: "Add a previous employer so we can verify your account!"
+                        )
+
+    Notification.create(resource: self,
+                        action_path: worker_profile_photo_path,
+                        thumbnail: profile_photo,
+                        header: "Action step: profile photo",
+                        description: "Increase your chances of finding work by adding a profile photo."
+                        )
+
+    Notification.create(resource: self,
+                        action_path: worker_locations_path,
+                        thumbnail: profile_photo,
+                        header: "Action step: locations",
+                        description: "Increase your chances of finding work by selecting some work locations."
+                        )
+
+    Notification.create(resource: self,
+                        action_path: worker_qualifications_path,
+                        thumbnail: profile_photo,
+                        header: "Action step: qualifications",
+                        description: "Increase your chances of finding work by adding your qualifications."
+                        )
+
+    Notification.create(resource: self,
+                        action_path: worker_extra_details_path,
+                        thumbnail: profile_photo,
+                        header: "Action step: personal info",
+                        description: "Increase your chances of finding work by filling in your personal information."
+                        )
+  end
 
   def eligible_job_categories
     self_job_categories = job_categories

@@ -4,14 +4,14 @@ class Farmers::JobsController < Farmers::BaseController
   end
 
   def create
-    @job = current_farmer.jobs.create(secure_params)    
+    @job = current_farmer.jobs.create(secure_params)
     @job.skills << Skill.find(skills_params)
     @job.job_categories << JobCategory.find(job_categories_params)
-        
+
     unless @job.valid?
       return render "new"
     end
-
+    notify_eligible_workers
     redirect_to farmer_jobs_path
   end
 
@@ -48,7 +48,7 @@ class Farmers::JobsController < Farmers::BaseController
   end
 
   def publish
-    @job = Job.find(params[:id])    
+    @job = Job.find(params[:id])
     if @job.publish
       flash[:success] = "You have successfully published your job advertisment. An e-mail receipt will be delivered to you shortly"
       redirect_to farmer_published_jobs_path
@@ -90,5 +90,20 @@ class Farmers::JobsController < Farmers::BaseController
 
   def job_categories_params
     params.require(:job).permit(:job_categories => [])["job_categories"].reject{|i| i.empty? }
+  end
+
+  def job_params
+    skills_params.reverse_merge!(job_categories_params)
+  end
+
+  def notify_eligible_workers
+    Worker.filter_and(job_params).each do |worker|
+      Notification.create(resource: worker,
+                          action_path: job_path(@job.id),
+                          thumbnail: @job.farmer.profile_photo,
+                          header: "A new job was added that matches your skills!",
+                          description: "#{@job.farmer.full_name} just listed a job that is just right for you."
+                          )
+    end
   end
 end

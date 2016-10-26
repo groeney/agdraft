@@ -1,7 +1,7 @@
 <div class="item">
   <img class="ui avatar image" src="<%= notification.thumbnail.url(:display) %>">
   <div class="content">
-    <a class="header" href="<%= current_farmer ? farmer_notification_path(notification.id) : worker_notification_path(notification.id) %>"><%= notification.header %></a>
+    <a class="header" href="<%= current_farmer ? farmer_notification_path(notification.id) : worker_notification_path(notification.id) %>" target="_blank"><%= notification.header %></a>
     <div class="description"><%= notification.description %> <%= time_ago_in_words(notification.created_at) %> ago.</div>
   </div>
 </div>

@@ -243,7 +243,6 @@ ActiveRecord::Schema.define(version: 20161025052144) do
     t.string   "stripe_customer_id"
     t.boolean  "stripe_delinquent"
     t.integer  "credit",                                default: 0
-    t.string   "authentication_token",       limit: 30
     t.boolean  "migrated",                              default: false
     t.string   "invitation_token"
     t.datetime "invitation_created_at"
@@ -253,6 +252,7 @@ ActiveRecord::Schema.define(version: 20161025052144) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",                     default: 0
+    t.string   "authentication_token",       limit: 30
     t.string   "farm_name"
   end
 
@@ -266,9 +266,8 @@ ActiveRecord::Schema.define(version: 20161025052144) do
 
   create_table "job_categories", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.boolean  "archived",           default: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -407,9 +406,8 @@ ActiveRecord::Schema.define(version: 20161025052144) do
 
   create_table "skills", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "archived",   default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "skills_workers", id: false, force: :cascade do |t|
@@ -456,8 +454,6 @@ ActiveRecord::Schema.define(version: 20161025052144) do
     t.datetime "profile_photo_updated_at"
     t.date     "dob"
     t.boolean  "verified",                              default: false
-    t.string   "authentication_token",       limit: 30
-    t.string   "description",                           default: ""
     t.boolean  "migrated",                              default: false
     t.string   "invitation_token"
     t.datetime "invitation_created_at"
@@ -467,6 +463,8 @@ ActiveRecord::Schema.define(version: 20161025052144) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",                     default: 0
+    t.string   "description",                           default: ""
+    t.string   "authentication_token",       limit: 30
     t.string   "passport_number"
     t.string   "abn"
     t.boolean  "has_own_accommodation",                 default: false
