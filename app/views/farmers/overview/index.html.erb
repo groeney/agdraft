@@ -2,11 +2,25 @@
   <%= render partial: "includes/dashboard/masthead" %>
 <%end%>
 
-<div class="ui stackable grid">
-  <a class="ui primary icon button" href="<%= search_workers_path %>" target="_blank">
-    <i class="search icon"></i>
-    Find workers
-  </a>
+<div class="ui stackable grid" style="max-height:300px;">
+  <div class="ui five wide column">
+    <a class="ui primary icon button" href="<%= search_workers_path %>" target="_blank">
+      <i class="search icon"></i>
+      Find workers
+    </a>
+  </div>
+  <div class="ui six wide column">
+    <h3>Notifications</h3>
+    <div class="ui very relaxed divided list" style="overflow:scroll;height:100%;">
+      <% if @notifications.count > 0 %>
+        <% @notifications.each do |notification| %>
+          <%= render partial: "includes/notification", locals: { notification: notification } %>
+        <% end %>
+      <% else %>
+        <div class="ui info message">You have no recent account activity.</div>
+      <% end %>
+    </div>
+  </div>
 </div>
 <h2>Recommended workers</h2>
 <div class="ui hidden divider"></div>
