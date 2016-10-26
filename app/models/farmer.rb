@@ -61,8 +61,8 @@ class Farmer < ActiveRecord::Base
     [first_name, last_name].reject { |el| el.empty? }.join(" ")
   end
 
-  def rating
-    rand(2..5)
+  def review_rating
+    reviews_of.average(:rating).to_f
   end
 
   def recommended_workers

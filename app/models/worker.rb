@@ -70,8 +70,7 @@ class Worker < ActiveRecord::Base
   end
 
   def review_rating
-    # TODO implement properly with review model etc...
-    rand(1..5)
+    reviews_of.average(:rating).to_f
   end
 
   def recommended_jobs
@@ -111,10 +110,11 @@ class Worker < ActiveRecord::Base
   end
 
   def profile_completeness
-    attrs = slice :has_own_transport, :tax_file_number, :mobile_number,
-                  :nationality, :dob, :description, :passport_number, :abn,
-                  :grew_up_on_farm, :has_own_accommodation
-    rand(30..100)
+    attrs = slice :tax_file_number, :mobile_number, :passport_number,
+                  :nationality, :dob, :description, :abn, :profile_photo,
+                  :email, :first_name, :last_name
+    values = attrs.values | [previous_employers, locations, job_categories, skills]
+    values.reject{ |v| v.blank? }.count*100/values.count
   end
 
   protected

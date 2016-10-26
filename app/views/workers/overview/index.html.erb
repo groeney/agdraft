@@ -2,20 +2,37 @@
   <%= render partial: "includes/dashboard/masthead" %>
 <%end%>
 
-<div class="ui stackable grid">
-  <div class="ui five wide column">
+<div class="ui stackable grid" style="max-height:300px;">
+  <div class="ui five wide column center aligned">
     <h3>Profile</h3>
-    <p>Complete your profile so employers know more about you</p>
-    <a class="ui progress yellow" data-percent="<%= current_worker.profile_completeness %>" id="progress" href="<%= worker_extra_details_path %>">
-      <div class="bar">
-        <div class="progress"></div>
-      </div>
-      <div class="label">Only <%= current_worker.profile_completeness %>% complete. Click to add more details.</div>
-    </a>
+    <% if current_worker.verified? %>
+      <p>Your profile has been verified!</p>
+      <i class="huge green check circle outline icon"></i>
+    <% else %>
+      <p>Complete your profile so employers know more about you</p>
+      <a class="ui progress yellow" data-percent="<%= current_worker.profile_completeness %>" id="progress" href="<%= worker_extra_details_path %>">
+        <div class="bar">
+          <div class="progress"></div>
+        </div>
+        <div class="label">Only <%= current_worker.profile_completeness %>% complete. Click to add more details.</div>
+      </a>
+    <% end %>
   </div>
-  <div class="ui seven wide column">
+  <div class="ui five wide column center aligned">
     <h3>Jobs</h3>
-    <p>You currently have <b>0 job offers</b> and <b>0 job applications</b>. Search for work below and apply for a job!</p>
+    <p>You currently have <b><%= current_worker.job_offers.count %> job offers</b> and <b><%= current_worker.job_applications.count %> job applications</b>. Search for work below and apply for a job!</p>
+  </div>
+  <div class="ui six wide column center aligned">
+    <h3>Notifications</h3>
+    <div class="ui very relaxed divided list" style="overflow:scroll;height:100%;text-align:left;">
+      <% if @notifications.count > 0 %>
+        <% @notifications.each do |notification| %>
+          <%= render partial: "includes/notification", locals: { notification: notification } %>
+        <% end %>
+      <% else %>
+        <div class="ui info message">You have no recent account activity.</div>
+      <% end %>
+    </div>
   </div>
 </div>
 <div class="ui hidden divider"></div>
