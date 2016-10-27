@@ -1,37 +1,73 @@
 <a class="ui card" href="<%= job_path(job.id) %>" target="_blank">
-  <div class="content">
-    <div class="right floated meta">
-      <% if defined? recommendation_id %>
-        <button class="ui red button block-job" data-recommendation-id="<%= recommendation_id %>">
-          Delete
-        </button>
-      <% end %>
-      <span>
+  <div class="content" style="border-left-color:#00b5ad;border-left-width:thick;border-left-style:solid;">
+    <div class="header">
+      <h2><%= job.title %></h2>
+    </div>
+    <br>
+    <img class="ui avatar image" src="<%= job.farmer.profile_photo.url(:display) %>">
+    <div class="header" style="display: inline;">
+      <h3 style="display: inline;"><%= job.business_name %></h3>
+    </div>
+    <div class="ui huge star rating" data-rating="<%= rand(2..5) %>" data-max-rating="5"></div>
+                                    <!-- <%= job.farmer.review_rating %> -->
+    <span class="meta" style="display: inline">(<%= rand(1..10) %>)</span>
+                                    <!-- <%= job.farmer.reviews_of.count %> -->
+    <div class="ui hidden divider"></div>
+    <span class="meta">
+      <i class="marker icon"></i>
+      <span style="display: inline;">
         <%= job.location_name %>
       </span>
-    </div>
-    <img class="ui avatar image" src="/assets/farm-job.png">
+      <br>
+      <i class="money icon"></i>
+      <span style="display: inline;">
+        <%= number_to_currency(job.pay_max) %>/hr
+      </span>
+    </span>
   </div>
-
+  <div class="ui divider" style="margin-left:15%;margin-right:15%;"></div>
   <div class="ui basic segment">
-    <h2 class="ui sub header">Job Categories:</h2>
-    <div class="ui horizontal list">
-      <% job.job_categories.each do |job_category| %>
-        <div class="item">
-          <div class="content">
+    <% if job.skills.count > 1 %>
+      <h2 class="ui sub header">Skills:</h2>
+      <div class="ui horizontal list">
+        <% job.skills.first(3).each do |skill| %>
+          <div class="ui label item">
+            <%= skill.title %>
+          </div>
+        <% end %>
+      </div>
+      <div class="ui horizontal divider" style="margin-left:15%;margin-right:15%;">
+        <% if job.skills.count > 3 %>
+          <span style="color:#00b5ad;font-size:xx-small;font-style:italic;"><%= job.skills.count - 3 %>+ more skills</span>
+        <% end %>
+      </div>
+    <% end %>
+    <% if job.job_categories.count > 1 %>
+      <h2 class="ui sub header">Job Categories:</h2>
+      <div class="ui horizontal list">
+        <% job.job_categories.first(3).each do |job_category| %>
+          <div class="ui label item">
             <%= job_category.title %>
           </div>
-        </div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+      <div class="ui horizontal divider" style="margin-left:15%;margin-right:15%;">
+        <% if job.job_categories.count > 3 %>
+          <span style="color:#00b5ad;font-size:xx-small;font-style:italic;"><%= job.job_categories.count - 3 %>+ more job categories</span>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
-  <div class="content">
-    <div class="header"><%= job.business_name %></div>
-    <div class="meta">
-      <span><%= job.title %></span>
-      <br>
-      <span><b>Min:</b><%= number_to_currency(job.pay_min) %> -- <b>Max:</b> <%= number_to_currency(job.pay_max) %></span>
-    </div>
-  </div>
+  <span style="display:block;padding:5%;text-align:center;">
+    <% if current_worker %>
+      <% applied = applied || false %>
+      <button class="ui teal button apply-for-job <%= 'disabled' if applied %>" data-job-id="<%= job.id %>"><%= applied ? 'Applied' : 'Apply' %> </button>
+    <% end %>
+    <% if defined? recommendation_id %>
+      <button class="ui icon button block-job" data-recommendation-id="<%= recommendation_id %>">
+        <i class="remove icon"></i>
+      </button>
+    <% end %>
+  </span>
 </a>

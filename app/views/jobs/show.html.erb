@@ -57,7 +57,7 @@
       <div class="ui eight wide column">
         <h4>Farmer</h4>
         <%= link_to @job.farmer.full_name, farmer_path(@job.farmer.id) %><br/>
-        <div class="ui huge star rating" data-rating="<%= @job.farmer.rating %>" data-max-rating="5"></div>
+        <div class="ui huge star rating" data-rating="<%= @job.farmer.review_rating %>" data-max-rating="5"></div>
       </div>
       <div class="ui eight wide column">
         <h4>Views</h4>
@@ -67,7 +67,7 @@
     </div>
     <div class="ui divider hidden"></div>
     <%if current_worker%>
-      <button id="apply-for-job" class="ui teal button <%= 'disabled' if @applied %>">Apply</button>
+      <button id="apply-for-job" class="ui teal button <%= 'disabled' if @applied %>"><%= @applied ? 'Applied' : 'Apply' %></button>
     <%end%>
   </div>
 </div>

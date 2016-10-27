@@ -10,13 +10,13 @@ RSpec.describe RecommendationsController, type: :controller do
     it "should not recommend blocked recommendation" do
       recommendation = worker.job_recommendations.first
       put :block_job, id: recommendation.id, format: :json
-      expect(worker.job_recommendations.pluck(:id)).not_to include? recommendation.id
+      expect(worker.job_recommendations.map { |r| r.id }).not_to include recommendation.id
     end
 
     it "all recommendations should be unique after blocking" do
       recommendation = worker.job_recommendations.first
       put :block_job, id: recommendation.id, format: :json
-      rec_ids = worker.job_recommendations.pluck(:id)
+      rec_ids = worker.job_recommendations.map { |r| r.id }
       expect(rec_ids).to eq rec_ids.uniq
     end
   end
