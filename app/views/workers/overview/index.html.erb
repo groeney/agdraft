@@ -43,8 +43,8 @@
 </a>
 <div class="ui hidden divider"></div>
 <div class="ui cards">
-  <% @recommended_jobs.each do |job| %>
-    <%= render partial: "search/job_card", locals: { job: job } %>
+  <% @recommendations.each do |recommendation| %>
+    <%= render partial: "search/job_card", locals: { job: recommendation.resource, recommendation_id: recommendation.id } %>
   <% end %>
 </div>
 

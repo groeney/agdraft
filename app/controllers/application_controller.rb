@@ -76,6 +76,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def render_200
+    respond_to do |format|
+      format.json {
+        render json: { message: "OK" }.to_json, status: 200
+      }
+    end
+  end
+
   def render_201
     respond_to do |format|
       format.json {

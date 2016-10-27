@@ -11,7 +11,7 @@ $(document).on('turbolinks:load', function(){
           error: function(jqXHR, textStatus, errorThrown){
             toastr['error'] = errorThrown;
           }
-        })
+        });
     });
 
     $('#select-all').on('click', function(){

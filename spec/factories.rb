@@ -1,5 +1,8 @@
 include ActionDispatch::TestProcess # For image upload helpers
 FactoryGirl.define do
+  factory :recommendation do
+    
+  end
   # For factory :job see spec/factories/job.rb
   # For factory :worker see spec/factories/worker.rb
 

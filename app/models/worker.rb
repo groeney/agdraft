@@ -16,6 +16,7 @@ class Worker < ActiveRecord::Base
   has_many                :certificates
   has_many                :job_workers
   has_many                :notifications, as: :resource, dependent: :destroy
+  has_many                :recommendations, as: :user, dependent: :destroy
   has_secure_token        :referral_token
   has_attached_file       :profile_photo, :styles => { :display => "200x200#" }, :default_url => "/assets/missing_worker_profile_photo.png"
   belongs_to              :referral_user, polymorphic: true
@@ -121,9 +122,21 @@ class Worker < ActiveRecord::Base
     reviews_of.average(:rating).to_f
   end
 
-  def recommended_jobs
+  def job_recommendations
+    results = self.recommendations.where({ blocked: false, resource_type: "Job" })
+    if results.count < 5
+      new_recommendations = recommend_jobs(5 - results.count)
+      new_recommendations.each do |job|
+        results |= [self.recommendations.create({ resource: job })]
+      end
+    end
+    results
+  end
+
+  def recommend_jobs(size = 5)
+    blocked_job_ids = self.recommendations.pluck(:resource_id)
     Job.recommend({ skills: skill_ids, job_categories: job_category_ids },
-                  job_workers.pluck(:job_id))
+                  blocked_job_ids |= job_workers.pluck(:job_id), size)
   end
 
   def job_history
