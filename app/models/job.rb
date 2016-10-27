@@ -67,6 +67,10 @@ class Job < ActiveRecord::Base
     raw_rating
   end
 
+  def review_rating
+    farmer.review_rating
+  end
+
   def credit_to_apply
     (JOB_PRICE - farmer.credit) < 1 ? JOB_PRICE : farmer.credit
   end

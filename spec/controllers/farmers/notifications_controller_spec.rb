@@ -19,6 +19,7 @@ RSpec.describe Farmers::NotificationsController, type: :controller do
       let(:farmer) { FactoryGirl.create(:farmer) }
       before do
         sign_in farmer
+        farmer.notifications.update_all unseen: false
       end
 
       it "should set correct values to variables" do

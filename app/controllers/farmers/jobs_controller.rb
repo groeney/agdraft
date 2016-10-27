@@ -93,7 +93,7 @@ class Farmers::JobsController < Farmers::BaseController
   end
 
   def job_params
-    skills_params.reverse_merge!(job_categories_params)
+    { skills: skills_params, job_categories: job_categories_params }
   end
 
   def notify_eligible_workers
