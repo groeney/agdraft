@@ -18,6 +18,11 @@
   </div>
 
   <div class="ui segment basic">
+    <h2>Invited workers</h2>
+    <div id="invited"></div>
+  </div>
+
+  <div class="ui segment basic">
     <h2>Recommended</h2>
     <div id="recommended"></div>
   </div>
@@ -61,28 +66,20 @@
     </div>
 </script>
 
-<script type="text/template" id="js-interested-worker">
+<script type="text/template" id="js-worker">
   <div class="ui grid segment">
     <div class="six wide column">
       <img class="image-thumbnail" src="<%%- profile_photo_url %>"/>
     </div>
     <div class="ten wide column">
       <h3 class="no-margin"><%%- full_name %></h3>
+      <%% var worker_id = worker_id || id; %>
       <p><a href="<%%- Routes.worker_path(worker_id) %>" target="_blank">View Profile</a></p>
-      <button class="ui primary button js-shortlist">Add to Shortlist</button>
-    </div>
-  </div>
-</script>
-
-<script type="text/template" id="js-recommended-worker">
-  <div class="ui grid segment">
-    <div class="six wide column">
-      <img class="image-thumbnail" src="<%%- profile_photo_url %>"/>
-    </div>
-    <div class="ten wide column">
-      <h3 class="no-margin"><%%- full_name %></h3>
-      <p><a href="<%%- Routes.worker_path(id) %>" target="_blank">View Profile</a></p>
-      <button class="ui primary button js-shortlist">Add to Shortlist</button>
+      <%% if(typeof(state) == 'undefined') { %>
+        <button class="ui primary button js-invite-worker">Invite</button>
+      <%% } else if (state == 'interested') { %>
+        <button class="ui primary button js-shortlist">Add to Shortlist</button>
+      <%% } %>
     </div>
   </div>
 </script>

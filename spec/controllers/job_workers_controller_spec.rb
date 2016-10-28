@@ -59,9 +59,9 @@ RSpec.describe JobWorkersController, type: :controller do
             expect(job_worker.state).to eq "interested"
           end
         end
-        context "when a workers has already express interest in a job" do
+        context "when a worker has already expressed interest in a job" do
           before do
-            JobWorker.create(job: @job, worker: @worker).express_interest
+            JobWorker.create(job: @job, worker: @worker).express_interest!
           end
           it "returns a 400" do
             post :express_interest, job_id: @job.id, format: :json
@@ -86,6 +86,60 @@ RSpec.describe JobWorkersController, type: :controller do
 
   describe "#shortlist" do
     before do
+      @farmer = FactoryGirl.create(:farmer)
+      @job = FactoryGirl.create(:job, farmer: @farmer)
+      @worker = FactoryGirl.create(:worker)
+    end
+    context "when a farmer is signed in" do
+      before do
+        sign_in @farmer
+      end
+      it "should respond with 400 to incorrect job_worker_id" do
+        post :transition, transition: "shortlist", job_worker_id: @worker.id, format: :json
+        expect(response.status).to eq 404
+      end
+      context "and job_worker created but worker has not yet expressed interest" do
+        before do
+          @job_worker = JobWorker.create(job: @job, worker: @worker)
+        end
+        it "should respond with 400" do
+          post :transition, transition: "shortlist", job_worker_id: @job_worker.id, format: :json
+          expect(response.status).to eq 400
+        end
+        it "should respond with 400" do
+          @job_worker.invite!
+          post :transition, transition: "shortlist", job_worker_id: @job_worker.id, format: :json
+          expect(response.status).to eq 400
+        end
+      end
+      context "and worker has expressed interest" do
+        before do
+          @job_worker = JobWorker.create(job: @job, worker: @worker)
+          @job_worker.express_interest!
+        end
+        it "should respond with 201" do
+          post :transition, transition: "shortlist", job_worker_id: @job_worker.id, format: :json
+          expect(response.status).to eq 200
+        end
+        context "and job_worker_id is invalid" do
+          it "returns a 400" do
+            post :transition, transition: "shortlist", job_worker_id: @job_worker.id + 1, format: :json
+            expect(response.status).to eq 404
+          end
+        end
+      end
+    end
+
+    context "when a farmer is not signed in" do
+      it "returns a 400" do
+        post :transition, transition: "shortlist", job_worker_id: @worker.id, format: :json
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe "#invite" do
+    before do
       @job = FactoryGirl.create(:job)
       @worker = FactoryGirl.create(:worker)
     end
@@ -94,27 +148,27 @@ RSpec.describe JobWorkersController, type: :controller do
         @farmer = FactoryGirl.create(:farmer)
         sign_in @farmer
       end
-      context "when the worker has not yet been shortlisted" do
-        it "creates the job worker record and sets shortlisted state" do
-          post :shortlist, job_id: @job.id, worker_id: @worker.id, format: :json
-          job_worker = JobWorker.last
+      context "when the worker has not yet been invited" do
+        it "creates the job worker record and sets invited state" do
+          post :invite, job_id: @job.id, worker_id: @worker.id, format: :json
+          job_worker = JobWorker.last!
           expect(job_worker.job_id).to eq @job.id
           expect(job_worker.worker_id).to eq @worker.id
-          expect(job_worker.state).to eq "shortlisted"
+          expect(job_worker.state).to eq "invited"
         end
       end
-      context "when the worker has already been shortlisted" do
+      context "when the worker has already been invited" do
         before do
-          JobWorker.create(job: @job, worker: @worker).shortlist
+          JobWorker.create(job: @job, worker: @worker).invite!
         end
         it "returns a 400" do
-          post :shortlist, job_id: @job.id, worker_id: @worker.id, format: :json
+          post :invite, job_id: @job.id, worker_id: @worker.id, format: :json
           expect(response.status).to eq 400
         end
       end
       context "when a job_id or worker_id is invalid" do
         it "returns a 400" do
-          post :shortlist, job_id: @job.id, worker_id: 0, format: :json
+          post :invite, job_id: @job.id, worker_id: 0, format: :json
           expect(response.status).to eq 400
         end
       end
@@ -122,7 +176,7 @@ RSpec.describe JobWorkersController, type: :controller do
 
     context "when a farmer is not signed in" do
       it "returns a 400" do
-        post :shortlist, job_id: @job.id, worker_id: @worker.id, format: :json
+        post :invite, job_id: @job.id, worker_id: @worker.id, format: :json
         expect(response.status).to eq 401
       end
     end
@@ -181,7 +235,7 @@ RSpec.describe JobWorkersController, type: :controller do
           @job_worker = FactoryGirl.create(:job_worker, worker: @worker)
         end
         it "allows no_interest" do
-          @job_worker.shortlist!
+          @job_worker.express_interest! && @job_worker.shortlist!
           post :transition, job_worker_id: @job_worker.id, transition: "no_interest", format: :json
           expect(response.status).to eq 200
           expect(JSON.parse(response.body)["state"]).to eq "not_interested"

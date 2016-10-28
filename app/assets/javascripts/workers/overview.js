@@ -31,7 +31,8 @@ $(document).on('turbolinks:load', function(){
           $button.removeClass('disabled');
           toastr.error(errorThrown);
         }
-      })
+      });
     });
   });
 });
+

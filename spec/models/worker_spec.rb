@@ -1,6 +1,36 @@
 require "rails_helper"
 
 RSpec.describe Worker, type: :model do
+  describe "#is_job_applyable" do
+    let(:worker) { FactoryGirl.create(:worker) }
+    let(:job) { FactoryGirl.create(:job) }
+    before do
+      @job_worker = worker.job_workers.create({ job_id: job.id })
+    end
+    it "should allow the worker to apply to new" do
+      expect(worker.is_job_applyable(job)).to be true
+    end
+
+    it "should allow worker to apply to invited" do
+      @job_worker.invite!
+      expect(worker.is_job_applyable(job)).to be true
+    end
+
+    it "should not allow worker to apply to applied" do
+      @job_worker.express_interest!
+      expect(worker.is_job_applyable(job)).to be false
+    end
+
+    it "should not allow worker to apply to applied" do
+      @job_worker.express_interest! && @job_worker.shortlist!
+      expect(worker.is_job_applyable(job)).to be false
+    end
+
+    it "should not allow worker to apply to applied" do
+      @job_worker.express_interest! && @job_worker.shortlist! && @job_worker.hire!
+      expect(worker.is_job_applyable(job)).to be false
+    end
+  end
   describe "#set_referral_user" do
     let(:referral_user){ FactoryGirl.create(:farmer) }
 

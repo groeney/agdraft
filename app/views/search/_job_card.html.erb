@@ -61,8 +61,8 @@
 
   <span style="display:block;padding:5%;text-align:center;">
     <% if current_worker %>
-      <% applied = applied || false %>
-      <button class="ui teal button apply-for-job <%= 'disabled' if applied %>" data-job-id="<%= job.id %>"><%= applied ? 'Applied' : 'Apply' %> </button>
+      <% applyable = current_worker.is_job_applyable(job) %>
+      <button class="ui teal button apply-for-job <%= 'disabled' if !applyable %>" data-job-id="<%= job.id %>"><%= applyable ? 'Apply' : 'Applied' %> </button>
     <% end %>
     <% if defined? recommendation_id %>
       <button class="ui icon button block-job" data-recommendation-id="<%= recommendation_id %>">

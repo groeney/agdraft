@@ -97,7 +97,7 @@ class Farmer < ActiveRecord::Base
   end
 
   def jobs_for_worker(worker_id)
-    jobs.where(published: true).map{ |j| { job: j, invited: !JobWorker.where(job_id: j.id, worker_id: worker_id).empty? } }
+    jobs.where(published: true).map{ |j| { job: j, invited: JobWorker.where(job_id: j.id, worker_id: worker_id).exists? } }
   end
 
   def employees

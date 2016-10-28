@@ -8,17 +8,21 @@ class JobWorker < ActiveRecord::Base
 
   aasm column: :state, whiny_transitions: false do
     state :new, initial: true
+    state :invited, after_enter: :after_enter_invited_state
     state :interested, after_enter: :after_enter_interested_state
     state :shortlisted, after_enter: :after_enter_shortlisted_state
     state :hired, after_enter: :after_enter_hired_state
     state :declined, after_enter: :after_enter_declined_state
     state :not_interested, after_enter: :after_enter_not_interested_state
 
+    event :invite do
+      transitions from: :new, to: :invited
+    end
     event :express_interest do
       transitions from: :new, to: :interested
+      transitions from: :invited, to: :interested
     end
     event :shortlist do
-      transitions from: :new, to: :shortlisted
       transitions from: :interested, to: :shortlisted
     end
     event :hire do
@@ -39,6 +43,15 @@ class JobWorker < ActiveRecord::Base
       transitions from: :hired, to: :shortlisted
       transitions from: :declined, to: :shortlisted
     end
+  end
+
+  def after_enter_invited_state
+    Notification.create(resource: worker,
+                        action_path: job_path(job.id),
+                        thumbnail: job.farmer.profile_photo,
+                        header: "You have been invited to apply",
+                        description: "#{job.farmer.full_name} has invited you to apply for a job."
+                        )
   end
 
   def after_enter_interested_state

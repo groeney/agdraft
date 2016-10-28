@@ -6,17 +6,17 @@ $(document).on('turbolinks:load', function(){
       $('.modal').modal('show');
     });
     $('.js-invite-worker').on('click', function(){
-      $(this).toggleClass('disabled');
+      $(this).addClass('disabled');
       $(this).text('Invited');
       $.ajax({
-        url: Routes.farmer_shortlist_worker_path($(this).data('id')),
+        url: Routes.farmer_invite_worker_path($(this).data('job-id')),
         method: 'POST',
-        data: {worker_id: workerID},
+        data: { worker_id: workerID },
         success: function(data, status){
           toastr.success('Worker invited to job!');
         },
         error: function(jqXHR, textStatus, errorThrown){
-          $(this).toggleClass('disabled');
+          $(this).removeClass('disabled');
           toastr.error(errorThrown);
         }
       });

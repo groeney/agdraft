@@ -23,29 +23,6 @@ $(document).on('turbolinks:load', function(){
       url: Routes.job_workers_path(jobID)
     });
 
-    var RecommendedWorker = Backbone.Model.extend({
-      shortlist: function(){
-        var self = this;
-        $.ajax({
-          url: Routes.farmer_shortlist_worker_path(jobID),
-          method: "POST",
-          data: {worker_id: this.id},
-          success: function(data, status, jqXHR){
-            App.recommendedWorkers.remove(self.id);
-            App.jobWorkers.fetch();
-          },
-          error: function(jqXHR, textStatus, errorThrown){
-            toastr.error(errorThrown);
-          }
-        })
-      }
-    });
-
-    var RecommendedWorkerCollection = Backbone.Collection.extend({
-      model: RecommendedWorker,
-      url: Routes.farmer_job_recommended_workers_path(jobID)
-    });
-
     var ShortlistWorker = Mn.View.extend({
       template: "#js-shortlist-worker",
       events: {
@@ -80,7 +57,7 @@ $(document).on('turbolinks:load', function(){
     });
 
     var InterestedWorker = Mn.View.extend({
-      template: "#js-interested-worker",
+      template: "#js-worker",
       events: {
         "click .js-shortlist": "shortlist"
       },
@@ -103,14 +80,32 @@ $(document).on('turbolinks:load', function(){
       }
     });
 
+    var InvitedWorker = Mn.View.extend({
+      template: "#js-worker",
+      className: "ui column"
+    });
+
+    var InvitedView = Mn.CollectionView.extend({
+      childView: InvitedWorker,
+      className: "ui stackable three columns grid",
+      collectionEvents: {
+        "reset": "render",
+        "change": "render"
+      },
+      // Only show workers with whitelisted states
+      filter: function (child, index, collection) {
+        return child.get('state') == "invited";
+      }
+    });
+
     var RecommendedWorker = Mn.View.extend({
-      template: "#js-recommended-worker",
+      template: "#js-worker",
       events: {
-        "click .js-shortlist": "shortlist"
+        "click .js-invite-worker": "invite"
       },
       className: "ui column",
-      shortlist: function(){
-        this.model.shortlist();
+      invite: function(){
+        this.model.invite();
       }
     });
 
@@ -123,16 +118,41 @@ $(document).on('turbolinks:load', function(){
       }
     });
 
+    var RecommendedWorker = Backbone.Model.extend({
+      invite: function(){
+        var self = this;
+        $.ajax({
+          url: Routes.farmer_invite_worker_path(jobID),
+          method: "POST",
+          data: { worker_id: this.id },
+          success: function(data, status, jqXHR){
+            App.recommendedWorkers.remove(self.id);
+            App.jobWorkers.fetch();
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+            toastr.error(errorThrown);
+          }
+        })
+      }
+    });
+
+    var RecommendedWorkerCollection = Backbone.Collection.extend({
+      model: RecommendedWorker,
+      url: Routes.farmer_job_recommended_workers_path(jobID)
+    });
+
     var LayoutView = Mn.View.extend({
       template: "#js-manage-job-layout",
       regions: {
         shortlisted: "#shortlisted",
         interested: "#interested",
-        recommended: "#recommended"
+        recommended: "#recommended",
+        invited: "#invited"
       },
       onRender: function(){
         this.getRegion("shortlisted").show(new ShortlistView({collection: App.jobWorkers}));
         this.getRegion("interested").show(new InterestedView({collection: App.jobWorkers}));
+        this.getRegion("invited").show(new InvitedView({collection: App.jobWorkers}));
         this.getRegion("recommended").show(new RecommendedView({collection: App.recommendedWorkers}));
       }
     });

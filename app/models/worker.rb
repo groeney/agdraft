@@ -133,10 +133,16 @@ class Worker < ActiveRecord::Base
     results
   end
 
+  def is_job_applyable(job)
+    job_worker = job_workers.find_by({ job_id: job.id })
+    !job_worker || job_worker.invited? || job_worker.new?
+  end
+
   def recommend_jobs(size = 5)
-    blocked_job_ids = self.recommendations.pluck(:resource_id)
+    blocked_recommendations = self.recommendations.pluck(:resource_id)
+    applied_jobs = job_workers.where.not({ state: "invited" }).pluck(:job_id)
     Job.recommend({ skills: skill_ids, job_categories: job_category_ids },
-                  blocked_job_ids |= job_workers.pluck(:job_id), size)
+                  blocked_recommendations |= applied_jobs, size)
   end
 
   def job_history

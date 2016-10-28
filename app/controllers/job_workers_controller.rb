@@ -1,7 +1,7 @@
 class JobWorkersController < ApplicationController
   acts_as_token_authentication_handler_for Worker, only: [:not_interested]
   before_filter :authenticate_worker!, only: [:express_interest, :not_interested]
-  before_filter :authenticate_farmer!, only: [:shortlist, :index]
+  before_filter :authenticate_farmer!, only: [:shortlist, :index, :invite]
   before_filter :authenticate_user
 
   def index
@@ -12,9 +12,8 @@ class JobWorkersController < ApplicationController
   end
 
   def express_interest
-    job_worker = JobWorker.create(job_id: params[:job_id], worker: current_worker)
-    return render_400 unless job_worker.valid?
-    job_worker.express_interest!
+    job_worker = JobWorker.find_or_create_by(job_id: params[:job_id], worker: current_worker)
+    return render_400 unless job_worker.express_interest!
     render_201
   end
 
@@ -37,9 +36,14 @@ class JobWorkersController < ApplicationController
   end
 
   def shortlist
-    job_worker = JobWorker.create(job_id: params[:job_id], worker_id: params[:worker_id])
-    return render_400 unless job_worker.valid?
-    job_worker.shortlist!
+    job_worker = JobWorker.find_or_create_by(job_id: params[:job_id], worker_id: params[:worker_id])
+    return render_400 unless job_worker.shortlist!
+    render_201
+  end
+
+  def invite
+    job_worker = JobWorker.find_or_create_by(job_id: params[:job_id], worker_id: params[:worker_id])
+    return render_400 unless job_worker.invite!
     render_201
   end
 
