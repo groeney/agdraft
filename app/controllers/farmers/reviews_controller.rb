@@ -13,7 +13,7 @@ class Farmers::ReviewsController < Farmers::BaseController
   def new
     @worker = Worker.find(params[:worker_id])
     unless current_farmer.can_review(@worker.id)
-      flash[:error] = "You cannot submit a review for that worker."
+      flash[:error] = "You cannot submit a review for this worker."
       return redirect_to farmer_dashboard_path
     end
     @review = Review.new
@@ -32,6 +32,6 @@ class Farmers::ReviewsController < Farmers::BaseController
   protected
 
   def secure_params
-    params.require(:review).permit(:reviewer_id, :reviewer_type, :reviewee_id, :reviewee_type, :feedback, :rating)
+    params.require(:review).permit(:reviewer_id, :reviewer_type, :reviewee_id, :reviewee_type, :job_id, :feedback, :rating)
   end
 end

@@ -18,10 +18,8 @@ class JobWorkersController < ApplicationController
   end
 
   def not_interested
-    job_worker = current_worker.job_workers.where(id: params[:id]).first
-    if !job_worker
-      flash[:error] = "Unauthorized access"
-    elsif !job_worker.no_interest!
+    job_worker = current_worker.job_workers.find(params[:id])
+    if !job_worker.no_interest!
       flash[:error] = "This job record has already been updated"
     else
       flash[:success] = "Successfully updated your job application and notified the farmer that you are not interested in the job"

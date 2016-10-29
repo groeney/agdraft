@@ -4,6 +4,6 @@
 
 <%= simple_form_for @review, url: farmer_reviews_path do |f| %>
   <%= f.error_notification %>
-  <%= render partial: "includes/review_form", locals: { f: f, reviewer_id: current_farmer.id, reviewee_id: @worker.id }%>
+  <%= render partial: "includes/review_form", locals: { f: f, reviewer_id: current_farmer.id, reviewee_id: @worker.id, jobs: @worker.pending_review_jobs(current_farmer) }%>
   <%= f.submit "Save", class: "ui primary button" %>
 <% end %>

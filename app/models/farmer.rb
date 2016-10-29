@@ -97,7 +97,9 @@ class Farmer < ActiveRecord::Base
   end
 
   def jobs_for_worker(worker_id)
-    jobs.where(published: true).map{ |j| { job: j, invited: JobWorker.where(job_id: j.id, worker_id: worker_id).exists? } }
+    jobs.where(published: true)
+        .map{ |j| { job: j, invited: JobWorker.where(job_id: j.id, worker_id: worker_id)
+                                              .exists? } }
   end
 
   def employees
@@ -105,7 +107,8 @@ class Farmer < ActiveRecord::Base
   end
 
   def can_review(worker_id)
-    employees.where({ id: worker_id }).exists?
+    employees.where({ id: worker_id }).exists? &&
+      Worker.find(worker_id).pending_review_jobs(self).present?
   end
 
   def has_reviewed_worker(worker_id)

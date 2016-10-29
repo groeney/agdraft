@@ -145,8 +145,17 @@ class Worker < ActiveRecord::Base
                   blocked_recommendations |= applied_jobs, size)
   end
 
-  def job_history
-    job_workers.where({ state: "hired" }).map{ |job_worker| job_worker.job }
+  def job_history(farmer = nil)
+    job_workers_local = self.job_workers.where({ state: "hired" })
+    if farmer
+      job_workers_local = job_workers_local.where({ job_id: farmer.jobs.pluck(:id) })
+    end
+    job_workers_local.map{ |job_worker| job_worker.job }
+  end
+
+  def pending_review_jobs(farmer = nil)
+    reviewed_jobs = self.reviews_of.pluck(:job_id)
+    self.job_history(farmer).reject { |job| reviewed_jobs.include? job.id }
   end
 
   def job_offers

@@ -3,6 +3,7 @@ $(document).on('turbolinks:load', function(){
     $('.ui.star.rating').rating({
       maxRating: 5
     });
+    $('.ui.dropdown').dropdown();
     var $form = $('#new_review');
     $form.submit(function(event){
       var rating = $('.ui.star.rating').rating('get rating');
