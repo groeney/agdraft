@@ -1,7 +1,8 @@
 $(document).on('turbolinks:load', function(){
   $('.workers.show').ready(function(){
+    $('.ui.rating').rating('disable');
     workerID = /^\/workers\/[0-9]*/.exec(window.location.pathname)[0].split("/")[2]
-    $('#invite-worker').on('click', function(e){
+    $('.invite-worker').on('click', function(e){
       var button = $(e.target);
       $('.modal').modal('show');
     });

@@ -1,107 +1,119 @@
-<div class="ui stackable two column grid segment">
-  <div class="ui five wide column">
-    <div class="ui segment basic">
-      <h2>
-        <% if current_farmer || current_worker %>
-          <%= @worker.full_name %>
-        <%else%>
-          <%= @worker.first_name %>
-        <%end%>
-      </h2>
+<div style="text-align:center;height:300px;">
+  <div class="hero-image-container very-padded" style="background-image:url('<%= asset_path Farmer.first.cover_photo.url(:display) %>')!important;filter:brightness(60%);">
+  </div>
+  <div class="ui basic segment" style="bottom:275px;">
+    <div class="ui circular image" style="width:100px;">
+      <%= image_tag @worker.profile_photo.url(:display) %>
+    </div>
+    <h3 style="color:white;margin-top:0.25em;font-weight:lighter;"><%= @worker.full_name %></h3>
+    <div class="ui huge star rating" data-rating="<%= rand(2..5) %>" data-max-rating="5"></div>
+    <span style="display:inline;color:white;opacity:0.7;">(<%= rand(1..10) %>)</span>
 
-      <div class="ui image">
-        <%= image_tag @worker.profile_photo.url(:display) %>
+    <% if @worker.verified %>
+      <div style="color:orange;">
+        <i class="checkmark box icon"></i>
+        <span>Verified</span>
       </div>
+    <% end %>
 
-      <div class="ui divider hidden"></div>
+    <% if true #current_farmer %>
+      <div class="ui teal button invite-worker" style="margin-top:10px;" data-worker-id="<%= @worker.id %>">
+        Invite me to apply
+      </div>
+    <% end %>
+  </div>
+</div>
 
-      <%if current_farmer %>
-        <button id="invite-worker" class="ui teal fluid button">Invite</button>
-      <%end%>
+<div class="ui basic segment" style="text-align: center;">
+  <div class="ui centered stackable two column grid">
+    <div class="ui six wide column" style="text-align:left;">
+      <% if @worker.description.present? %>
+        <div class="ui basic segment">
+          <h3 class="header">
+            Description
+          </h3>
+          <p>
+            <%= @worker.description %>
+          </p>
+        </div>
+      <% end %>
 
-      <div class="ui celled list middle aligned">
-        <%if @worker.verified%>
-          <div class="item">
-            <i class="check large icon"></i>
-            <div class="content">
-              Verified
-            </div>
-          </div>
-        <%end%>
-
-        <% if current_farmer || current_worker %>
-          <div class="item">
-            <i class="phone large icon"></i>
-            <div class="content">
-              <%= @worker.mobile_number.present? ? @worker.mobile_number : "Not Available" %>
-            </div>
-          </div>
-        <%end%>
-
-        <div class="item">
-          <i class="star large icon"></i>
-          <div class="content">
-            Not yet rated
+      <% if @worker.skills.present? %>
+        <div class="ui basic segment">
+          <h3 class="header">
+            Skills
+          </h3>
+          <div class="ui horizontal list">
+            <% @worker.skills.each do |skill| %>
+              <div class="ui label item">
+                <%= skill.title %>
+              </div>
+            <% end %>
           </div>
         </div>
-      </div>  
+      <% end %>
+
+      <% if @worker.certificates.present? %>
+        <div class="ui basic segment">
+          <h3 class="header">
+            Certificates
+          </h3>
+          <div class="ui horizontal list">
+            <% @worker.certificates.each do |certificate| %>
+              <div class="ui label item">
+                <%= certificate.title %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @worker.locations.present? %>
+        <div class="ui basic segment">
+          <h3 class="header">
+            Willing to Work
+          </h3>
+          <div class="ui horizontal list">
+            <% @worker.locations.each do |location| %>
+              <div class="ui basic label item" style="padding:3px;border:0px;">
+                <i class="teal marker icon"></i>
+                <%= location.label %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @worker.nationality.present? %>
+        <div class="ui basic segment">
+          <h3 class="header" style="display:inline-block;">
+            Nationality:
+          </h3>
+          <span><%= @worker.nationality %></span>
+          <% unless @worker.nationality.include? "Australia" %>
+            <% visa_present = @worker.visa.present? %>
+            <br>
+            <i class="teal thumbs outline <%= visa_present ? "up" : "down" %> icon"></i>
+            <span>Visa: <%= visa_present ? "Yes" : "No" %> </span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="ui six wide column" style="text-align:left;">
+      <div class="ui basic segment">
+        <% if @worker.reviews_of.present? %>
+          <h3 class="header">Reviews</h3>
+          <% @worker.reviews_of.each do |review| %>
+            <%= render partial: "includes/review_card", locals: { review: review } %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
-  
-  <div class="ui eleven wide column">
-    <p>
-      <h2>Available in these locations:</h2>
-      <div class="label-list">
-        <%if !@worker.locations.empty?%>
-          <% @worker.locations.each do |location| %>
-            <div class="ui label">
-              <%= location.label %>
-            </div>
-          <%end%>
-        <%else%>
-          <i>This worker has not yet listed any locations they are available in</i>
-        <%end%>
-      </div>
-    </p>
-    <p>
-      <h2>Has experience with these types of jobs:</h2>
-      <div class="label-list">
-        <%if !@worker.job_categories.empty?%>
-          <% @worker.job_categories.each do |jc| %>
-            <div class="ui label">
-              <%= jc.title %>
-            </div>
-          <%end%>
-        <%else%>
-          <i>This worker has no listed any of their preferred job types</i>
-        <%end%>
-      </div>
-    </p>
-    <p>
-      <h2>Has these skills:</h2>
-      <div class="label-list">
-        <%if !@worker.skills.empty?%>
-          <% @worker.skills.each do |skill| %>
-            <div class="ui label">
-              <%= skill.title %>
-            </div>
-          <%end%>
-        <%else%>
-          <i>This worker has not yet listed any of their skills</i>
-        <%end%>
-      </div>
-    </p>
-    <%if !@worker.unavailabilities.empty? %>
-      <p>
-        <h2>Unavailable on these dates:</h2>
-        <ul>
-          <% @worker.unavailabilities.each do |date| %>
-            <li><%= date.start_date_label %> - <%= date.end_date_label %></li>
-          <% end %>
-        </ul>
-      </p>
-    <%end%>
-  </div>
+  <% if current_farmer %>
+    <button class="ui teal button invite-worker">Invite me to apply</button>
+  <% end %>
 </div>
 
 <%= render "jobs_modal" if current_farmer %>
