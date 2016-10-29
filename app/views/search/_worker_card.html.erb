@@ -1,43 +1,63 @@
 <a class="ui card" href="<%= worker_path(worker.id) %>">
-  <div class="content">
-    <div class="header"><%= worker.full_name %></div>
-    <div class="ui image">
-      <%= image_tag worker.profile_photo.url(:display) %>
-    </div>
-    <div class="meta">
-      <span><%= worker.nationality %></span>
-    </div>
+  <div class="image">
+    <%= image_tag worker.profile_photo.url(:display) %>
   </div>
-
-  <div class="meta content">
-    <h2 class="ui sub header">Skills:</h2>
-    <div class="ui horizontal list">
-      <div class="label-list">
-        <% worker.skills.each do |skill| %>
-          <div class="ui label">
+  <div class="content">
+    <h3 class="header"><%= worker.full_name %></h3>
+    <div class="meta">
+      <span class="date">Joined in <%= worker.created_at.strftime("%B, %Y") %></span>
+    </div>
+    <div class="ui huge star rating" data-rating="<%= rand(2..5) %>" data-max-rating="5"></div>
+                                    <!-- <%= worker.review_rating %> -->
+    <span class="meta" style="display:inline;">(<%= rand(1..10) %>)</span>
+                                    <!-- <%= worker.reviews_of.count %> -->
+  </div>
+  <div class="ui basic segment">
+    <% if worker.skills.present? %>
+      <h2 class="ui sub header">Skills</h2>
+      <div class="ui horizontal list">
+        <% worker.skills.first(3).each do |skill| %>
+          <div class="ui label item">
             <%= skill.title %>
           </div>
         <% end %>
       </div>
-    </div>
-
-    <div class="ui hidden divider"></div>
-
-    <h2 class="ui sub header">Job Categories:</h2>
-    <div class="ui horizontal list">
-      <div class="label-list"> 
-        <% worker.job_categories.each do |job_category| %>
-          <div class="ui label">
+      <div class="ui horizontal divider" style="margin-left:15%;margin-right:15%;">
+        <% if worker.skills.count > 3 %>
+          <span style="color:#00b5ad;font-size:xx-small;font-style:italic;"><%= worker.skills.count - 3 %>+ more skills</span>
+        <% end %>
+      </div>
+    <% end %>
+    <% if worker.job_categories.present? %>
+      <h2 class="ui sub header">Job Categories</h2>
+      <div class="ui horizontal list">
+        <% worker.job_categories.first(3).each do |job_category| %>
+          <div class="ui label item">
             <%= job_category.title %>
           </div>
         <% end %>
       </div>
-    </div>
-  </div>
+      <div class="ui horizontal divider" style="margin-left:15%;margin-right:15%;">
+        <% if worker.job_categories.count > 3 %>
+          <span style="color:#00b5ad;font-size:xx-small;font-style:italic;"><%= worker.job_categories.count - 3 %>+ more job categories</span>
+        <% end %>
+      </div>
+    <% end %>
 
-  <div class="extra content">
-    Rating:
-    <div class="ui star rating" data-rating="<%= rand(1..5) %>"></div>
-    <div class="meta">Joined <%= worker.created_at.strftime("%B %Y") %></div>
+    <% if worker.certificates.present? || worker.educations.present? %>
+      <h2 class="ui sub header">Education & Certificates</h2>
+      <div class="ui horizontal list">
+        <% worker.certificates.each do |certificate| %>
+          <div class="ui label item">
+            <%= certificate.title %>
+          </div>
+        <% end %>
+        <% worker.educations.each do |education| %>
+          <div class="ui label item">
+            <%= education.degree %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </a>
