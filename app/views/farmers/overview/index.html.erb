@@ -2,16 +2,20 @@
   <%= render partial: "includes/dashboard/masthead" %>
 <%end%>
 
-<div class="ui stackable grid" style="max-height:300px;">
+<div class="ui stackable grid centered">
   <div class="ui five wide column">
-    <a class="ui primary icon button" href="<%= search_workers_path %>" target="_blank">
+    <a class="ui primary icon button" href="<%= new_farmer_job_path %>">
+      <i class="search icon"></i>
+      Post a job
+    </a>
+    <a class="ui basic icon button" href="<%= search_workers_path %>" target="_blank">
       <i class="search icon"></i>
       Find workers
     </a>
   </div>
   <div class="ui six wide column">
     <h3>Notifications</h3>
-    <div class="ui very relaxed divided list" style="overflow:scroll;height:100%;">
+    <div class="ui very relaxed divided list" style="overflow:scroll;max-height:250px;text-align: left;">
       <% if @notifications.count > 0 %>
         <% @notifications.each do |notification| %>
           <%= render partial: "includes/notification", locals: { notification: notification } %>
@@ -21,11 +25,14 @@
       <% end %>
     </div>
   </div>
+  <div class="ui sixteen wide column left aligned">
+    <h2 style="text-align: center;">Recommended workers</h2>
+    <div class="ui hidden divider"></div>
+    <div class="ui centered cards">
+      <% @recommended_workers.each do |worker| %>
+        <%= render partial: "search/worker_card", locals: { worker: worker } %>
+      <% end %>
+    </div>
+  </div>
 </div>
-<h2>Recommended workers</h2>
-<div class="ui hidden divider"></div>
-<div class="ui cards">
-  <% @recommended_workers.each do |worker| %>
-    <%= render partial: "search/worker_card", locals: { worker: worker } %>
-  <% end %>
-</div>
+
