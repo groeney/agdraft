@@ -10,55 +10,58 @@
     <span style="display:inline;color:white;opacity:0.7;">(<%= rand(1..10) %>)</span>
   </div>
 </div>
-<div class="ui tabular secondary two item menu">
-  <div class="active item" data-tab="info" style="cursor: pointer;">
-    <i class="book icon"></i>
-    Information
-  </div>
-  <div class="item" data-tab="reviews" style="cursor: pointer;">
-    <i class="star icon"></i>
-    Reviews
-  </div>
-</div>
 
-<div class="ui active tab" data-tab="info">
-  <div class="ui center aligned grid" style="margin-top:30px;">
-    <div class="ui eight wide column left aligned">
-      <h3 class="header" style="margin-bottom:0;"><%= @farmer.business_name %></h3>
-      <span style="color:gray;font-size:small;"><%= @farmer.location.label || "Australia" %></span>
-      <p style="margin-top:10px;margin-left:10px;">
-        <%= @farmer.business_description %>
-      </p>
+<div class="ui container">
+  <div class="ui tabular secondary two item teal menu">
+    <div class="active item" data-tab="info" style="cursor: pointer;">
+      <i class="book icon"></i>
+      Information
     </div>
-
-    <div class="ui eight wide column left aligned">
-      <% if @farmer.jobs.present? %>
-        <h3 class="header">Jobs posted</h3>
-        <div class="ui cards">
-          <% @farmer.jobs.each do |job| %>
-            <%= render partial: "search/job_card", locals: { job: job } %>
-          <% end %>
-        </div>
-      <% end %>
+    <div class="item" data-tab="reviews" style="cursor: pointer;">
+      <i class="star icon"></i>
+      Reviews
     </div>
   </div>
-</div>
 
-<div class="ui tab" data-tab="reviews">
-  <div class="ui center aligned grid">
-    <div class="ui ten wide column" style="text-align:left;">
-      <div class="ui basic segment">
-        <% if @farmer.reviews_of.present? %>
-          <h3 class="header">Reviews</h3>
-          <% @worker.reviews_of.each do |review| %>
-            <%= render partial: "includes/review_card", locals: { review: review } %>
-            <div class="ui hidden divider"></div>
-          <% end %>
-        <% else %>
-          <div class="ui info message">
-            No reviews for this farmer yet.
+  <div class="ui active tab" data-tab="info">
+    <div class="ui center aligned grid" style="margin-top:30px;">
+      <div class="ui eight wide column left aligned">
+        <h3 class="header" style="margin-bottom:0;"><%= @farmer.business_name %></h3>
+        <span style="color:gray;font-size:small;"><%= @farmer.location.label || "Australia" %></span>
+        <p style="margin-top:10px;margin-left:10px;">
+          <%= @farmer.business_description %>
+        </p>
+      </div>
+
+      <div class="ui eight wide column left aligned">
+        <% if @farmer.jobs.present? %>
+          <h3 class="header">Jobs posted</h3>
+          <div class="ui cards">
+            <% @farmer.jobs.each do |job| %>
+              <%= render partial: "search/job_card", locals: { job: job } %>
+            <% end %>
           </div>
         <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui tab" data-tab="reviews">
+    <div class="ui center aligned grid">
+      <div class="ui ten wide column" style="text-align:left;">
+        <div class="ui basic segment">
+          <% if @farmer.reviews_of.present? %>
+            <h3 class="header">Reviews</h3>
+            <% @farmer.reviews_of.each do |review| %>
+              <%= render partial: "includes/review_card", locals: { review: review } %>
+              <div class="ui hidden divider"></div>
+            <% end %>
+          <% else %>
+            <div class="ui info message">
+              No reviews for this farmer yet.
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

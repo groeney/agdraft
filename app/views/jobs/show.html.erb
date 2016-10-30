@@ -1,73 +1,109 @@
-<div class="hero-image-container very-padded" style="background-image:url('<%= asset_path @job.farmer.cover_photo.url(:display) %>')!important;"></div>
-<div class="ui container">
-  <div class="ui segment basic">
-    <div class="ui stackable grid">
-      <div class="ui eight wide column">
-        <h4>Title</h4>
-        <%= @job.title %>
-      </div>
-      <div class="ui eight wide column">
-        <h4>Location</h4>
-        <%= @job.location.label %>
-      </div>
-      <div class="ui eight wide column">
-        <h4>Business Name</h4>
-        <%= @job.farmer.business_name %>
-      </div>
-      <div class="ui eight wide column">
-        <h4>Business Description</h4>
-        <%= @job.farmer.business_description %>
-      </div>
-      <div class="ui eight wide column">
-        <h4>Job Types</h4>
-        <% @job.job_categories.each do |jc| %>
-          <div class="ui label">
-            <%= jc.title %>
-          </div>
-        <%end%>
-      </div>
-      <div class="ui eight wide column">
-        <h4>Skills Needed</h4>
-        <% @job.skills.each do |s| %>
-          <div class="ui label">
-            <%= s.title %>
-          </div>
-        <%end%>
-      </div>
-      <div class="ui eight wide column">
-        <h4>Job Description</h4>
-        <%= @job.description %>
-      </div>
-      <div class="ui eight wide column">
-        <h4>Accomodation Provided</h4>
-        <%= @job.accomodation_provided ? "Yes" : "No" %>
-      </div>
-      <div class="ui eight wide column">
-        <h4>Pay Rate</h4>
-        $<%= @job.pay_min %>-<%= @job.pay_max %>/hr
-      </div>
-      <div class="ui eight wide column">
-        <h4>Date</h4>
-        <%= @job.start_date_label %> - <%= @job.end_date_label %>
-      </div>
-      <div class="ui eight wide column">
-        <h4>Number of Workers Needed</h4>
-        <%= @job.number_of_workers %>
-      </div>
-      <div class="ui eight wide column">
-        <h4>Farmer</h4>
-        <%= link_to @job.farmer.full_name, farmer_path(@job.farmer.id) %><br/>
-        <div class="ui huge star rating" data-rating="<%= @job.farmer.review_rating %>" data-max-rating="5"></div>
-      </div>
-      <div class="ui eight wide column">
-        <h4>Views</h4>
-        <% user_count = @job.impressionist_count(filter: [:user_id]) %>
-        <p><%= [pluralize(user_count, "user"), "has".pluralize(user_count)].join(" ") %> viewed this job.</p>
-      </div>
-    </div>
-    <div class="ui divider hidden"></div>
-    <%if current_worker%>
-      <button id="apply-for-job" class="ui teal button <%= 'disabled' if @applied %>"><%= @applied ? 'Applied' : 'Apply' %></button>
-    <%end%>
+<div style="text-align:center;height:300px;">
+  <div class="hero-image-container very-padded" style="background-image:url('<%= asset_path @job.farmer.cover_photo.url(:display) %>')!important;filter:brightness(60%);">
+  </div>
+  <div class="ui basic segment" style="bottom:275px;">
+    <h1 style="color:white;font-weight:lighter;"><%= @job.title %></h1>
+    <h3 style="color:white;margin-top:0px;font-weight: lighter;">
+      <span style="margin-right:15px;"><%= number_to_currency(@job.pay_max) %>/hr</span>  |  <span style="margin-left:15px;">Full-time</span>
+    </h3>
+    <h4 style="color:white;margin-top:0px;font-weight:lighter;"><%= @job.location.label %></h4>
+
+    <% if current_worker %>
+      <% applyable = current_worker.is_job_applyable(@job) %>
+      <button style="margin-top:20px;" class="ui teal button apply-for-job <%= 'disabled' if !applyable %>" data-job-id="<%= @job.id %>"><%= applyable ? 'Apply now' : 'Applied' %></button>
+    <% end %>
   </div>
 </div>
+
+<div class="ui container">
+  <div class="ui tabular secondary two item teal menu">
+    <div class="active item" data-tab="job-desc" style="cursor: pointer;">
+      <i class="book icon"></i>
+      Job description
+    </div>
+    <div class="item" data-tab="employer-info" style="cursor:pointer;">
+      <i class="star icon"></i>
+      Employer Information
+    </div>
+  </div>
+
+  <div class="ui active tab" data-tab="job-desc">
+    <div class="ui center aligned grid" style="margin-top:30px;">
+      <div class="ui eight wide column left aligned">
+        <h3>Details</h3>
+        <div class="ui basic segment" style="margin-left:10px;">
+          <span>Job length: <span style="font-weight: bold;">Full-time</span></span><br>
+          <span>Pay rate: <span style="font-weight: bold;"><%= number_to_currency(@job.pay_max) %>/hr</span></span><br>
+          <span>Start date: <span style="font-weight: bold;"><%= @job.start_date.strftime("%d/%m/%Y") %></span></span><br>
+          <span>Location: <span style="font-weight: bold;"><%= @job.location.label %></span></span><br>
+          <span>Acommodation provided: <i class="thumbs <%= @job.accomodation_provided ? 'up' : 'down' %> outline teal icon"></i></span><br>
+        </div>
+        <div class="ui hidden divider"></div>
+        <h3>Description</h3>
+        <p style="margin-left:15px;">
+          <%= @job.description %>
+        </p>
+        <div class="ui hidden divider"></div>
+        <span>Number of workers needed: <span style="font-weight:bold;"><%= @job.number_of_workers %></span></span><br>
+        <span>Number of positions filled: <span style="font-weight:bold;"><%= JobWorker.where({ job_id: @job.id, state: "hired" }).count %></span></span>
+      </div>
+
+      <div class="ui eight wide column left aligned">
+        <div class="ui basic segment">
+          <% if @job.skills.present? %>
+            <h2 class="ui sub header">Skills:</h2>
+            <div class="ui horizontal list">
+              <% @job.skills.each do |skill| %>
+                <div class="ui label item">
+                  <%= skill.title %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+
+          <% if @job.job_categories.present? %>
+            <h2 class="ui sub header">Job Categories:</h2>
+            <div class="ui horizontal list">
+              <% @job.job_categories.each do |job_category| %>
+                <div class="ui label item">
+                  <%= job_category.title %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui tab" data-tab="employer-info">
+    <div class="ui grid" style="margin-top:5%;margin-bottom:10%;">
+      <div class="ui three wide column">
+        <div class="ui small image">
+          <img src="<%= @job.farmer.profile_photo.url(:display) %>">
+        </div>
+      </div>
+      <div class="ui thirteen wide column">
+        <h4 class="header" style="margin-bottom:0px;"><%= @job.farmer.full_name %></h4>
+        <span style="color:gray;"><%= @job.farmer.farm_name %></span>
+        <br>
+        <div class="ui huge star rating" data-rating="<%= rand(2..5) %>" data-max-rating="5"></div>
+                                        <!-- <%= @job.farmer.review_rating %> -->
+        <span class="meta" style="display:inline;">(<%= rand(1..10) %>)</span>
+                                        <!-- <%= @job.farmer.reviews_of.count %> -->
+        <p style="margin-top:3%;">
+          <%= @job.farmer.business_description %>
+        </p>
+        <a class="ui basic teal right floated button" href="<%= farmer_path(@job.farmer.id) %>">View Profile</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if current_worker %>
+  <% applyable = current_worker.is_job_applyable(@job) %>
+  <div style="text-align:center;margin-bottom:10%;margin-top:10%;">
+    <button style="min-width: 50%;" class="ui teal button apply-for-job <%= 'disabled' if !applyable %>" data-job-id="<%= @job.id %>"><%= applyable ? 'Apply now' : 'Applied' %></button>
+  </div>
+<% end %>
+

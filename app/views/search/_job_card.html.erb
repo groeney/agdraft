@@ -29,7 +29,7 @@
   </div>
   <div class="ui divider" style="margin-left:15%;margin-right:15%;"></div>
   <div class="ui basic segment">
-    <% if job.skills.count > 1 %>
+    <% if job.skills.present? %>
       <h2 class="ui sub header">Skills:</h2>
       <div class="ui horizontal list">
         <% job.skills.first(3).each do |skill| %>
@@ -44,7 +44,7 @@
         <% end %>
       </div>
     <% end %>
-    <% if job.job_categories.count > 1 %>
+    <% if job.job_categories.present? %>
       <h2 class="ui sub header">Job Categories:</h2>
       <div class="ui horizontal list">
         <% job.job_categories.first(3).each do |job_category| %>
