@@ -1,10 +1,10 @@
-<a class="ui card" href="<%= job_path(job.id) %>" target="_blank">
+<a class="ui card" href="<%= job_path(job.id) %>" target="_blank" style="max-width: 250px;">
   <div class="content" style="border-left-color:#00b5ad;border-left-width:thick;border-left-style:solid;">
     <div class="header">
       <h2><%= job.title %></h2>
     </div>
     <br>
-    <img class="ui avatar image" src="<%= job.farmer.profile_photo.url(:display) %>">
+    <img class="ui tiny circular image" src="<%= job.farmer.profile_photo.url(:display) %>">
     <div class="header" style="display: inline;">
       <h3 style="display: inline;"><%= job.business_name %></h3>
     </div>
