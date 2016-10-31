@@ -24,7 +24,8 @@ class Workers::OnboardController < Workers::BaseController
 
   def notify_farmers
     notified_farmer_ids = []
-    current_worker.recommended_jobs.each do |job|
+    current_worker.job_recommendations.each do |recommendation|
+      job = recommendation.resource
       unless notified_farmer_ids.include? job.farmer.id
         Notification.create(resource: job.farmer,
                             action_path: worker_path(current_worker.id),
