@@ -17,6 +17,7 @@
     <% end %>
 
     <% if current_farmer %>
+      <br>
       <div class="ui teal button invite-worker" style="margin-top:10px;" data-worker-id="<%= @worker.id %>">
         Invite me to apply
       </div>
@@ -24,96 +25,134 @@
   </div>
 </div>
 
-<div class="ui basic segment" style="text-align: center;">
-  <div class="ui centered stackable two column grid">
-    <div class="ui six wide column" style="text-align:left;">
-      <% if @worker.description.present? %>
-        <div class="ui basic segment">
-          <h3 class="header">
-            Description
-          </h3>
+<div class="ui container" style="margin-bottom:15px;">
+  <div class="ui tabular secondary two item menu profile-tabs">
+    <div class="active item" data-tab="info" style="cursor: pointer;">
+      <i class="book icon"></i>
+      <span class="description">INFORMATION</span>
+    </div>
+    <div class="item" data-tab="reviews" style="cursor: pointer;">
+      <i class="star icon"></i>
+      <span class="description">REVIEWS</span>
+    </div>
+  </div>
+
+  <div class="ui active tab" data-tab="info">
+    <div class="ui center aligned grid" style="margin-top:30px;">
+      <div class="ui eight wide column left aligned">
+        <% if @worker.description %>
+          <h3 class="header" style="margin-bottom:0;">Description</h3>
           <p>
             <%= @worker.description %>
           </p>
-        </div>
-      <% end %>
-
-      <% if @worker.skills.present? %>
-        <div class="ui basic segment">
-          <h3 class="header">
-            Skills
-          </h3>
-          <div class="ui horizontal list">
-            <% @worker.skills.each do |skill| %>
-              <div class="ui label item">
-                <%= skill.title %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-
-      <% if @worker.certificates.present? %>
-        <div class="ui basic segment">
-          <h3 class="header">
-            Certificates
-          </h3>
-          <div class="ui horizontal list">
-            <% @worker.certificates.each do |certificate| %>
-              <div class="ui label item">
-                <%= certificate.title %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-
-      <% if @worker.locations.present? %>
-        <div class="ui basic segment">
-          <h3 class="header">
-            Willing to Work
-          </h3>
-          <div class="ui horizontal list">
-            <% @worker.locations.each do |location| %>
-              <div class="ui basic label item" style="padding:3px;border:0px;">
-                <i class="teal marker icon"></i>
-                <%= location.label %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-
-      <% if @worker.nationality.present? %>
-        <div class="ui basic segment">
-          <h3 class="header" style="display:inline-block;">
-            Nationality:
-          </h3>
-          <span><%= @worker.nationality %></span>
-          <% unless @worker.nationality.include? "Australia" %>
+        <% end %>
+        <h3 class="header">Details</h3>
+        <div class="ui basic segment" style="margin-top:0px;line-height:2rem;">
+          <span>Nationality: <span style="font-weight: bold;"><%= @worker.nationality %></span></span><br>
+          <span>DOB: <span style="font-weight: bold;"><%= @worker.dob.try(:strftime, "%B, %Y") || "Not provided" %></span></span><br>
+          <% unless @worker.australian? %>
             <% visa_present = @worker.visa.present? %>
-            <br>
-            <i class="teal thumbs outline <%= visa_present ? "up" : "down" %> icon"></i>
-            <span>Visa: <%= visa_present ? "Yes" : "No" %> </span>
+            <span>
+              <span>Visa: <i class="teal thumbs outline <%= visa_present ? "up" : "down" %> icon"></i></span>
+            </span><br>
           <% end %>
+          <span>Own transport?: <i class="thumbs <%= @worker.has_own_transport ? 'up' : 'down' %> outline teal icon"></i></span><br>
+          <span>Own Accommodation?: <i class="thumbs <%= @worker.has_own_accommodation ? 'up' : 'down' %> outline teal icon"></i></span><br>
+          <span>Grew up on farm?: <i class="thumbs <%= @worker.grew_up_on_farm ? 'up' : 'down' %> outline teal icon"></i></span><br>
         </div>
-      <% end %>
-    </div>
 
-    <div class="ui six wide column" style="text-align:left;">
-      <div class="ui basic segment">
-        <% if @worker.reviews_of.present? %>
-          <h3 class="header">Reviews</h3>
-          <% @worker.reviews_of.each do |review| %>
-            <%= render partial: "includes/review_card", locals: { review: review } %>
-          <% end %>
+        <% if @worker.locations.present? %>
+          <h3 class="header">Willing to Work</h3>
+          <div class="ui basic segment">
+            <div class="ui horizontal list">
+              <% @worker.locations.each do |location| %>
+                <div class="ui basic label item" style="padding:3px;border:0px;">
+                  <i class="teal marker icon"></i>
+                  <%= location.label %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <% if @worker.unavailabilities.present? %>
+          <h3 class="header">Not Available</h3>
+          <div class="ui basic segment">
+            <% @worker.unavailabilities.each do |unavailability| %>
+              <span><%= unavailability.start_date.strftime("%d %B %Y") %> - <%= unavailability.end_date.strftime("%d %B %Y") %></span><br>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="ui eight wide column left aligned">
+        <% if @worker.skills.present? %>
+            <h3 class="header">Skills</h3>
+          <div class="ui basic segment">
+            <div class="ui horizontal list">
+              <% @worker.skills.each do |skill| %>
+                <div class="ui label item">
+                  <%= skill.title %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <% if @worker.certificates.present? %>
+          <h3 class="header">Certificates & Licenses</h3>
+          <div class="ui basic segment">
+            <div class="ui horizontal list">
+              <% @worker.certificates.each do |certificate| %>
+                <div class="ui label item">
+                  <%= certificate.title %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <% if @worker.previous_employers.present? %>
+          <h3 class="header">Recent Jobs</h3>
+          <div class="ui basic segment">
+            <% @worker.previous_employers.each do |previous_employer| %>
+              <h4 style="color:#00b5ad;font-weight:bolder;margin-bottom:0px;display:inline;"><%= previous_employer.job_title %></h4><b style="color:black;margin-left:2px;margin-right:2px;">at</b> <h4 style="color:#00b5ad;font-weight:bolder;margin-bottom:0px;display: inline;"><%= previous_employer.business_name %></h4><br>
+              <span style="color:gray;"><%= previous_employer.start_date.strftime("%B %Y") %> - <%= previous_employer.end_date.strftime("%B %Y") %></span><br>
+              <div class="ui star rating" data-rating="5" data-max-rating="5"></div>
+              <div class="ui hidden divider"></div>
+            <% end %>
+          </div>
         <% end %>
       </div>
     </div>
   </div>
-  <% if current_farmer %>
-    <button class="ui teal button invite-worker">Invite me to apply</button>
-  <% end %>
+
+  <div class="ui tab" data-tab="reviews">
+    <div class="ui center aligned grid">
+      <div class="ui ten wide column" style="text-align:left;">
+        <div class="ui basic segment">
+          <% if @worker.reviews_of.present? %>
+            <h3 class="header">Reviews</h3>
+            <% @worker.reviews_of.each do |review| %>
+              <%= render partial: "includes/review_card", locals: { review: review } %>
+              <div class="ui hidden divider"></div>
+            <% end %>
+          <% else %>
+            <div class="ui info message">
+              No reviews for this worker yet.
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+<% if current_farmer %>
+  <div style="text-align:center;margin-bottom:5%;">
+    <button style="min-width:40%;" class="ui teal button invite-worker">Invite me to apply</button>
+  </div>
+<% end %>
 
 <%= render "jobs_modal" if current_farmer %>

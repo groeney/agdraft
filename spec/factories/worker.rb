@@ -4,6 +4,7 @@ FactoryGirl.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     nationality { Faker::Address.country }
+    description { Faker::Lorem.paragraph }
     sequence(:email){ |n| "worker-email-#{SecureRandom.hex(3)}@example.com" }
     profile_photo { fixture_file_upload(File.new(Dir["seed_assets/headshots/*"].sample), "image/jpg") }
     password "password"
