@@ -7,7 +7,7 @@
   </div>
   <div class="ui twelve wide column">
     <h3 class="header" style="display:inline;">
-      <a href="<%= review.reviewee_profile_path %>" target="_blank"><%= review.job.title %></a>
+      <a href="<%= review.reviewee_profile_path %>" target="_blank"><%= review.job.try(:title) || review.reviewee.full_name %></a>
     </h3>
     <div class="ui star rating" data-rating="<%= review.rating %>" data-max-rating="5"></div>
     <br>

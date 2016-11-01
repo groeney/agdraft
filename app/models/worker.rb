@@ -201,6 +201,10 @@ class Worker < ActiveRecord::Base
     values.reject{ |v| v.blank? }.count*100/values.count
   end
 
+  def australian?
+    nationality.try(:include?, "Australia")
+  end
+
   protected
 
   def skill_ids
