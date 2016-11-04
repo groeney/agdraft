@@ -175,7 +175,7 @@ class Worker < ActiveRecord::Base
   end
 
   def has_reviewed_farmer(farmer_id)
-    reviews_by.where({ reviewee_id: farmer_id, reviewee_type: "Farmer" }).exists?
+    Review.where(reviewee_id: farmer_id, reviewee_type: "Farmer", reviewer_id: id, reviewer_type: "Worker" ).exists?
   end
 
   def reviews
@@ -184,13 +184,11 @@ class Worker < ActiveRecord::Base
   end
 
   def reviews_by
-    query = "reviewer_type = :worker_type and reviewer_id = :worker_id"
-    Review.where(query, worker_id: id, worker_type: "Worker")
+    Review.where(reviewer_id: id, reviewer_type: "Worker")
   end
 
   def reviews_of
-    query = "reviewee_type = :worker_type and reviewee_id = :worker_id"
-    Review.where(query, worker_id: id, worker_type: "Worker")
+    Review.where(reviewee_id: id, reviewee_type: "Worker")
   end
 
   def profile_completeness
