@@ -6,7 +6,7 @@ class Review < ActiveRecord::Base
 
   validates_presence_of :reviewee, :reviewer
   validates :rating, inclusion: { in: [*1..5] }
-  validate :reviewer_can_review_reviewee
+  validate :reviewer_can_review_reviewee, on: :create
 
   def reviewee_profile_path
     return "#" if reviewee_id == nil
