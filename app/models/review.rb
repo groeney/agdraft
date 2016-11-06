@@ -4,9 +4,10 @@ class Review < ActiveRecord::Base
   belongs_to :reviewer, polymorphic: true
   belongs_to :job
 
-  validates_presence_of :reviewee, :reviewer
+  validates_presence_of :reviewee
   validates :rating, inclusion: { in: [*1..5] }
   validate :reviewer_can_review_reviewee, on: :create
+  validate :reviewee_exists
 
   def reviewee_profile_path
     return "#" if reviewee_id == nil
@@ -21,8 +22,18 @@ class Review < ActiveRecord::Base
   end
 
   def reviewer_can_review_reviewee
-    unless reviewer.try(:can_review, reviewee_id)
-      errors.add(:reviewee_id, "Reviewer does not have permission to review reviewee.")
+    if reviewer
+      unless reviewer.try(:can_review, reviewee_id)
+        errors.add(:reviewee_id, "Reviewer does not have permission to review reviewee.")
+      end
+    end
+  end
+
+  protected
+
+  def reviewee_exists
+    unless reviewee
+      errors.add(:reviewee_id, "Reviewee must exist")
     end
   end
 end

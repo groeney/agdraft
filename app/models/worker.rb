@@ -184,11 +184,11 @@ class Worker < ActiveRecord::Base
   end
 
   def reviews_by
-    Review.where(reviewer_id: id, reviewer_type: "Worker")
+    Review.where(reviewer_id: id, reviewer_type: "Worker", approved: true)
   end
 
   def reviews_of
-    Review.where(reviewee_id: id, reviewee_type: "Worker")
+    Review.where(reviewee_id: id, reviewee_type: "Worker", approved: true)
   end
 
   def profile_completeness

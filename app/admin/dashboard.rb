@@ -45,6 +45,18 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
     end
+
+    columns do
+      column do
+        panel "Recent Reviews" do
+          ul do
+            Review.last(5).map do |rev|
+              li link_to("#{rev.reviewee.full_name}", admin_review_path(rev))
+            end
+          end
+        end
+      end
+    end
   end
 
 end

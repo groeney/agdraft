@@ -138,13 +138,11 @@ class Farmer < ActiveRecord::Base
   end
 
   def reviews_by
-    query = "reviewer_type = :farmer_type and reviewer_id = :farmer_id"
-    Review.where(query, farmer_id: id, farmer_type: "Farmer")
+    Review.where(reviewer_id: id, reviewer_type: "Farmer", approved: true)
   end
 
   def reviews_of
-    query = "reviewee_type = :farmer_type and reviewee_id = :farmer_id"
-    Review.where(query, farmer_id: id, farmer_type: "Farmer")
+    Review.where(reviewee_id: id, reviewee_type: "Farmer", approved: true)
   end
 
   protected
