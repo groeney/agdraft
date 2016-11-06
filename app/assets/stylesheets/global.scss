@@ -1,5 +1,11 @@
 @import "toastr/toastr.min.css";
 
+.center.vertically{
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .australia-map{
   margin:auto;
 }

@@ -1,19 +1,86 @@
-<a href="/about" class="<%= @cms_page.try(:slug) == 'about' ? 'active' : '' %> item">About</a>
-<%= link_to "Find a Job", search_jobs_path, class: "item" %>
-<%= link_to "Find Workers", search_workers_path, class: "item" %>
-<%= link_to "Get Started", get_started_path, class: "item" %>
-
 <% if sidebar %>
-  <a class="item">Login</a>
-  <%= link_to "Sign Up", get_started_path %>
+  <div class="item">
+    <div class="header">How it Works</div>
+    <div class="menu">
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/how-it-works/features/">Features</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/how-it-works/prices/">Pricing</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/how-it-works/rating-review-system/">Rating & Review system</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="header">About us</div>
+    <div class="menu">
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/about-us/testimonials/">Testimonials</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/about-us/ag-draft-in-the-media/">AgDraft in the Media</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="header">Resource Toolbox</div>
+    <div class="menu">
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/resource-tool-box/rural-training/">Rural training</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/resource-tool-box/visa-help/">Visa help</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/resource-tool-box/on-farm-safety/">On Farm Safety</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="header">Search</div>
+    <div class="menu">
+      <%= link_to "for Workers", search_jobs_path, class: "item" %>
+      <%= link_to "for Jobs", search_workers_path, class: "item" %>
+    </div>
+  </div>
+
+  <%= link_to "Login", login_path, class: "item" %>
+  <%= link_to "Sign Up", get_started_path, class: "item" %>
 <%else%>
+  <div class="ui dropdown item">
+    How it Works
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/how-it-works/features/">Features</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/how-it-works/prices/">Pricing</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/how-it-works/rating-review-system/">Rating & Review system</a>
+    </div>
+  </div>
+
+  <div class="ui dropdown item">
+    About us
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/about-us/testimonials/">Testimonials</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/about-us/ag-draft-in-the-media/">AgDraft in the Media</a>
+    </div>
+  </div>
+
+  <div class="ui dropdown item">
+    Resource Toolbox
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/resource-tool-box/rural-training/">Rural training</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/resource-tool-box/visa-help/">Visa help</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/resource-tool-box/on-farm-safety/">On Farm Safety</a>
+    </div>
+  </div>
+
+  <div class="ui dropdown item">
+    Search
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <%= link_to "for Workers", search_jobs_path, class: "item" %>
+      <%= link_to "for Jobs", search_workers_path, class: "item" %>
+    </div>
+  </div>
+
   <div class="right item">
     <%if current_worker%>
-      <%= link_to "Dashboard", worker_dashboard_path, class: "ui teal button", target: "blank" %>
+      <%= link_to "Dashboard", worker_dashboard_path, class: "ui teal basic button", target: "blank" %>
     <%elsif current_farmer%>
-      <%= link_to "Dashboard", farmer_dashboard_path, class: "ui teal button", target: "blank" %>
+      <%= link_to "Dashboard", farmer_dashboard_path, class: "ui teal basic button", target: "blank" %>
     <%else%>
-      <%= link_to "Login", login_path, class: "ui teal button basic" %>
+      <%= link_to "Login", login_path, class: "ui teal basic button" %>
       <%= link_to "Sign Up", get_started_path, class: "ui teal button" %>
     <%end%>
   </div>

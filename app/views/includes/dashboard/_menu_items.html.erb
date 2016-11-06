@@ -1,14 +1,39 @@
 <div class="ui menu">
-  <div class="header item">
-    Our Company
+  <div class="ui dropdown item">
+    How it Works
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/how-it-works/features/">Features</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/how-it-works/prices/">Pricing</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/how-it-works/rating-review-system/">Rating & Review system</a>
+    </div>
   </div>
-  <a class="item">
-    About Us
-  </a>
-  <a class="item">
-    Jobs
-  </a>
-  <a class="item">
-    Locations
-  </a>
+
+  <div class="ui dropdown item">
+    About us
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/about-us/testimonials/">Testimonials</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/about-us/ag-draft-in-the-media/">AgDraft in the Media</a>
+    </div>
+  </div>
+
+  <div class="ui dropdown item">
+    Resource Toolbox
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/resource-tool-box/rural-training/">Rural training</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/resource-tool-box/visa-help/">Visa help</a>
+      <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/resource-tool-box/on-farm-safety/">On Farm Safety</a>
+    </div>
+  </div>
+
+  <div class="ui dropdown item">
+    Search
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <%= link_to "for Workers", search_jobs_path, class: "item" %>
+      <%= link_to "for Jobs", search_workers_path, class: "item" %>
+    </div>
+  </div>
 </div>

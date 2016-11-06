@@ -1,34 +1,62 @@
 <div class="ui container">
-  <div class="ui right floated icon text menu">
-    <% if current_farmer && current_farmer.credit > 0 %>
-      <h4 class="item aligned right">Credit: $<%= current_farmer.credit %></h4>
-    <%end%>
-    <% if @unseen_notifications %>
-      <a class="item right aligned" data-tooltip="You have new notifications." data-inverted="" data-position="bottom center" href="<%= current_farmer ? farmer_notifications_path : worker_notifications_path %>" style="color: black;">
-        <span class="ui empty mini floating circular blue notification label"></span>
-    <% else %>
-      <a class="item right aligned" href="<%= current_farmer ? farmer_notifications_path : worker_notifications_path %>" style="color: black;">
-    <% end %>
-        <i class="bell icon"></i>
-      </a>
-      <% logout_path = current_farmer ? destroy_farmer_session_path : destroy_worker_session_path %>
-    <%= link_to "Log Out", logout_path, method: :delete, class: "item right aligned" %>
-  </div>
-  <div class="ui text menu">
-    <div class="header item">
-      Dashboard
+  <div class="ui grid">
+    <div class="row">
+      <div class="ui right floated icon text menu">
+        <% if current_farmer && current_farmer.credit > 0 %>
+          <h4 class="item">Credit: $<%= current_farmer.credit %></h4>
+        <%end%>
+        <% if @unseen_notifications %>
+          <a class="item" data-tooltip="You have new notifications." data-inverted="" data-position="bottom center" href="<%= current_farmer ? farmer_notifications_path : worker_notifications_path %>" style="color: black;">
+            <span class="ui empty mini floating circular blue notification label"></span>
+        <% else %>
+          <a class="item" href="<%= current_farmer ? farmer_notifications_path : worker_notifications_path %>" style="color: black;">
+        <% end %>
+            <i class="bell icon"></i>
+          </a>
+          <% logout_path = current_farmer ? destroy_farmer_session_path : destroy_worker_session_path %>
+        <%= link_to "Log Out", logout_path, method: :delete, class: "item right aligned" %>
+      </div>
     </div>
-    <a class="item">
-      Contact Us
-    </a>
-    <a class="item">
-      About us
-    </a>
-    <a class="item">
-      FAQ
-    </a>
-    <a class="item">
-      Blog
-    </a>
+    <div class="row">
+      <div class="ui right floated text menu">
+        <div class="ui dropdown item">
+          How it Works
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/how-it-works/features/">Features</a>
+            <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/how-it-works/prices/">Pricing</a>
+            <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/how-it-works/rating-review-system/">Rating & Review system</a>
+          </div>
+        </div>
+
+        <div class="ui dropdown item">
+          About us
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/about-us/testimonials/">Testimonials</a>
+            <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/about-us/ag-draft-in-the-media/">AgDraft in the Media</a>
+          </div>
+        </div>
+
+        <div class="ui dropdown item">
+          Resource Toolbox
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/resource-tool-box/rural-training/">Rural training</a>
+            <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/resource-tool-box/visa-help/">Visa help</a>
+            <a class="item" href="http://hosting.digitalvillage.com.au/agdraftblog/resource-tool-box/on-farm-safety/">On Farm Safety</a>
+          </div>
+        </div>
+
+        <div class="ui dropdown item">
+          Search
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <%= link_to "for Workers", search_jobs_path, class: "item" %>
+            <%= link_to "for Jobs", search_workers_path, class: "item" %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

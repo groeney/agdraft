@@ -1,5 +1,6 @@
 $(document).on('turbolinks:load', function(){
   $('.pages.home').ready(function(){
+    $('.ui.tabular.menu .item').tab();
     // fix menu when passed
       $('.masthead')
         .visibility({
