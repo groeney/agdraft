@@ -1,13 +1,13 @@
 class SearchController < ApplicationController
   def workers
-    @workers = Worker.visibles
+    @workers = Worker.visibles.reverse
     if params["search"]
       @workers = Worker.filter_and((@filter_params = worker_filter_params))
     end
   end
 
   def jobs
-    @jobs = Job.visibles
+    @jobs = Job.visibles.reverse
     if params["search"]
       @jobs = Job.filter_and((@filter_params = job_filter_params))
     end
