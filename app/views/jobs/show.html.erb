@@ -7,6 +7,14 @@
       <span style="margin-right:15px;"><%= number_to_currency(@job.pay_max) %>/hr</span>  |  <span style="margin-left:15px;">Full-time</span>
     </h3>
     <h4 style="color:white;margin-top:0px;font-weight:lighter;"><%= @job.location.label %></h4>
+    <a class="ui button twitter-share-button" href="https://twitter.com/share" style="background-color: #4183C4;" data-text="<%= job_url(@job.id) %>">
+      <i id="twitter-share" class="twitter link icon" style="color: white;"></i>
+    </a>
+    <span class="fb-share-button" data-href="<%= job_url(@job.id) %>" data-layout="icon" data-mobile-iframe="true">
+      <a class="ui button fb-xfbml-parse-ignore" style="background-color: #4183C4;" target="_blank" href="https://www.facebook.com/sharer/sharer.php">
+        <i id="facebook-share" class="facebook link icon" style="color: white;"></i>
+      </a>
+    </span>
 
     <% if current_worker %>
       <% applyable = current_worker.is_job_applyable(@job) %>
