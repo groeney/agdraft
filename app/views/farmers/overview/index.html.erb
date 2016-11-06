@@ -3,15 +3,31 @@
 <%end%>
 
 <div class="ui stackable grid centered">
-  <div class="ui five wide column">
-    <a class="ui primary icon button" href="<%= new_farmer_job_path %>">
-      <i class="search icon"></i>
-      Post a job
-    </a>
-    <a class="ui basic icon button" href="<%= search_workers_path %>" target="_blank">
-      <i class="search icon"></i>
-      Find workers
-    </a>
+  <div class="ui ten wide column">
+    <div class="ui centered grid">
+      <div class="five wide column">
+        <i class="huge teal circular pin icon"></i>
+        <span>Post a Job</span>
+      </div>
+      <div class="five wide column">
+        <i class="huge teal circular users icon"></i>
+        <span>Workers Apply</span>
+      </div>
+      <div class="five wide column">
+        <i class="huge teal circular checkmark box icon"></i>
+        <span>You Interview and Hire</span>
+      </div>
+      <div class="six wide column">
+        <a class="ui teal fluid button" href="<%= new_farmer_job_path %>">
+          Post Job
+        </a>
+      </div>
+      <div class="six wide column">
+        <a class="ui teal fluid button" href="<%= search_workers_path %>" target="_blank">
+          Search Workers
+        </a>
+      </div>
+    </div>
   </div>
   <div class="ui six wide column">
     <h3>Notifications</h3>
