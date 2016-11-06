@@ -19,13 +19,13 @@
     <h2 style="font-weight:lighter;margin-top:0px;">Reliable work when you need it</h2>
     <div class="ui centered grid" style="text-align:center;">
       <div class="ui item eight wide column">
-        <%= link_to new_farmer_registration_path, { class: "ui huge teal button", id: "farmers-link", style: "margin-right:15px;" } do %>
+        <%= link_to new_farmer_registration_path, { class: "ui huge fluid teal button", id: "farmers-link", style: "margin-right:15px;" } do %>
           <img class="ui image" style="display:inline;width:25px;margin-bottom:5px;margin-right:10px;" src="assets/icon-farmer.png">
           <span>I'm an Employer</span>
         <% end %>
       </div>
       <div class="ui item eight wide column">
-        <%= link_to new_worker_registration_path, { class: "ui huge teal button" } do %>
+        <%= link_to new_worker_registration_path, { class: "ui huge fluid teal button" } do %>
         <img class="ui image" style="display:inline;width:25px;margin-bottom:5px;margin-right:10px;" src="assets/icon-worker.png">
         <span>I'm Looking for Work</span>
         <% end %>
@@ -139,15 +139,17 @@
 <div class="ui hidden divider"></div>
 
 <h1 style="text-align:center;font-weight:normal;font-size:2.5rem;margin-bottom:4rem;">Help Us Direct You</h1>
-<div class="ui centered grid" style="text-align:center;margin-bottom:3rem;">
+<div class="ui centered grid" style="text-align:center;margin-bottom:5%;">
   <div class="ui item four wide column">
-    <%= link_to new_farmer_registration_path, { class: "ui huge teal button", id: "farmers-link", style: "margin-right:15px;" } do %>
-      <i class="tree icon"></i>I'm an Employer
+    <%= link_to new_farmer_registration_path, { class: "ui huge fluid teal button", id: "farmers-link", style: "margin-right:15px;" } do %>
+      <img class="ui image" style="display:inline;width:25px;margin-bottom:5px;margin-right:10px;" src="assets/icon-farmer.png">
+      <span>I'm an Employer</span>
     <% end %>
   </div>
   <div class="ui item four wide column">
-    <%= link_to new_worker_registration_path, { class: "ui huge teal button" } do %>
-      <i class="find icon"></i>I'm Looking for Work
+    <%= link_to new_worker_registration_path, { class: "ui huge fluid teal button" } do %>
+    <img class="ui image" style="display:inline;width:25px;margin-bottom:5px;margin-right:10px;" src="assets/icon-worker.png">
+    <span>I'm Looking for Work</span>
     <% end %>
   </div>
 </div>
