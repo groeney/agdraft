@@ -99,10 +99,8 @@
         </h4>
         <span style="color:gray;"><%= @job.farmer.farm_name %></span>
         <br>
-        <div class="ui huge star rating" data-rating="<%= rand(2..5) %>" data-max-rating="5"></div>
-                                        <!-- <%= @job.farmer.review_rating %> -->
-        <span class="meta" style="display:inline;">(<%= rand(1..10) %>)</span>
-                                        <!-- <%= @job.farmer.reviews_of.count %> -->
+        <div class="ui huge star rating" data-rating="<%= @job.farmer.review_rating %>" data-max-rating="5"></div>
+        <span class="meta" style="display:inline;">(<%= @job.farmer.reviews_of.count %>)</span>
         <p style="margin-top:3%;">
           <%= @job.farmer.business_description %>
         </p>

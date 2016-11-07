@@ -119,7 +119,11 @@ class Worker < ActiveRecord::Base
   end
 
   def review_rating
-    reviews_of.average(:rating).to_f
+    if reviews_of.empty?
+      0
+    else
+      reviews_of.average(:rating).ceil 
+    end
   end
 
   def job_recommendations
@@ -171,7 +175,7 @@ class Worker < ActiveRecord::Base
   end
 
   def can_review(farmer_id)
-    employers.where({ id: farmer_id }).exists?
+    employers.where({ id: farmer_id }).exists? && reviews_by.where(reviewee_id: farmer_id).empty?
   end
 
   def has_reviewed_farmer(farmer_id)
@@ -184,7 +188,7 @@ class Worker < ActiveRecord::Base
   end
 
   def reviews_by
-    Review.where(reviewer_id: id, reviewer_type: "Worker", approved: true)
+    Review.where(reviewer_id: id, reviewer_type: "Worker")
   end
 
   def reviews_of
@@ -201,6 +205,13 @@ class Worker < ActiveRecord::Base
 
   def australian?
     nationality.try(:include?, "Australia")
+  end
+
+  def unreviewed_jobs
+    hired_job_ids = job_workers.where({ state: ["hired"] }).map {|el| el.job_id }
+    reviewed_job_ids = reviews_by.map {|el| el.job_id }    
+    unreviewed_job_ids = hired_job_ids - reviewed_job_ids
+    return unreviewed_job_ids.map {|id| Job.find(id)}
   end
 
   protected

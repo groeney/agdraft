@@ -120,7 +120,11 @@ class Farmer < ActiveRecord::Base
   end
 
   def review_rating
-    reviews_of.average(:rating).to_f
+    if reviews_of.empty?
+      0
+    else
+      reviews_of.average(:rating).ceil 
+    end
   end
 
   def recommended_workers
@@ -138,7 +142,7 @@ class Farmer < ActiveRecord::Base
   end
 
   def reviews_by
-    Review.where(reviewer_id: id, reviewer_type: "Farmer", approved: true)
+    Review.where(reviewer_id: id, reviewer_type: "Farmer")
   end
 
   def reviews_of

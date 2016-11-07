@@ -51,7 +51,11 @@ ActiveAdmin.register_page "Dashboard" do
         panel "Recent Reviews" do
           ul do
             Review.last(5).map do |rev|
-              li link_to("#{rev.reviewee.full_name}", admin_review_path(rev))
+              if rev.approved
+                li link_to("Review of #{rev.reviewee.full_name} - approved", admin_review_path(rev))
+              else
+                li link_to("Review of #{rev.reviewee.full_name} - not approved", admin_review_path(rev))
+              end
             end
           end
         end

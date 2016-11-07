@@ -10,10 +10,8 @@
     <div class="header" style="display: inline;">
       <h3 style="display: inline;"><%= job.business_name %></h3>
     </div>
-    <div class="ui huge star rating" data-rating="<%= rand(2..5) %>" data-max-rating="5"></div>
-                                    <!-- <%= job.farmer.review_rating %> -->
-    <span class="meta" style="display:inline;">(<%= rand(1..10) %>)</span>
-                                    <!-- <%= job.farmer.reviews_of.count %> -->
+    <div class="ui huge star rating" data-rating="<%= job.farmer.review_rating %>" data-max-rating="5"></div>
+    <span class="meta" style="display:inline;">(<%= job.farmer.reviews_of.count %>)</span>
     <div class="ui hidden divider"></div>
     <span class="meta">
       <i class="marker icon"></i>

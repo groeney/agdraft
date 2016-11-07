@@ -6,8 +6,8 @@
       <%= image_tag @worker.profile_photo.url(:display) %>
     </div>
     <h3 style="color:white;margin-top:0.25em;font-weight:lighter;"><%= @worker.full_name %></h3>
-    <div class="ui huge star rating" data-rating="<%= rand(2..5) %>" data-max-rating="5"></div>
-    <span style="display:inline;color:white;opacity:0.7;">(<%= rand(1..10) %>)</span>
+    <div class="ui huge star rating" data-rating="<%= @worker.review_rating %>" data-max-rating="5"></div>
+    <span style="display:inline;color:white;opacity:0.7;">(<%= @worker.reviews_of.length %>)</span>
 
     <% if @worker.verified %>
       <div style="color:orange;">

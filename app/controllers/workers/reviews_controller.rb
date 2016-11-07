@@ -13,7 +13,7 @@ class Workers::ReviewsController < Workers::BaseController
   def new
     @farmer = Farmer.find(params[:farmer_id])
     unless current_worker.can_review(@farmer.id)
-      flash[:error] = "You cannot submit a review for that farmer."
+      flash[:error] = "You have either already reviewed this farmer, or you are not permited to review this farmer"
       return redirect_to worker_dashboard_path
     end
     @review = Review.new

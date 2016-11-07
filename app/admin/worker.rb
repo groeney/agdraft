@@ -31,6 +31,12 @@ ActiveAdmin.register Worker do
       row :god_mode do
         link_to "Access Account", :controller => "admins/worker_sessions", :action => "create", :id => worker.id
       end
+      row :reviews_by do
+        link_to "Reviews BY worker", :controller => "reviews", :action => "index", 'q[reviewer_type_equals]' => "Worker", "q[reviewer_id_equals]" => "#{worker.id}"
+      end
+      row :reviews_of do
+        link_to "Reviews OF worker", :controller => "reviews", :action => "index", 'q[reviewee_type_equals]' => "Worker", "q[reviewee_id_equals]" => "#{worker.id}"
+      end
     end
   end
 

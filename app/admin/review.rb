@@ -1,5 +1,5 @@
 ActiveAdmin.register Review do
-  permit_params :rating, :feedback, :approved
+  permit_params :rating, :feedback, :approved, :reviewee_type, :reviewee_id, :title
   actions :index, :show, :new, :create, :update, :edit
 
   index do
@@ -11,7 +11,9 @@ ActiveAdmin.register Review do
   end
 
   filter :reviewee_type
+  filter :reviewee_id
   filter :reviewer_type
+  filter :reviewer_id
   filter :rating
   filter :approved
 

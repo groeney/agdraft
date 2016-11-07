@@ -29,9 +29,21 @@ class Review < ActiveRecord::Base
     end
   end
 
+  def title_text
+    if job
+      job.title
+    elsif reviewer
+      reviewer.full_name
+    elsif title && !title.empty?
+      title
+    else
+      "Anonymous"
+    end
+  end
+
   protected
 
-  def reviewee_exists
+  def reviewee_exists    
     unless reviewee
       errors.add(:reviewee_id, "Reviewee must exist")
     end

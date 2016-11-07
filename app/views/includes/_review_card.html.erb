@@ -1,18 +1,28 @@
 <div class="ui two column grid">
   <div class="ui four wide column" style="text-align:center;">
     <div class="ui small circular image" >
-      <img src="<%= review.reviewer.profile_photo.url(:display) %>">
+      <% if review.reviewer %>
+        <%= image_tag review.reviewer.profile_photo.url(:display) %>
+      <%else%>
+        <%= image_tag "missing_worker_profile_photo.png" %>
+      <%end%>
     </div>
-    <span style="color:gray;"><%= review.reviewer.full_name %></span>
+    <%if review.reviewer%>
+      <span style="color:gray;"><%= review.reviewer.full_name %></span>
+    <%end%>
   </div>
   <div class="ui twelve wide column">
     <h3 class="header" style="display:inline;">
-      <a href="<%= review.reviewee_profile_path %>" target="_blank"><%= review.job.try(:title) || review.reviewee.try(:full_name) || review.title %></a>
+      <%if review.reviewer %>
+        <a href="<%= review.reviewer_profile_path %>" target="_blank"><%= review.title_text %></a>
+      <%else%>
+        <%= review.title_text %>
+      <%end%>
     </h3>
     <div class="ui star rating" data-rating="<%= review.rating %>" data-max-rating="5"></div>
     <br>
-    <span>
+    <p>
       <%= review.feedback %>
-    </span>
+    </p>
   </div>
 </div>

@@ -45,6 +45,12 @@ ActiveAdmin.register Farmer do
       row :god_mode do
         link_to "Access Account", :controller => "admins/farmer_sessions", :action => "create", :id => farmer.id
       end
+      row :reviews_by do
+        link_to "Reviews BY farmer", :controller => "reviews", :action => "index", 'q[reviewer_type_equals]' => "Farmer", "q[reviewer_id_equals]" => "#{farmer.id}"
+      end
+      row :reviews_of do
+        link_to "Reviews OF farmer", :controller => "reviews", :action => "index", 'q[reviewee_type_equals]' => "Farmer", "q[reviewee_id_equals]" => "#{farmer.id}"
+      end
     end
   end
 

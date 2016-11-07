@@ -6,8 +6,8 @@
       <%= image_tag @farmer.profile_photo.url(:display) %>
     </div>
     <h3 style="color:white;margin-top:0.25em;font-weight:lighter;"><%= @farmer.full_name %></h3>
-    <div class="ui huge star rating" data-rating="<%= rand(2..5) %>" data-max-rating="5"></div>
-    <span style="display:inline;color:white;opacity:0.7;">(<%= rand(1..10) %>)</span>
+    <div class="ui huge star rating" data-rating="<%= @farmer.review_rating %>" data-max-rating="5"></div>
+    <span style="display:inline;color:white;opacity:0.7;">(<%= @farmer.reviews_of.length %>)</span>
   </div>
 </div>
 
