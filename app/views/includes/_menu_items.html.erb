@@ -28,8 +28,8 @@
   <div class="item">
     <div class="header">Search</div>
     <div class="menu">
-      <%= link_to "for Workers", search_jobs_path, class: "item" %>
-      <%= link_to "for Jobs", search_workers_path, class: "item" %>
+      <%= link_to "for Workers", search_workers_path, class: "item" %>
+      <%= link_to "for Jobs", search_jobs_path, class: "item" %>
     </div>
   </div>
 
@@ -80,7 +80,7 @@
     <%elsif current_farmer%>
       <%= link_to "Dashboard", farmer_dashboard_path, class: "ui teal basic button", target: "blank" %>
     <%else%>
-      <%= link_to "Login", login_path, class: "ui teal basic button" %>
+      <%= link_to "Login", login_path, class: "ui teal basic button", style: "margin-right: 10px;" %>
       <%= link_to "Sign Up", get_started_path, class: "ui teal button" %>
     <%end%>
   </div>

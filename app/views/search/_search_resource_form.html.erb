@@ -1,48 +1,50 @@
-<%= simple_form_for :search, url: search_resource_path, method: :get do |f| %>
-  <div class="ui stackable grid">
+<div style="text-align:center;margin:5rem -1rem 1rem -1rem;">
+  <%= simple_form_for :search, url: search_resource_path, method: :get do |f| %>
+    <div class="ui stackable grid">
 
-    <%= f.error_notification %>
-    <div class="ui five wide column">
-      <%= f.input :job_categories, collection: JobCategory.all, input_html: { multiple: true, class: "ui fluid dropdown" }, prompt: "All Job Categories", required: false, selected: @filter_params.try(:[], :job_categories) %>
-    </div>
-
-    <div class="ui five wide column">
-      <%= f.input :skills, collection: Skill.all, input_html: { multiple: true, class: "ui fluid dropdown item" }, prompt: "All Skills", required: false, selected: @filter_params.try(:[], :skills) %>
-    </div>
-
-    <div class="ui five wide column">
-      <%= f.input :locations, collection: Location.all.map{ |l| [l.label, l.id] }, input_html: { multiple: true, class: "ui fluid dropdown" }, prompt: "All Locations", required: false, selected: @filter_params.try(:[], :locations) %>
-    </div>
-
-    <div class="ui eight wide column">
-      <div class="field">
-        <label>Start date</label>
-        <div class="ui calendar range-start">
-          <div class="ui input left icon">
-            <i class="calendar icon"></i>
-            <%= f.input_field :start_date, as: "string", required: false, placeholder: "Start", value: @filter_params.try(:[], :start_date) %>
-          </div>
-        </div>
-        <%= f.error :start_date %>
+      <%= f.error_notification %>
+      <div class="ui five wide column">
+        <%= f.input :job_categories, collection: JobCategory.all, input_html: { multiple: true, class: "ui fluid dropdown" }, prompt: "All Job Categories", required: false, selected: @filter_params.try(:[], :job_categories) %>
       </div>
-    </div>
 
-    <div class="ui eight wide column">
-      <div class="field">
-        <label>End date</label>
-        <div class="ui calendar range-end">
-          <div class="ui input left icon">
-            <i class="calendar icon"></i>
-            <%= f.input_field :end_date, as: "string", required: false, placeholder: "End", value: @filter_params.try(:[], :end_date) %>
-          </div>
-        </div>
-        <%= f.error :end_date %>
+      <div class="ui five wide column">
+        <%= f.input :skills, collection: Skill.all, input_html: { multiple: true, class: "ui fluid dropdown item" }, prompt: "All Skills", required: false, selected: @filter_params.try(:[], :skills) %>
       </div>
+
+      <div class="ui five wide column">
+        <%= f.input :locations, collection: Location.all.map{ |l| [l.label, l.id] }, input_html: { multiple: true, class: "ui fluid dropdown" }, prompt: "All Locations", required: false, selected: @filter_params.try(:[], :locations) %>
+      </div>
+
+      <div class="ui eight wide column">
+        <div class="field">
+          <label>Start date</label>
+          <div class="ui calendar range-start">
+            <div class="ui input left icon">
+              <i class="calendar icon"></i>
+              <%= f.input_field :start_date, as: "string", required: false, placeholder: "Start", value: @filter_params.try(:[], :start_date) %>
+            </div>
+          </div>
+          <%= f.error :start_date %>
+        </div>
+      </div>
+
+      <div class="ui eight wide column">
+        <div class="field">
+          <label>End date</label>
+          <div class="ui calendar range-end">
+            <div class="ui input left icon">
+              <i class="calendar icon"></i>
+              <%= f.input_field :end_date, as: "string", required: false, placeholder: "End", value: @filter_params.try(:[], :end_date) %>
+            </div>
+          </div>
+          <%= f.error :end_date %>
+        </div>
+      </div>
+
     </div>
 
-  </div>
+    <div class="ui divider hidden"></div>
 
-  <div class="ui divider hidden"></div>
-
-  <%= f.submit "Search", class: "ui primary button" %>
-<% end %>
+    <%= f.submit "Search", class: "ui primary button" %>
+  <% end %>
+</div>

@@ -1,4 +1,4 @@
-$primary : #89a97a;
+$primary : white;
 
 #dashboard {
   .main.container{
@@ -65,20 +65,8 @@ $primary : #89a97a;
 
 // *** STYLES FOR COLORING THEME ***
 
-  .ui.inverted.menu {
-    background-color: $primary;
-  }
-
   .masthead h1 .icon {
     color: $primary;
-  }
-
-  .ui.vertical.inverted.menu .item:before {
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  .ui.vertical.inverted.menu .menu .item {
-    color: rgba(255, 255, 255, 0.8);
   }
 
   .ui.vertical.menu {
@@ -116,7 +104,7 @@ $primary : #89a97a;
     cursor:pointer;
   }
 }
-#locations { 
+#locations {
   label{
     cursor:pointer;
   }

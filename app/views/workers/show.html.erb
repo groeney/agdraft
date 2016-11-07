@@ -27,11 +27,11 @@
 
 <div class="ui container" style="margin-bottom:15px;">
   <div class="ui tabular secondary two item menu profile-tabs">
-    <div class="active item" data-tab="info" style="cursor: pointer;">
+    <div class="active item" data-tab="info" style="border-radius: 0 !important">
       <i class="book icon"></i>
       <span class="description">INFORMATION</span>
     </div>
-    <div class="item" data-tab="reviews" style="cursor: pointer;">
+    <div class="item" data-tab="reviews" style="border-radius: 0 !important">
       <i class="star icon"></i>
       <span class="description">REVIEWS</span>
     </div>
@@ -76,7 +76,7 @@
         <% end %>
 
         <% if @worker.unavailabilities.present? %>
-          <h3 class="header">Not Available</h3>
+          <h4 class="header">This person is <span style="text-decoration:underline;">not</span> available for work on the following dates:</h3>
           <div class="ui basic segment">
             <% @worker.unavailabilities.each do |unavailability| %>
               <span><%= unavailability.start_date.strftime("%d %B %Y") %> - <%= unavailability.end_date.strftime("%d %B %Y") %></span><br>

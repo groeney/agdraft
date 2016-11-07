@@ -44,7 +44,7 @@
   <div class="ui sixteen wide column left aligned">
     <h2 style="text-align: center;">Recommended workers</h2>
     <div class="ui hidden divider"></div>
-    <div class="ui centered cards">
+    <div class="ui cards">
       <% @recommended_workers.each do |worker| %>
         <%= render partial: "search/worker_card", locals: { worker: worker } %>
       <% end %>

@@ -41,7 +41,7 @@
   <div class="ui sixteen wide column">
     <h2 style="text-align:center;">Opportunities for People like you</h2>
     <div class="ui hidden divider"></div>
-    <div class="ui centered cards">
+    <div class="ui cards">
       <% @recommendations.each do |recommendation| %>
         <%= render partial: "search/job_card", locals: { job: recommendation.resource, recommendation_id: recommendation.id } %>
       <% end %>

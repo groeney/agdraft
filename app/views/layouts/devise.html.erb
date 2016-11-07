@@ -13,7 +13,8 @@
     <%= render "includes/analytics" %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>">
-    <div class="ui middle aligned center aligned grid">
+    <% margin_top = controller_name == "sessions" ? '10%' : '0%' %>
+    <div class="ui center aligned grid" style="margin-top: <%= margin_top %>">
       <div class="column">
         <%= yield %>
       </div>
