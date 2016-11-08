@@ -1,9 +1,11 @@
 <% content_for :dashboard_header do %>
   <%= render partial: "includes/dashboard/masthead", locals: { header: "Jobs", icon: "protect", description: "View and edit your unpublished jobs", live_link: false } %>
 <%end%>
-<%= link_to "Add Job", new_farmer_job_path, class: "ui primary button" %>
-<%= link_to "Spawn Jobs", farmer_seed_jobs_path, method: :post, confirm: "Spawn new jobs?", class: "ui basic pink button tiny right floated js-spawn-jobs", remote: true %>
-<%= link_to "Spawn Workers", farmer_seed_workers_path, method: :post, class: "ui basic pink button tiny right floated js-spawn-workers", remote: true %>
+<% if !Rails.env.production? %>
+  <%= link_to "Add Job", new_farmer_job_path, class: "ui primary button" %>
+  <%= link_to "Spawn Jobs", farmer_seed_jobs_path, method: :post, confirm: "Spawn new jobs?", class: "ui basic pink button tiny right floated js-spawn-jobs", remote: true %>
+  <%= link_to "Spawn Workers", farmer_seed_workers_path, method: :post, class: "ui basic pink button tiny right floated js-spawn-workers", remote: true %>
+<%end%>
 
 <table class="ui celled table">
   <thead>

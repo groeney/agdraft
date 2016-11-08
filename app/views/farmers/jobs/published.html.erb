@@ -13,7 +13,9 @@
       <th></th>
       <th></th>
       <th></th>
-      <th></th>
+      <% if !Rails.env.production? %>
+        <th></th>
+      <%end%>
     </tr>
   </thead>
   <tbody>
@@ -43,11 +45,13 @@
         <td>
           <%= link_to "View", job_path(job.id), class: "ui primary button", target: "_blank" %>
         </td>
-        <td>
-          <%= link_to "Attract", farmer_attract_seed_workers_path(job.id), method: :post, class: "ui basic pink button mini js-attract-workers", remote: true %>
-          <%= link_to "Shortlist", farmer_shortlist_seed_workers_path(job.id), method: :post, class: "ui basic pink button mini js-shortlist-workers", remote: true %>
-          <%= link_to "Hire", farmer_hire_seed_workers_path(job.id), method: :post, class: "ui basic pink button mini js-hire-workers", remote: true %>
-        </td>
+        <% if !Rails.env.production? %>
+          <td>
+            <%= link_to "Attract", farmer_attract_seed_workers_path(job.id), method: :post, class: "ui basic pink button mini js-attract-workers", remote: true %>
+            <%= link_to "Shortlist", farmer_shortlist_seed_workers_path(job.id), method: :post, class: "ui basic pink button mini js-shortlist-workers", remote: true %>
+            <%= link_to "Hire", farmer_hire_seed_workers_path(job.id), method: :post, class: "ui basic pink button mini js-hire-workers", remote: true %>
+          </td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
