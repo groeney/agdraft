@@ -1,1 +1,1 @@
-Admin.create(email: "admin@agdraft.com.au", password: "password")
+Admin.create(email: ENV.fetch("ADMIN_USER_EMAIL"), password: ENV.fetch("ADMIN_USER_PASSWORD"))
