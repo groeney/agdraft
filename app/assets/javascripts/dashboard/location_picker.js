@@ -1,6 +1,17 @@
 $(document).on('turbolinks:load', function(){
   $('.locations.new, .onboard.locations').ready(function(){
     $('#locations input[type=checkbox]').on('click', function(){
+      if(this.id == "select_all_regions"){
+        // THIS IS SUBOPTIMAL BECAUSE IT FIRES AN AJAX REQUEST FOR EVERY ELEMENT
+        if(this.checked){
+          var unchecked_regions = $(".eight.wide").filter(":visible").find("input:not(:checked)");  
+          _.each(unchecked_regions, function(el){ $(el).click() });
+        }else{
+          var checked_regions = $(".eight.wide").filter(":visible").find("input:checked");
+          _.each(checked_regions, function(el){ $(el).click() });
+        }
+        return
+      }
       if(this.checked){
         $.ajax({
           url: Routes.worker_locations_path(),

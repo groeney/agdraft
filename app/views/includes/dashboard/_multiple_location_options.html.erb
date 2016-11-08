@@ -1,3 +1,9 @@
+<div class="ui sixteen wide column">
+  <div class="ui checkbox">
+    <input type="checkbox" id="select_all_regions">
+    <label>Select all Regions</label>
+  </div>
+</div>
 <% @all_locations.each do |location| %>
   <div class="eight wide column" style="display:none;" data-state="<%= location.state %>">
     <div class="inline field">
