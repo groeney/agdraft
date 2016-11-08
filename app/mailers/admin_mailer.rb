@@ -4,6 +4,9 @@ class AdminMailer < ApplicationMailer
     @worker = @previous_employer.worker
     @rating = rating
     @review = review
-    mail(to: Rails.application.config.admin_email, subject: "New Review: for #{@worker.email}")
+
+    subject = Rails.env.production? ? "New Review: for #{@worker.email}" : "STAGING - New Review: for #{@worker.email}"
+    
+    mail(to: Rails.application.config.admin_email, subject: subject)
   end
 end
