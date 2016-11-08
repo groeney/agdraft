@@ -1,14 +1,14 @@
 <div class="image job-category <%= 'selected' if selected %>" data-id="<%= job_category.id %>" data-selected="<%= selected %>">
-  <%= image_tag job_category.image.url(:display), class: "ui image display centered", type: "image" %>
+  <%= image_tag job_category.image.url(:display), class: "ui image display centered", style: "filter: brightness(60%);", type: "image" %>
   <div class="ui basic label">
     <h3><%= job_category.title %></h3>
   </div>
 </div>
 <div class="ui flowing popup bottom center transition hidden">
-  <div class="header">Select your skills</div>
+  <div class="header">Select your skills related to this job category</div>
   <% job_category.skills.each do |skill| %>
     <% skill_selected = current_worker.skills.pluck(:id).include? skill.id %>
-    <a class="ui label skill <%= 'teal' if skill_selected %>" data-id="<%= skill.id %>" data-selected="<%= skill_selected %>">
+    <a style="margin:5px;" class="ui label skill <%= 'teal' if skill_selected %>" data-id="<%= skill.id %>" data-selected="<%= skill_selected %>">
       <%= skill.title %>
     </a>
   <% end %>
