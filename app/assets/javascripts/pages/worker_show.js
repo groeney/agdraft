@@ -15,11 +15,11 @@ $(document).on('turbolinks:load', function(){
         method: 'POST',
         data: { worker_id: workerID },
         success: function(data, status){
-          toastr.success('Worker invited to job!');
+          _toastr('success', 'Worker invited to job!');
         },
         error: function(jqXHR, textStatus, errorThrown){
           $(this).removeClass('disabled');
-          toastr.error(errorThrown);
+          _toastr('error', errorThrown);
         }
       });
     });

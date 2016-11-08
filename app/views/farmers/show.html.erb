@@ -13,11 +13,11 @@
 
 <div class="ui container">
   <div class="ui tabular secondary two item menu profile-tabs">
-    <div class="active item" data-tab="info" style="cursor: pointer;">
+    <div class="active item" data-tab="info" style="cursor: pointer;border-radius:0 !important;">
       <i class="book icon"></i>
       <span class="description">INFORMATION</span>
     </div>
-    <div class="item" data-tab="reviews" style="cursor: pointer;">
+    <div class="item" data-tab="reviews" style="cursor: pointer;border-radius:0 !important;">
       <i class="star icon"></i>
       <span class="description">REVIEWS</span>
     </div>
@@ -26,10 +26,10 @@
   <div class="ui active tab" data-tab="info">
     <div class="ui center aligned grid" style="margin-top:30px;">
       <div class="ui eight wide column left aligned">
-        <h3 class="header" style="margin-bottom:0;"><%= @farmer.business_name || "No farm name" %></h3>
-        <span style="color:gray;font-size:small;"><%= @farmer.location.try(:label) || "Australia" %></span>
+        <h3 class="header" style="margin-bottom:0;"><%= @farmer.business_name || "Information pending" %></h3>
+        <span style="color:gray;font-size:small;"><%= @farmer.location.try(:label) || "Information pending" %></span>
         <p style="margin-top:10px;margin-left:10px;">
-          <%= @farmer.business_description %>
+          <%= @farmer.business_description || "Information pending" %>
         </p>
       </div>
 

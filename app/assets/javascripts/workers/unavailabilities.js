@@ -40,10 +40,10 @@ $(document).on('turbolinks:load', function(){
             contentType: 'application/json',
             success: function(data, textStatus, jqXHR){
               $(this).remove();
-              toastr['success']('Unavailability removed');
+              _toastr('success','Unavailability removed');
             },
             error: function(jqXHR, textStatus, errorThrown){
-              toastr['error'](errorThrown);
+              _toastr('error', errorThrown);
             }
           });
         }
@@ -74,7 +74,7 @@ $(document).on('turbolinks:load', function(){
             end_date  : endDate
           }),
           success: function(data, textStatus, jqXHR){
-            toastr['success']('Unavailability saved!');
+            _toastr('success','Unavailability saved!');
             if (jqXHR.status == 201){
               setTimeout(function(){
                 Turbolinks.visit(location.toString());
@@ -82,7 +82,7 @@ $(document).on('turbolinks:load', function(){
             }
           },
           error: function(jqXHR, textStatus, errorThrown){
-            toastr['error'](errorThrown);
+            _toastr('error', errorThrown);
           }
         });
       });

@@ -29,7 +29,7 @@ $(document).on('turbolinks:load', function(){
             $('.item[data-job-category-id=' + jobCategoryID + ']').css('display', 'none');
           },
           error: function(jqXHR, textStatus, errorThrown){
-            toastr['error'](errorThrown);
+            _toastr('error', errorThrown);
           }
         })
       } else {
@@ -51,7 +51,7 @@ $(document).on('turbolinks:load', function(){
             $('.item[data-job-category-id=' + jobCategoryID + ']').css('display', 'block');
           },
           error: function(jqXHR, textStatus, errorThrown){
-            toastr['error'](errorThrown);
+            _toastr('error', errorThrown);
           }
         });
       }
@@ -75,7 +75,7 @@ $(document).on('turbolinks:load', function(){
             $('.item[data-skill-id=' + skillID + ']').css('display', 'none');
           },
           error: function(jqXHR, textStatus, errorThrown){
-            toastr['error'](errorThrown);
+            _toastr('error', errorThrown);
             $(this).toggleClass(activeClass);
           }
         });
@@ -98,7 +98,7 @@ $(document).on('turbolinks:load', function(){
             $('.ui.label[data-skill-id=' + skillID + ']').css('display', 'inline-block');
           },
           error: function(jqXHR, textStatus, errorThrown){
-            toastr['error'](errorThrown);
+            _toastr('error', errorThrown);
             $(this).toggleClass(activeClass);
           }
         });

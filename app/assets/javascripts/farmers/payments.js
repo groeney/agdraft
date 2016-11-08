@@ -54,7 +54,7 @@ $(document).on('turbolinks:load', function(){
           method: "PUT",
           data: {token: token},
           success: function(){
-            toastr.success("Successfully updated your payment information");
+            _toastr('success', "Successfully updated your payment information");
             $form.find('.submit').prop('disabled', false);
             $form.find('#cancel').prop('disabled', false);
             $form.hide();
@@ -67,7 +67,7 @@ $(document).on('turbolinks:load', function(){
 
           },
           error: function(){
-            toastr.error("The form of payment you provided was invalid, please use a different card");
+            _toastr('error',"The form of payment you provided was invalid, please use a different card");
             setTimeout(function(){location.reload()}, 4000);
           }
         })

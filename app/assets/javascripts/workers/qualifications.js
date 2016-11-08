@@ -25,10 +25,10 @@ $(document).on('turbolinks:load', function(){
             contentType: 'application/json',
             success: function(){
               $card.remove();
-              toastr['success']("Successfully deleted");
+              _toastr('success',"Successfully deleted");
             },
             error: function(jqXHR, textStatus, errorThrown){
-              toastr['error'](errorThrown);
+              _toastr('error', errorThrown);
             }
           });
         }

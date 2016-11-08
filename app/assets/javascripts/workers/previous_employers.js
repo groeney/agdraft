@@ -14,11 +14,11 @@ $(document).on('turbolinks:load', function(){
             },
            success: function(){
               $card.remove();
-              toastr['success']("Previous employment successfully deleted");
+              _toastr('success',"Previous employment successfully deleted");
             },
             contentType: 'application/json',
             error: function(jqXHR, textStatus, errorThrown){
-              toastr['error'](errorThrown);
+              _toastr('error', errorThrown);
             }
           });
         }

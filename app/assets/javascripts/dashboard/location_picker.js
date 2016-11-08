@@ -9,7 +9,7 @@ $(document).on('turbolinks:load', function(){
             id: this.value
           },
           error: function(jqXHR, textStatus, errorThrown){
-            toastr.error(errorThrown);
+            _toastr('error', errorThrown);
           }
         })
       }else{
@@ -17,7 +17,7 @@ $(document).on('turbolinks:load', function(){
           url: Routes.worker_location_path(this.value),
           method: 'DELETE',
           error: function(jqXHR, textStatus, errorThrown){
-            toastr.error(errorThrown);
+            _toastr('error', errorThrown);
           }
         })
       }
@@ -34,13 +34,13 @@ $(document).on('turbolinks:load', function(){
             id: this.value
           },
           success: function(){
-            toastr.success('Location updated')
+            _toastr('success', 'Location updated')
             $('#location-label').html($(self).data('label'));
           },
           error: function(jqXHR, textStatus, errorThrown){
-            toastr.error(errorThrown);
+            _toastr('error', errorThrown);
           }
-        })      
+        })
     })
-  });  
+  });
 });

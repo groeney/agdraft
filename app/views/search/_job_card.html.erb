@@ -24,50 +24,51 @@
         <%= number_to_currency(job.pay_max) %>/hr
       </span>
     </span>
-  </div>
-  <div class="ui divider" style="margin-left:15%;margin-right:15%;"></div>
-  <div class="ui basic segment">
-    <% if job.skills.present? %>
-      <h2 class="ui sub header">Skills:</h2>
-      <div class="ui horizontal list">
-        <% job.skills.first(3).each do |skill| %>
-          <div class="ui label item">
-            <%= skill.title %>
-          </div>
-        <% end %>
-      </div>
-      <div class="ui horizontal divider" style="margin-left:15%;margin-right:15%;">
-        <% if job.skills.count > 3 %>
-          <span style="color:#00b5ad;font-size:xx-small;font-style:italic;"><%= job.skills.count - 3 %>+ more skills</span>
-        <% end %>
-      </div>
-    <% end %>
-    <% if job.job_categories.present? %>
-      <h2 class="ui sub header">Job Categories:</h2>
-      <div class="ui horizontal list">
-        <% job.job_categories.first(3).each do |job_category| %>
-          <div class="ui label item">
-            <%= job_category.title %>
-          </div>
-        <% end %>
-      </div>
-      <div class="ui horizontal divider" style="margin-left:15%;margin-right:15%;">
-        <% if job.job_categories.count > 3 %>
-          <span style="color:#00b5ad;font-size:xx-small;font-style:italic;"><%= job.job_categories.count - 3 %>+ more job categories</span>
-        <% end %>
-      </div>
-    <% end %>
+    <div class="ui divider" style="margin-left:15%;margin-right:15%;"></div>
+    <div class="ui basic segment">
+      <% if job.skills.present? %>
+        <h2 class="ui sub header">Skills:</h2>
+        <div class="ui horizontal list">
+          <% job.skills.first(3).each do |skill| %>
+            <div class="ui label item">
+              <%= skill.title %>
+            </div>
+          <% end %>
+        </div>
+        <div class="ui horizontal divider" style="margin-left:15%;margin-right:15%;">
+          <% if job.skills.count > 3 %>
+            <span style="color:#00b5ad;font-size:xx-small;font-style:italic;"><%= job.skills.count - 3 %>+ more skills</span>
+          <% end %>
+        </div>
+      <% end %>
+      <% if job.job_categories.present? %>
+        <h2 class="ui sub header">Job Categories:</h2>
+        <div class="ui horizontal list">
+          <% job.job_categories.first(3).each do |job_category| %>
+            <div class="ui label item">
+              <%= job_category.title %>
+            </div>
+          <% end %>
+        </div>
+        <div class="ui horizontal divider" style="margin-left:15%;margin-right:15%;">
+          <% if job.job_categories.count > 3 %>
+            <span style="color:#00b5ad;font-size:xx-small;font-style:italic;"><%= job.job_categories.count - 3 %>+ more job categories</span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <span style="display:block;padding:5%;text-align:center;">
+      <% if current_worker %>
+        <% applyable = current_worker.is_job_applyable(job) %>
+        <button class="ui teal button apply-for-job <%= 'disabled' if !applyable %>" data-job-id="<%= job.id %>"><%= applyable ? 'Apply' : 'Applied' %> </button>
+      <% end %>
+      <% if defined? recommendation_id %>
+        <button class="ui icon button block-job" data-recommendation-id="<%= recommendation_id %>">
+          <i class="remove icon"></i>
+        </button>
+      <% end %>
+    </span>
   </div>
 
-  <span style="display:block;padding:5%;text-align:center;">
-    <% if current_worker %>
-      <% applyable = current_worker.is_job_applyable(job) %>
-      <button class="ui teal button apply-for-job <%= 'disabled' if !applyable %>" data-job-id="<%= job.id %>"><%= applyable ? 'Apply' : 'Applied' %> </button>
-    <% end %>
-    <% if defined? recommendation_id %>
-      <button class="ui icon button block-job" data-recommendation-id="<%= recommendation_id %>">
-        <i class="remove icon"></i>
-      </button>
-    <% end %>
-  </span>
 </a>

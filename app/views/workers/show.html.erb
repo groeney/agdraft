@@ -27,11 +27,11 @@
 
 <div class="ui container" style="margin-bottom:15px;">
   <div class="ui tabular secondary two item menu profile-tabs">
-    <div class="active item" data-tab="info" style="border-radius: 0 !important">
+    <div class="active item" data-tab="info" style="cursor: pointer;border-radius:0 !important;">
       <i class="book icon"></i>
       <span class="description">INFORMATION</span>
     </div>
-    <div class="item" data-tab="reviews" style="border-radius: 0 !important">
+    <div class="item" data-tab="reviews" style="cursor: pointer;border-radius:0 !important;">
       <i class="star icon"></i>
       <span class="description">REVIEWS</span>
     </div>
@@ -56,9 +56,9 @@
               <span>Visa: <i class="teal thumbs outline <%= visa_present ? "up" : "down" %> icon"></i></span>
             </span><br>
           <% end %>
-          <span>Own transport?: <i class="thumbs <%= @worker.has_own_transport ? 'up' : 'down' %> outline teal icon"></i></span><br>
-          <span>Own Accommodation?: <i class="thumbs <%= @worker.has_own_accommodation ? 'up' : 'down' %> outline teal icon"></i></span><br>
-          <span>Grew up on farm?: <i class="thumbs <%= @worker.grew_up_on_farm ? 'up' : 'down' %> outline teal icon"></i></span><br>
+          <span>Has own transport: <i class="thumbs <%= @worker.has_own_transport ? 'up' : 'down' %> outline teal icon"></i></span><br>
+          <span>Has own Accommodation: <i class="thumbs <%= @worker.has_own_accommodation ? 'up' : 'down' %> outline teal icon"></i></span><br>
+          <span>Grew up on farm: <i class="thumbs <%= @worker.grew_up_on_farm ? 'up' : 'down' %> outline teal icon"></i></span><br>
         </div>
 
         <% if @worker.locations.present? %>

@@ -8,13 +8,13 @@ $(document).on('turbolinks:load', function(){
         data: {worker: {hidden: hidden} },
         success: function(data, textStatus, jqXHR){
           if(hidden){
-            toastr.success("Profile is now hidden from AgDraft users");
+            _toastr('success', "Profile is now hidden from AgDraft users");
           }else{
-            toastr.success("Profile is now visible to AgDraft users");
+            _toastr('success', "Profile is now visible to AgDraft users");
           }
         },
         error: function(jqXHR, textStatus, errorThrown){
-          toastr['error'](errorThrown);
+          _toastr('error', errorThrown);
         }
       })
     })

@@ -6,13 +6,13 @@
   url: worker_extra_details_path,
   remote: true,
   method: "put", html: { id: "edit-worker" } do |f| %>
-  <%= f.input :has_own_transport, as: :boolean, label: "I have vehicle to access property/job", wrapper_html: { class: "ui toggle checkbox", style: "margin-right:15px;" }%>
-  <%= f.input :has_own_accommodation, as: :boolean, label: "I have mobile accommodation to bring to property/job", wrapper_html: { class: "ui toggle checkbox", style: "margin-right:15px;" }%>
-  <%= f.input :grew_up_on_farm, as: :boolean, label: "I grew up on a farm", wrapper_html: { class: "ui toggle checkbox", style: "margin-right:15px;" }%>
+  <%= f.input :has_own_transport, as: :boolean, label: "I have vehicle to access property/job", wrapper_html: { class: "ui checkbox", style: "margin-right:15px;" }%>
+  <%= f.input :has_own_accommodation, as: :boolean, label: "I have mobile accommodation to bring to property/job", wrapper_html: { class: "ui checkbox", style: "margin-right:15px;" }%>
+  <%= f.input :grew_up_on_farm, as: :boolean, label: "I grew up on a farm", wrapper_html: { class: "ui checkbox", style: "margin-right:15px;" }%>
   <div class="ui hidden divider"></div>
   <label class="string optional" for="nationality"><b>Nationality<b></label>
   <br>
-  <%= f.country_select :nationality, { include_blank: "Nationality" }, { class: "ui dropdown" } %>
+  <%= f.country_select :nationality, { include_blank: "Country of Origin" }, { class: "ui dropdown" } %>
   <div class="ui hidden divider"></div>
   <%= f.input :visa, collection: ["Australian Citizen", "Australian Permanent Resident", "Working Holiday Visa", "Tourist Visa", "Other", "None"], input_html: {class: "ui fluid dropdown"}, prompt: "Select Visa Type", selected: @worker.visa %>
   <%= f.input :visa_number, label: "Visa Number" %>
@@ -34,5 +34,5 @@
   <%= f.input :mobile_number, required: true %>
   <%= f.input :description, as: :text %>
   <div class="ui hidden divider"></div>
-  <%= f.button :submit %>
+  <%= f.button :submit, "Update my profile" %>
 <% end %>

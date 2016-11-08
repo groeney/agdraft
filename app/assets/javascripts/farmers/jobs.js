@@ -23,10 +23,10 @@ $(document).on('turbolinks:load', function(){
         url: Routes.farmer_job_live_path(id),
         method: 'PUT',
         success: function(){
-          toastr.success('You\'ve updated the live status of your job advertisment');
+          _toastr('success', 'You\'ve updated the live status of your job advertisment');
         },
         error: function(){
-          toastr.error('Something has gone wrong, please contact customer support');
+          _toastr('error','Something has gone wrong, please contact customer support');
         }
       });
     });

@@ -13,7 +13,7 @@
     </tr>
   </thead>
   <tbody>
-    <% states = {interested: "You've Applied", shortlisted: "Added to Shortlist", hired: "Hired!", declined: "Application Declined", not_interested: "You Weren't Interested"} %>
+    <% states = {interested: "Applied, waiting employer review", shortlisted: "Shortlisted by Employer", hired: "Accepted for role", declined: "Application Declined", not_interested: "You Weren't Interested"} %>
     <% @job_workers.each do |jw| %>
       <tr>
         <td>

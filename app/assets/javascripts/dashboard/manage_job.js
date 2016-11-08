@@ -12,7 +12,7 @@ $(document).on('turbolinks:load', function(){
             self.set(data);
           },
           error: function(jqXHR, textStatus, errorThrown){
-            toastr.error(errorThrown);
+            _toastr('error', errorThrown);
           }
         })
       }
@@ -130,7 +130,7 @@ $(document).on('turbolinks:load', function(){
             App.jobWorkers.fetch();
           },
           error: function(jqXHR, textStatus, errorThrown){
-            toastr.error(errorThrown);
+            _toastr('error', errorThrown);
           }
         })
       }

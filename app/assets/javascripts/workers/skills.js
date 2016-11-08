@@ -17,10 +17,10 @@ $(document).on('turbolinks:load', function(){
             id: skillID
           }),
           success: function(data, textStatus, jqXHR){
-            
+
           },
           error: function(jqXHR, textStatus, errorThrown){
-            toastr['error'](errorThrown);
+            _toastr('error', errorThrown);
             $(this).toggleClass(activeClass);
           }
         });
@@ -35,11 +35,11 @@ $(document).on('turbolinks:load', function(){
           contentType: 'application/json',
           dataType: 'json',
           success: function(data, textStatus, jqXHR){
-            
+
           },
           error: function(jqXHR, textStatus, errorThrown){
-            toastr['error'](errorThrown);
-            $(this).toggleClass(activeClass);    
+            _toastr('error', errorThrown);
+            $(this).toggleClass(activeClass);
           }
         });
       }

@@ -1,11 +1,14 @@
 <div class="ui modal">
   <i class="close icon"></i>
   <div class="header">
-    Choose the job you wish to invite this worker too
+    Choose the job you wish to invite this worker to
   </div>
   <div class="ui four column centered stackable grid segment basic">
     <%if @jobs.empty? %>
-      <p><h2>You haven't published any jobs yet</h2></p>
+      <h2 class="sixteen wide column">You haven't published any jobs yet</h2>
+      <a class="ui teal button four wide column" href="<%= new_farmer_job_path %>">
+        Post Job
+      </a>
     <%else%>
       <% @jobs.each do |j| %>
         <div class="ui aligned center column">

@@ -8,10 +8,10 @@ $(document).on('turbolinks:load', function(){
     });
 
     $('#edit-worker').on('ajax:success', function(e, data, status, xhr){
-      toastr['success']('Worker successfully updated!');
+      _toastr('success','Worker successfully updated!');
       window.scrollTo(0,0);
     }).on('ajax:error',function(e, xhr, status, error){
-      toastr['error'](xhr.responseJSON.error);
+      _toastr('error',xhr.responseJSON.error);
     });
     $('#edit-worker .worker_visa select').on("change", function(){
       if(this.value == 'Working Holiday Visa' || this.value == 'Tourist Visa'){

@@ -11,7 +11,7 @@ $(document).on('turbolinks:load', function(){
           $(this).closest('.ui.card').hide();
         },
         error: function(jqXHR, textStatus, errorThrown){
-          toastr['error'] = errorThrown;
+          _toastr('error',errorThrown);
         }
       });
     });
@@ -25,11 +25,11 @@ $(document).on('turbolinks:load', function(){
         url: Routes.worker_express_interest_path(jobID),
         method: 'POST',
         success: function(data, status){
-          toastr.success('You\'ve successfully applied to this job');
+          _toastr('success', 'You\'ve successfully applied to this job');
         },
         error: function(jqXHR, textStatus, errorThrown){
           $button.removeClass('disabled');
-          toastr.error(errorThrown);
+          _toastr('error', errorThrown);
         }
       });
     });

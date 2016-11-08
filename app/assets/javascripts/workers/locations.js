@@ -9,7 +9,7 @@ $(document).on('turbolinks:load', function(){
             $(self).parent().remove();
           },
           error: function(jqXHR, textStatus, errorThrown){
-            toastr['error'] = errorThrown;
+            _toastr('error', errorThrown);
           }
         });
     });
@@ -23,7 +23,7 @@ $(document).on('turbolinks:load', function(){
             window.location = window.location.pathname
           },
           error: function(jqXHR, textStatus, errorThrown){
-            toastr['error'] = errorThrown;
+            _toastr('error', errorThrown);
           }
         }).complete(function(){
           $(this).removeClass('loading');
@@ -39,7 +39,7 @@ $(document).on('turbolinks:load', function(){
             window.location = window.location.pathname
           },
           error: function(jqXHR, textStatus, errorThrown){
-            toastr['error'] = errorThrown;
+            _toastr('error', errorThrown);
           }
         }).complete(function(){
           $(this).removeClass('loading');
