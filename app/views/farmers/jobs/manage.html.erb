@@ -1,8 +1,17 @@
 <% content_for :dashboard_header do %>
   <%= render partial: "includes/dashboard/masthead", locals: { header: "Worker Management", icon: "users", description: "Manage the workers you want for this job", live_link: false } %>
 <%end%>
-
-<%= link_to "Search for more Workers", search_workers_path, class: "ui teal button", target: "blank" %>
+  
+<div class="ui two column grid">
+  <div class="ui column align left">
+    <%= link_to "Search for more Workers", search_workers_path, class: "ui teal button", target: "blank" %>
+  </div>
+  <div class="ui column aligned right">
+    <%= form_tag farmer_archive_job_path, method: "POST", style: "float:right;" do %>
+      <%= submit_tag "Archive", data: {confirm: "WARNING: Archiving this job will remove it from the AgDraft platform and you will not be able to retrieve it. Please make sure you really want to archive this before continuing. Note that unless archived, this job will expire 45 days from when it was published"}, class: "ui red button" %>
+    <% end %>
+  </div>
+</div>
 <h1><%= @job.title %></h1>
 <div id="main-content"></div>
 

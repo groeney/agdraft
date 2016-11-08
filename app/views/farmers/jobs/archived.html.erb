@@ -1,0 +1,33 @@
+<% content_for :dashboard_header do %>
+  <%= render partial: "includes/dashboard/masthead", locals: {header: "Archived Jobs", icon: "protect", description: "View your archived jobs", live_link: false } %>
+<%end%>
+<%= link_to "Add Job", new_farmer_job_path, class: "ui primary button" %>
+
+<table class="ui celled table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Number of Workers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @jobs.each do |job| %>
+      <tr>
+        <td>
+          <%= job.title %>
+        </td>
+        <td>
+          <%= job.start_date_label %>
+        </td>
+        <td>
+          <%= job.end_date_label %>
+        </td>
+        <td>
+          <%= job.number_of_workers %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

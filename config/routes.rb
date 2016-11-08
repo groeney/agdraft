@@ -54,6 +54,8 @@ Rails.application.routes.draw do
     get "jobs/:id/publish/confirm" => "jobs#publish_confirm", as: :publish_job_confirm
     post "jobs/:id/publish" => "jobs#publish", as: :publish_job
     get "jobs/published" => "jobs#published", as: :published_jobs
+    post "jobs/:id/archive" => "jobs#archive", as: :archive_job
+    get "jobs/archived" => "jobs#archived", as: :archived_jobs
     put "jobs/:id/live" => "jobs#live", as: :job_live
     get "jobs/:id/manage" => "jobs#manage", as: :manage_job
     get "jobs/:id/recommend_workers" => "jobs#recommended_workers", as: :job_recommended_workers

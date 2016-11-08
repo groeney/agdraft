@@ -37,6 +37,9 @@
     <%= link_to farmer_published_jobs_path, class: "#{@nav_item == "jobs_published" ? "active" : ""} item" do %>
       <i class="browser icon"></i>Published
     <% end %>
+    <%= link_to farmer_archived_jobs_path, class: "#{@nav_item == "jobs_archived" ? "active" : ""} item" do %>
+      <i class="browser icon"></i>Archived
+    <% end %>
   </div>
 </div>
 

@@ -13,7 +13,7 @@ class Job < ActiveRecord::Base
   validates_presence_of   :title
 
   validates :end_date, presence: true, date: { after: :start_date, message: "Job end date must be after the start date" }, on: [:update, :create]
-  validates :start_date, presence: true, date: { after: Proc.new { Date.today } }, on: [:update, :create]
+  validates :start_date, presence: true, date: { after: Proc.new { |j| Date.today } }, on: [:update, :create], if: "!published"
 
   scope :locations, -> (location_ids) { where(location_id: location_ids) }
   scope :job_categories, -> (job_category_ids) { joins(:job_categories).where(job_categories: { id: job_category_ids }) }
@@ -50,7 +50,7 @@ class Job < ActiveRecord::Base
       end
     end
 
-    update_attribute(:published, true)
+    update_attributes(published: true, published_at: Time.now)
     true
   end
 
@@ -94,5 +94,12 @@ class Job < ActiveRecord::Base
 
   def hired_job_workers
     job_workers.where({ state: "hired" })
+  end
+
+  def archive
+    update_attributes(archived: true, archived_at: Time.now, live: false)
+    update_attribute(:published, false)
+    return false unless errors.empty?
+    true
   end
 end

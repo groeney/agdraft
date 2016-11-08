@@ -31,12 +31,17 @@ class Farmers::JobsController < Farmers::BaseController
   end
 
   def index
-    @jobs = current_farmer.jobs.where(published: false)
+    @jobs = current_farmer.jobs.where(published: false, archived: false)
   end
 
   def published
     @jobs = current_farmer.jobs.where(published: true)
     @nav_item = "jobs_published"
+  end
+
+  def archived
+    @jobs = current_farmer.jobs.where(archived: true)
+    @nav_item = "jobs_archived"
   end
 
   def show
@@ -58,6 +63,17 @@ class Farmers::JobsController < Farmers::BaseController
     end
   end
 
+  def archive
+    @job = Job.find(params[:id])
+    if @job.archive
+      flash[:success] = "You have successfully archived your job advertisment. It is no longer available on the AgDraft platform"
+      redirect_to farmer_archived_jobs_path
+    else
+      flash[:error] = "There was a problem archiving your active job"
+      redirect_to farmer_published_jobs_path
+    end
+  end
+
   def live
     job = Job.find(params[:id])
     job.update_attribute(:live, !job.live)
@@ -66,6 +82,7 @@ class Farmers::JobsController < Farmers::BaseController
 
   def manage
     @job = Job.find(params[:id])
+    # return redirect_to farmer_jobs_path if @job.archived
     @nav_item = "jobs_published"
   end
 
