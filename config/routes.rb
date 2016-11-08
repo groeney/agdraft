@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   put "/recommendations/block_job/:id" => "recommendations#block_job", as: :block_job_recommendation
   get "/get_started" => "pages#get_started", as: :get_started
   get "/login" => "pages#login", as: :login
+  get "/previous_employer/:id/review" => "previous_employers#review", as: :previous_employer_review
+  post "/previous_employer/:id/review" => "previous_employers#send_review"
 
   devise_for :farmers, controllers: {
     registrations: "farmers/registrations",
