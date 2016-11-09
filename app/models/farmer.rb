@@ -19,12 +19,17 @@ class Farmer < ActiveRecord::Base
   validates_presence_of :first_name, :last_name
   validate :credit_cannot_be_negative
 
-  after_create :notify_referrer, :signup_notifications
+  after_create :analytics # Must fire before other callbacks
+  after_create :referred_logic, :signup_notifications
   after_update :send_notification_after_change
 
   attr_accessor :referred_by_token
 
-  def notify_referrer
+  def analytics_id
+    "Farmer##{self.id}"
+  end
+
+  def referred_logic
     if referral_user
       Notification.create(resource: referral_user,
                           action_path: worker_path(id),
@@ -32,6 +37,15 @@ class Farmer < ActiveRecord::Base
                           header: "Kudos! #{full_name} used your referral token to sign up.",
                           description: "Thank you for referring your friend."
                           )
+
+      Analytics.track(
+        user_id: self.analytics_id,
+        event: "Referred User",
+        properties: {
+          referral_user_id: referral_user.analytics_id,
+          referral_user_email: referral_user.email
+          }
+        )
     end
   end
 
@@ -43,6 +57,13 @@ class Farmer < ActiveRecord::Base
                           header: "Credits added!",
                           description: "You now have #{self.credit} credits on your account."
                           )
+    end
+
+    if self.email_changed?
+      Analytics.identify(
+        user_id: self.analytics_id,
+        traits: { email: self.email, user_type: "Farmer" }
+        )
     end
   end
 
@@ -74,6 +95,16 @@ class Farmer < ActiveRecord::Base
                         header: "Action step: post a job",
                         description: "Post a job to attract workers to you farm!"
                         )
+  end
+
+  def analytics
+    Analytics.identify(
+      user_id: self.analytics_id,
+      traits: { email: self.email, user_type: "Farmer" })
+
+    Analytics.track(
+      user_id: self.analytics_id,
+      event: "Signup")
   end
 
   def update_stripe_customer_source(token)

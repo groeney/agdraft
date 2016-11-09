@@ -52,6 +52,16 @@ class JobWorker < ActiveRecord::Base
                         header: "You have been invited to apply",
                         description: "#{job.farmer.full_name} has invited you to apply for a job."
                         )
+    Analytics.track(
+      user_id: job.farmer.analytics_id,
+      event: "Famer Invited Worker",
+      properties: {
+        job_worker_id: self.id,
+        job_id: job.id,
+        job_title: job.title,
+        job_farmer_id: job.farmer.analytics_id,
+        job_worker_id: job.worker.analytics_id
+      })
   end
 
   def after_enter_interested_state
@@ -65,6 +75,17 @@ class JobWorker < ActiveRecord::Base
         manage_job_url: Rails.application.routes.url_helpers.farmer_manage_job_url(job_id) + token_signin(job.farmer)
       }
     )
+
+    Analytics.track(
+      user_id: worker.analytics_id,
+      event: "Worker Expressed Interest",
+      properties: {
+        job_worker_id: self.id,
+        job_id: job.id,
+        job_title: job.title,
+        job_farmer_id: job.farmer.analytics_id,
+        job_worker_id: job.worker.analytics_id
+      })
   end
   def after_enter_shortlisted_state
     EmailService.new.send_email(
@@ -82,6 +103,17 @@ class JobWorker < ActiveRecord::Base
                         header: "You have been shortlisted!",
                         description: "#{job.farmer.full_name} has shortlisted you for a job"
                         )
+
+    Analytics.track(
+      user_id: job.farmer.analytics_id,
+      event: "Farmer Shortlisted Worker",
+      properties: {
+        job_worker_id: self.id,
+        job_id: job.id,
+        job_title: job.title,
+        job_farmer_id: job.farmer.analytics_id,
+        job_worker_id: job.worker.analytics_id
+      })
   end
   def after_enter_hired_state
     unavailability = Unavailability.create(start_date: job.start_date, end_date: job.end_date, worker_id: worker.id)
@@ -105,6 +137,17 @@ class JobWorker < ActiveRecord::Base
                         header: "You have been hired!",
                         description: "#{job.farmer.full_name} has hired you."
                         )
+
+    Analytics.track(
+      user_id: job.farmer.analytics_id,
+      event: "Farmer Hired Worker",
+      properties: {
+        job_worker_id: self.id,
+        job_id: job.id,
+        job_title: job.title,
+        job_farmer_id: job.farmer.analytics_id,
+        job_worker_id: job.worker.analytics_id
+      })
   end
 
   def after_enter_declined_state

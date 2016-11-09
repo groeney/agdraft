@@ -20,8 +20,26 @@ class Job < ActiveRecord::Base
   scope :skills, -> (skill_ids) { joins(:skills).where(skills: { id: skill_ids }) }
   scope :date_range, -> (start_date, end_date) { where("start_date >= ? AND end_date <= ?", start_date, end_date) }
   scope :visibles, -> () { where(published: true) }
+  after_create :analytics
+  after_update :track_publish_event
 
   accepts_nested_attributes_for :skills
+
+  def analytics
+    Analytics.track(
+      user_id: self.farmer.analytics_id,
+      event: "Farmer Created Job",
+      properties: { job_id: self.id, job_title: self.title })
+  end
+
+  def track_publish_event
+    if self.published_changed?
+      Analytics.track(
+        user_id: self.farmer.analytics_id,
+        event: "Farmer Published Job",
+        properties: { job_id: self.id, job_title: self.title })
+    end
+  end
 
   def start_date_label
     return "" unless start_date
