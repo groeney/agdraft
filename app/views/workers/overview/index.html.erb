@@ -6,10 +6,10 @@
   <div class="ui five wide column center aligned">
     <h3>Profile</h3>
     <% if current_worker.verified? %>
-      <p style="text-align:left;">Your profile has been verified!</p>
+      <p>Your profile has been verified!</p>
       <i class="huge green check circle outline icon"></i>
     <% else %>
-      <p style="text-align:left;">Complete your profile so employers know more about you</p>
+      <p>Complete your profile so employers know more about you</p>
       <a class="ui progress yellow" data-percent="<%= current_worker.profile_completeness %>" id="progress" href="<%= worker_extra_details_path %>">
         <div class="bar">
           <div class="progress"></div>
