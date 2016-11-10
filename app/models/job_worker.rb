@@ -59,8 +59,8 @@ class JobWorker < ActiveRecord::Base
         job_worker_id: self.id,
         job_id: job.id,
         job_title: job.title,
-        job_farmer_id: job.farmer.analytics_id,
-        job_worker_id: job.worker.analytics_id
+        farmer_id: job.farmer.analytics_id,
+        worker_id: worker.analytics_id
       })
   end
 
@@ -83,8 +83,8 @@ class JobWorker < ActiveRecord::Base
         job_worker_id: self.id,
         job_id: job.id,
         job_title: job.title,
-        job_farmer_id: job.farmer.analytics_id,
-        job_worker_id: job.worker.analytics_id
+        farmer_id: job.farmer.analytics_id,
+        worker_id: worker.analytics_id
       })
   end
   def after_enter_shortlisted_state
@@ -111,8 +111,8 @@ class JobWorker < ActiveRecord::Base
         job_worker_id: self.id,
         job_id: job.id,
         job_title: job.title,
-        job_farmer_id: job.farmer.analytics_id,
-        job_worker_id: job.worker.analytics_id
+        farmer_id: job.farmer.analytics_id,
+        worker_id: worker.analytics_id
       })
   end
   def after_enter_hired_state
@@ -145,8 +145,8 @@ class JobWorker < ActiveRecord::Base
         job_worker_id: self.id,
         job_id: job.id,
         job_title: job.title,
-        job_farmer_id: job.farmer.analytics_id,
-        job_worker_id: job.worker.analytics_id
+        farmer_id: job.farmer.analytics_id,
+        worker_id: worker.analytics_id
       })
   end
 
