@@ -1,5 +1,7 @@
 class Job < ActiveRecord::Base
   include Recommendable, Filterable
+  include Rails.application.routes.url_helpers
+
   is_impressionable
 
   belongs_to              :farmer
@@ -69,6 +71,7 @@ class Job < ActiveRecord::Base
     end
 
     update_attributes(published: true, published_at: Time.now)
+    email_workers
     true
   end
 
@@ -100,6 +103,12 @@ class Job < ActiveRecord::Base
     invalid_worker_ids = JobWorker.where({ job_id: id }).pluck(:worker_id)
     Worker.recommend({ skills: skill_ids, job_categories: job_category_ids, locations: [location.id] },
                      invalid_worker_ids)
+  end
+
+  def email_workers
+    recommended_workers.each do |worker|
+      EmailService.new.send_email(Rails.application.config.smart_email_ids[:new_job_listing_for_worker], worker.email, {url: job_url(id), full_name: worker.full_name})
+    end
   end
 
   def skill_ids

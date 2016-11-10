@@ -7,4 +7,6 @@ worker_not_interested: 1ed7e5e6-f44b-40c9-8a7f-c8979a6e71e0
 worker_declined_by_farmer: 9394bd18-9ca7-412a-b0d8-9ca465a5d76d
 worker_hired_by_farmer: 0667f503-d011-4d0f-81c2-3b8418e96c9f
 contact_previous_employer_for_review: 9abb706d-15d1-406a-a293-47d5a24bbc3f
-job_recommended_to_worker: 0a17ca4b-503e-4b4d-9094-1bf0c00a1113
+weekly_jobs_recommended_to_worker: 0a17ca4b-503e-4b4d-9094-1bf0c00a1113
+new_job_listing_for_worker: eeea5dbd-ba5a-4e4b-9e6c-ff232ae66a32
+request_job_review: a6f1fda1-c261-4ca4-8e90-5d3148dcc82a
