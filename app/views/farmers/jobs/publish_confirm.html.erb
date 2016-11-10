@@ -2,7 +2,7 @@
   <%= render partial: "includes/dashboard/masthead", locals: {header: "Publish Job Advertisment", icon: "payment", description: "Please provide valid credit card details to enable publishing of job advertisments", live_link: false } %>
 <%end%>
 
-<%if current_farmer.has_valid_payment? %>
+<%if current_farmer.has_valid_payment? || current_farmer.credit > JOB_PRICE %>
   <div class="ui info message">
     Please be aware that by publishing this job advertismnt you are agreeing to our terms and conditions and will you immediately be charged a non-refundable service fee of $<%= JOB_PRICE %>. You will be unable to <u><%= link_to "edit", edit_farmer_job_path(@job) %></u> the details of your advertisment after you publish it. <u><%= link_to "Go back", farmer_jobs_path %></u> now to make any changes before continuing.
   </div>
