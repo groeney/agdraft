@@ -72,6 +72,7 @@ class Job < ActiveRecord::Base
 
     update_attributes(published: true, published_at: Time.now)
     email_workers
+    email_farmer
     true
   end
 
@@ -109,6 +110,10 @@ class Job < ActiveRecord::Base
     recommended_workers.each do |worker|
       EmailService.new.send_email(Rails.application.config.smart_email_ids[:new_job_listing_for_worker], worker.email, {url: job_url(id), full_name: worker.full_name})
     end
+  end
+
+  def email_farmer
+    EmailService.new.send_email(Rails.application.config.smart_email_ids[:job_published], farmer.email, {url: job_url(id), full_name: farmer.full_name, job_title: title})
   end
 
   def skill_ids
