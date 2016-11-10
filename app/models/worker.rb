@@ -57,6 +57,8 @@ class Worker < ActiveRecord::Base
           referral_user_email: referral_user.email
           }
         )
+
+      AdminMailer.referred_user(self, referral_user).deliver
     end
   end
 

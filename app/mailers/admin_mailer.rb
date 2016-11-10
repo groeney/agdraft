@@ -9,4 +9,13 @@ class AdminMailer < ApplicationMailer
     
     mail(to: Rails.application.config.admin_email, subject: subject)
   end
+
+  def referred_user(referred_user, referred_by_user)
+    @referred_user = referred_user
+    @referred_by_user = referred_by_user
+
+    subject = Rails.env.production? ? "New Referral" : "STAGING - New Referral"
+
+    mail(to: Rails.application.config.admin_email, subject: subject)
+  end
 end
