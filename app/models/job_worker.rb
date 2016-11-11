@@ -76,6 +76,13 @@ class JobWorker < ActiveRecord::Base
       }
     )
 
+    Notification.create(resource: job.farmer,
+                        action_path: worker_path(worker.id),
+                        thumbnail: worker.profile_photo,
+                        header: "#{worker.full_name} has applied for a job with you",
+                        description: "View their profile and if you like them add them to the shortlist."
+                        )
+
     Analytics.track(
       user_id: worker.analytics_id,
       event: "Worker Expressed Interest",

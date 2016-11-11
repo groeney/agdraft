@@ -156,7 +156,7 @@ class Farmer < ActiveRecord::Base
     if reviews_of.empty?
       0
     else
-      reviews_of.average(:rating).ceil 
+      reviews_of.average(:rating).ceil
     end
   end
 
@@ -180,6 +180,12 @@ class Farmer < ActiveRecord::Base
 
   def reviews_of
     Review.where(reviewee_id: id, reviewee_type: "Farmer", approved: true)
+  end
+
+  def can_view_contact_details(worker)
+    job_ids = jobs.pluck(:id)
+    worker.job_workers.exists? job_id: job_ids,
+                               state: ["interested", "hired", "shortlisted", "not_interested", "declined"]
   end
 
   protected

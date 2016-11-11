@@ -18,7 +18,7 @@
 
     <% if current_farmer %>
       <br>
-      <div class="ui teal button invite-worker" style="margin-top:10px;" data-worker-id="<%= @worker.id %>">
+      <div class="ui teal button invite-worker" style="margin-bottom:10px;" data-worker-id="<%= @worker.id %>">
         Invite me to apply
       </div>
     <% end %>
@@ -48,7 +48,11 @@
         <% end %>
         <h3 class="header">Details</h3>
         <div class="ui basic segment" style="margin-top:0px;line-height:2rem;">
-          <span>Nationality: <span style="font-weight: bold;"><%= @worker.nationality %></span></span><br>
+          <% if current_farmer && current_farmer.can_view_contact_details(@worker) %>
+            <span>Email: <span style="font-weight: bold;"><%= @worker.email %></span></span><br>
+            <span>Mobile number: <span style="font-weight: bold;"><%= @worker.mobile_number %></span></span><br>
+          <% end %>
+          <span>Country of Origin: <span style="font-weight: bold;"><%= @worker.nationality %></span></span><br>
           <span>DOB: <span style="font-weight: bold;"><%= @worker.dob.try(:strftime, "%B, %Y") || "Not provided" %></span></span><br>
           <% unless @worker.australian? %>
             <% visa_present = @worker.visa.present? %>
