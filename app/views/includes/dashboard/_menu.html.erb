@@ -1,6 +1,6 @@
 <div class="ui container">
   <div class="ui grid">
-    <div class="row">
+    <div class="row mobile-only">
       <div class="right floated sixteen wide column">
         <div class="ui text menu">
           <% if current_farmer && current_farmer.credit > 0 %>
@@ -19,8 +19,15 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="right floated sixteen wide column">
+    <div class="row desktop-only">
+      <div class="left floated two wide column">
+        <div class="ui text menu">
+          <% if current_farmer && current_farmer.credit > 0 %>
+            <h4 class="right item"><b>Credit: $<%= current_farmer.credit %></b></h4>
+          <%end%>
+        </div>
+      </div>
+      <div class="right floated thirteen wide column">
         <div class="ui text menu">
           <div class="ui dropdown right item">
             How it Works
@@ -58,6 +65,21 @@
               <%= link_to "for Workers", search_jobs_path, class: "item" %>
               <%= link_to "for Jobs", search_workers_path, class: "item" %>
             </div>
+          </div>
+
+          <div class="ui item">
+            <% if @unseen_notifications %>
+              <a class="right item" data-tooltip="You have new notifications." data-inverted="" data-position="bottom center" href="<%= current_farmer ? farmer_notifications_path : worker_notifications_path %>" style="color: black;">
+                <span class="ui empty mini floating circular blue notification label"></span>
+            <% else %>
+              <a class="right item" href="<%= current_farmer ? farmer_notifications_path : worker_notifications_path %>" style="color: black;">
+            <% end %>
+            <i class="bell icon"></i>
+            </a>
+          </div>
+          <div class="ui item">
+            <% logout_path = current_farmer ? destroy_farmer_session_path : destroy_worker_session_path %>
+            <%= link_to "Log Out", logout_path, method: :delete, class: "item" %>
           </div>
         </div>
       </div>
