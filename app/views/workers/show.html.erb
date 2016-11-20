@@ -130,7 +130,6 @@
             <% @worker.previous_employers.each do |previous_employer| %>
               <h4 style="color:#00b5ad;font-weight:bolder;margin-bottom:0px;display:inline;"><%= previous_employer.job_title %></h4><b style="color:black;margin-left:2px;margin-right:2px;">at</b> <h4 style="color:#00b5ad;font-weight:bolder;margin-bottom:0px;display: inline;"><%= previous_employer.business_name %></h4><br>
               <span style="color:gray;"><%= previous_employer.start_date.strftime("%B %Y") %> - <%= previous_employer.end_date.strftime("%B %Y") %></span><br>
-              <div class="ui star rating" data-rating="5" data-max-rating="5"></div>
               <div class="ui hidden divider"></div>
             <% end %>
           </div>
