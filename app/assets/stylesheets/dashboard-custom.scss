@@ -127,6 +127,16 @@ $primary : white;
   width: 200px!important;
 }
 
+.js-delete-job-worker{
+  font-size:20px!important;
+  position:absolute;
+  right:10px;
+  
+  &:hover{
+    cursor:pointer;
+  }
+}
+
 // ########### EXTRA DETAILS #############
 #edit-worker .worker_visa_number{
   display:none;

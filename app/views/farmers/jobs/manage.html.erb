@@ -77,6 +77,11 @@
 
 <script type="text/template" id="js-worker">
   <div class="ui grid segment">
+    <%% if(typeof(state) != 'undefined') { %>
+    <div class="ui row">
+      <i class="ui icon trash red js-delete-job-worker"></i>
+    </div>
+    <%% } %>
     <div class="six wide column">
       <img class="image-thumbnail" src="<%%- profile_photo_url %>"/>
     </div>

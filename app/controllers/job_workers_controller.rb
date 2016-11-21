@@ -58,6 +58,13 @@ class JobWorkersController < ApplicationController
     render json: job_worker
   end
 
+  def destroy
+    job_worker = JobWorker.find(params[:job_worker_id])
+    return render_400 unless job_worker.job.farmer_id == current_farmer.id
+    job_worker.destroy
+    render_201
+  end
+
   protected
 
   def authenticate_user

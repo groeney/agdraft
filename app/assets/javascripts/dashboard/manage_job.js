@@ -59,11 +59,15 @@ $(document).on('turbolinks:load', function(){
     var InterestedWorker = Mn.View.extend({
       template: "#js-worker",
       events: {
-        "click .js-shortlist": "shortlist"
+        "click .js-shortlist": "shortlist",
+        "click .js-delete-job-worker": "delete"
       },
       className: "ui column",
       shortlist: function(){
         this.model.transition("shortlist");
+      },
+      delete: function(){
+        this.model.destroy();
       }
     });
 
@@ -82,7 +86,13 @@ $(document).on('turbolinks:load', function(){
 
     var InvitedWorker = Mn.View.extend({
       template: "#js-worker",
-      className: "ui column"
+      className: "ui column",
+      events: {
+        "click .js-delete-job-worker": "delete"
+      },
+      delete: function(){
+        this.model.destroy();
+      }
     });
 
     var InvitedView = Mn.CollectionView.extend({
