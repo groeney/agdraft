@@ -16,3 +16,4 @@
 //= require semantic-ui/dist/semantic.min
 //= require global
 //= require_tree ./workers
+//= require ./dashboard/location_picker

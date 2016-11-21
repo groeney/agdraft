@@ -15,6 +15,11 @@ class Workers::OnboardController < Workers::BaseController
     @eligible_skills = current_worker.eligible_skills
   end
 
+  def locations
+    @worker_locations = current_worker.locations
+    @all_locations = Location.all
+  end
+
   def finish
     notify_farmers
     redirect_to worker_dashboard_path

@@ -94,6 +94,7 @@ Rails.application.routes.draw do
     scope "onboard", as: "onboard" do
       get "job_categories" => "onboard#job_categories"
       get "skills" => "onboard#skills"
+      get "locations" => "onboard#locations"
       get "finish" => "onboard#finish"
     end
   end

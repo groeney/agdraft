@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function(){
-  $('.locations.new').ready(function(){
+  $('.locations.new, .onboard.locations').ready(function(){
     $('#locations input[type=checkbox]').on('click', function(){
       if(this.checked){
         $.ajax({

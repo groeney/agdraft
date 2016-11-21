@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function(){
-  $('.locations.new, .locations.show').ready(function(){
+  $('.locations.new, .locations.show, .onboard.locations').ready(function(){
     $('svg path').on('click', function(){
       $('svg path').each(function(){this.style.fill = 'rgb(75, 160, 0)'})
       this.style.fill = 'brown';

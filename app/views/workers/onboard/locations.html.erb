@@ -1,0 +1,14 @@
+<h1>Add Locations you are Available in:</h1>
+<div class="ui divider hidden"></div>
+
+<%= render partial: "includes/dashboard/location_map_selector", locals: {can_choose_multiple_locations: true} %>
+
+<span style="display:block;padding:5%;">
+  <%= link_to worker_dashboard_path, { class: "ui basic button", style: "width:45%;" } do %>
+    Skip for now
+  <% end %>
+  <!-- Extract into view helpers -->
+  <%= link_to worker_onboard_finish_path, { class: "ui teal button", style: "width:45%;" } do %>
+    Done
+  <% end %>
+</span>
