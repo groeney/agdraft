@@ -20,7 +20,7 @@ class JobWorker < ActiveRecord::Base
     end
     event :express_interest do
       transitions from: :new, to: :interested
-      transitions from: :invited, to: :interested
+      transitions from: :invited, to: :shortlisted
     end
     event :shortlist do
       transitions from: :interested, to: :shortlisted

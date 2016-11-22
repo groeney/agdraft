@@ -1,4 +1,4 @@
-<div class="ui modal">
+<div class="ui modal" id="invite">
   <i class="close icon"></i>
   <div class="header">
     Choose the job you wish to invite this worker to
@@ -10,12 +10,33 @@
         Post Job
       </a>
     <%else%>
-      <% @jobs.each do |j| %>
+      <% @jobs_not_applied_to.each do |j| %>
         <div class="ui aligned center column">
           <h3><%= j[:job].title %></h3>
-          <button class="ui primary button <%= 'disabled' if j[:invited] %> js-invite-worker" data-job-id="<%= j[:job].id %>"><%= j[:invited] ? 'Invited' : 'Invite' %></button>
+          <button class="ui primary button js-invite-worker" data-job-id="<%= j[:job].id %>">Invite</button>
         </div>
       <%end%>
+    <%end%>
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button">
+      Finished
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+<div class="ui modal" id="manage-applications">
+  <i class="close icon"></i>
+  <div class="header">
+    Select which job you want to manage this worker on
+  </div>
+  <div class="ui four column centered stackable grid segment basic">
+    <% @jobs_applied_to.each do |j| %>
+      <div class="ui aligned center column">
+        <h3><%= j[:job].title %></h3>
+        <%= link_to "Manage", farmer_manage_job_path(j[:job].id), class: "ui primary button", target: "_blank" %>
+      </div>
     <%end%>
   </div>
   <div class="actions">

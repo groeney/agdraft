@@ -3,10 +3,15 @@ $(document).on('turbolinks:load', function(){
     $('.ui.rating').rating('disable');
     $('.tabular.menu .item').tab();
     workerID = /^\/workers\/[0-9]*/.exec(window.location.pathname)[0].split("/")[2]
+    
     $('.invite-worker').on('click', function(e){
-      var button = $(e.target);
-      $('.modal').modal('show');
+      $('#invite').modal('show');
     });
+
+    $('.manage-applications').on('click', function(e){
+      $('#manage-applications').modal('show');
+    });
+
     $('.js-invite-worker').on('click', function(){
       $(this).addClass('disabled');
       $(this).text('Invited');

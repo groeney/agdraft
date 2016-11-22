@@ -18,9 +18,16 @@
 
     <% if current_farmer %>
       <br>
-      <div class="ui teal button invite-worker" style="margin-bottom:10px;" data-worker-id="<%= @worker.id %>">
-        Invite me to apply
-      </div>
+      <% if !@jobs_not_applied_to.empty? || @jobs.empty? %>
+        <div class="ui teal button invite-worker" style="margin-bottom:10px;" data-worker-id="<%= @worker.id %>">
+          Invite me to apply
+        </div>
+      <%end%>
+      <% if !@jobs_applied_to.empty? %>
+        <div class="ui teal button manage-applications" style="margin-bottom:10px;">
+          Manage Applications
+        </div>
+      <%end%>
     <% end %>
   </div>
 </div>
@@ -155,7 +162,12 @@
 
 <% if current_farmer %>
   <div style="text-align:center;margin-bottom:5%;">
-    <button style="min-width:40%;" class="ui teal button invite-worker">Invite me to apply</button>
+    <% if !@jobs_not_applied_to.empty? || @jobs.empty? %>
+      <button style="min-width:40%;" class="ui teal button invite-worker">Invite me to apply</button>
+    <%end%>
+    <% if !@jobs_applied_to.empty? %>
+      <button style="min-width:40%;" class="ui teal button manage-applications">Manage Applications</button>
+    <%end%>
   </div>
 <% end %>
 
