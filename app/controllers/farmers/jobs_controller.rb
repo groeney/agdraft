@@ -12,7 +12,7 @@ class Farmers::JobsController < Farmers::BaseController
       return render "new"
     end
     notify_eligible_workers
-    redirect_to farmer_jobs_path
+    redirect_to farmer_publish_job_confirm_path(@job.id)
   end
 
   def edit
