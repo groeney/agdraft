@@ -19,12 +19,12 @@
     <% if current_farmer %>
       <br>
       <% if !@jobs_not_applied_to.empty? || @jobs.empty? %>
-        <div class="ui teal button invite-worker" style="margin-bottom:10px;" data-worker-id="<%= @worker.id %>">
+        <div class="ui primary button invite-worker" style="margin-bottom:10px;" data-worker-id="<%= @worker.id %>">
           Invite me to apply
         </div>
       <%end%>
       <% if !@jobs_applied_to.empty? %>
-        <div class="ui teal button manage-applications" style="margin-bottom:10px;">
+        <div class="ui primary button manage-applications" style="margin-bottom:10px;">
           Manage Applications
         </div>
       <%end%>
@@ -64,12 +64,12 @@
           <% unless @worker.australian? %>
             <% visa_present = @worker.visa.present? %>
             <span>
-              <span>Visa: <i class="teal thumbs outline <%= visa_present ? "up" : "down" %> icon"></i></span>
+              <span>Visa: <i class="primary thumbs outline <%= visa_present ? "up" : "down" %> icon"></i></span>
             </span><br>
           <% end %>
-          <span>Has own transport: <i class="thumbs <%= @worker.has_own_transport ? 'up' : 'down' %> outline teal icon"></i></span><br>
-          <span>Has own Accommodation: <i class="thumbs <%= @worker.has_own_accommodation ? 'up' : 'down' %> outline teal icon"></i></span><br>
-          <span>Grew up on farm: <i class="thumbs <%= @worker.grew_up_on_farm ? 'up' : 'down' %> outline teal icon"></i></span><br>
+          <span>Has own transport: <i class="thumbs <%= @worker.has_own_transport ? 'up' : 'down' %> outline primary icon"></i></span><br>
+          <span>Has own Accommodation: <i class="thumbs <%= @worker.has_own_accommodation ? 'up' : 'down' %> outline primary icon"></i></span><br>
+          <span>Grew up on farm: <i class="thumbs <%= @worker.grew_up_on_farm ? 'up' : 'down' %> outline primary icon"></i></span><br>
         </div>
 
         <% if @worker.locations.present? %>
@@ -78,7 +78,7 @@
             <div class="ui horizontal list">
               <% @worker.locations.each do |location| %>
                 <div class="ui basic label item" style="padding:3px;border:0px;">
-                  <i class="teal marker icon"></i>
+                  <i class="primary marker icon"></i>
                   <%= location.label %>
                 </div>
               <% end %>
@@ -163,10 +163,10 @@
 <% if current_farmer %>
   <div style="text-align:center;margin-bottom:5%;">
     <% if !@jobs_not_applied_to.empty? || @jobs.empty? %>
-      <button style="min-width:40%;" class="ui teal button invite-worker">Invite me to apply</button>
+      <button style="min-width:40%;" class="ui primary button invite-worker">Invite me to apply</button>
     <%end%>
     <% if !@jobs_applied_to.empty? %>
-      <button style="min-width:40%;" class="ui teal button manage-applications">Manage Applications</button>
+      <button style="min-width:40%;" class="ui primary button manage-applications">Manage Applications</button>
     <%end%>
   </div>
 <% end %>

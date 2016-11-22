@@ -24,7 +24,7 @@
   }
 
   .job-category.selected {
-    background-color: #00b5ad;
+    background-color: $primary-color;
     img {
       opacity: 0.5;
     }
@@ -32,7 +32,7 @@
       background: none #FFFFFF;
       border: 2px solid rgba(34, 36, 38, 0.15);
       h3 {
-        color:#00b5ad;
+        color:$primary-color;
       }
     }
   }

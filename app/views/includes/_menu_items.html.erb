@@ -76,12 +76,12 @@
 
   <div class="right item">
     <%if current_worker%>
-      <%= link_to "Dashboard", worker_dashboard_path, class: "ui teal basic button", target: "blank" %>
+      <%= link_to "Dashboard", worker_dashboard_path, class: "ui primary basic button", target: "blank" %>
     <%elsif current_farmer%>
-      <%= link_to "Dashboard", farmer_dashboard_path, class: "ui teal basic button", target: "blank" %>
+      <%= link_to "Dashboard", farmer_dashboard_path, class: "ui primary basic button", target: "blank" %>
     <%else%>
-      <%= link_to "Login", login_path, class: "ui teal basic button", style: "margin-right: 10px;" %>
-      <%= link_to "Sign Up", get_started_path, class: "ui teal button" %>
+      <%= link_to "Login", login_path, class: "ui primary button", style: "margin-right: 10px;" %>
+      <%= link_to "Sign Up", get_started_path, class: "ui primary button" %>
     <%end%>
   </div>
 <%end%>

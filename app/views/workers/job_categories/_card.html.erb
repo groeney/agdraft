@@ -8,7 +8,7 @@
   <div class="header">Select your skills related to this job category</div>
   <% job_category.skills.each do |skill| %>
     <% skill_selected = current_worker.skills.pluck(:id).include? skill.id %>
-    <a style="margin:5px;" class="ui label skill <%= 'teal' if skill_selected %>" data-id="<%= skill.id %>" data-selected="<%= skill_selected %>">
+    <a style="margin:5px;" class="ui label skill <%= 'primary' if skill_selected %>" data-id="<%= skill.id %>" data-selected="<%= skill_selected %>">
       <%= skill.title %>
     </a>
   <% end %>

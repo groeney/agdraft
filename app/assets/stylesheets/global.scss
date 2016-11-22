@@ -1,3 +1,4 @@
+@import "variables";
 @import "toastr/toastr.min.css";
 
 .center.vertically{
@@ -37,4 +38,13 @@
 }
 .no-margin{
   margin:0!important;
+}
+
+/************ GLOBAL CARDS *************/
+.ui.cards > .ui.card.job-card{
+  .content{
+    border-left-color:$primary-color;
+    border-left-width:thick;
+    border-left-style:solid;
+  } 
 }

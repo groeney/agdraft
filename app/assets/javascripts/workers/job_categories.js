@@ -70,7 +70,7 @@ $(document).on('turbolinks:load', function(){
           contentType: 'application/json',
           dataType: 'json',
           success: function(data, textStatus, jqXHR){
-            $(this).removeClass('teal');
+            $(this).removeClass('primary');
             $(this).data('selected', false);
             $('.item[data-skill-id=' + skillID + ']').css('display', 'none');
           },
@@ -93,7 +93,7 @@ $(document).on('turbolinks:load', function(){
             id: skillID
           }),
           success: function(data, textStatus, jqXHR){
-            $(this).addClass('teal');
+            $(this).addClass('primary');
             $(this).data('selected', true);
             $('.ui.label[data-skill-id=' + skillID + ']').css('display', 'inline-block');
           },

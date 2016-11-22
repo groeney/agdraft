@@ -1,3 +1,9 @@
+/********************** THEME COLOR MODS ***********************/
+.ui.inverted.primary.segment{
+  background-color: $primary-color!important;
+}
+
+
 /*************** FROM SEMANTIC HOMEPAGE EXAMPLE ******************/
 .hidden.menu {
   display: none;
@@ -7,8 +13,8 @@
   min-height: 700px;
   padding: 1em 0em;
   background-image: linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.1)
     ),
     url("<%= asset_path 'homepage-hero.png' %>")!important;
   background-size: cover;
@@ -228,7 +234,7 @@ body.sessions.new, body.passwords.new, body.passwords.edit > .grid {
 .profile-tabs{
   margin-top: -1px;
   .active.item{
-    background-color:#00b5ad !important;
+    background-color:$primary-color !important;
     .description{
       color: white;
     }

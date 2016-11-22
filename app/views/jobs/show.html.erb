@@ -19,7 +19,7 @@
     <% if current_worker %>
       <% applyable = current_worker.is_job_applyable(@job) %>
       <br/>
-      <button style="margin-top:20px;" class="ui teal button apply-for-job <%= 'disabled' if !applyable %>" data-job-id="<%= @job.id %>"><%= applyable ? 'Apply now' : 'Applied' %></button>
+      <button style="margin-top:20px;" class="ui primary button apply-for-job <%= 'disabled' if !applyable %>" data-job-id="<%= @job.id %>"><%= applyable ? 'Apply now' : 'Applied' %></button>
     <% end %>
   </div>
 </div>
@@ -45,7 +45,7 @@
           <span>Pay rate: <span style="font-weight: bold;"><%= number_to_currency(@job.pay_max) %>/hr</span></span><br>
           <span>Start date: <span style="font-weight: bold;"><%= @job.start_date.strftime("%d/%m/%Y") %></span></span><br>
           <span>Location: <span style="font-weight: bold;"><%= @job.location.label %></span></span><br>
-          <span>Acommodation provided: <i class="thumbs <%= @job.accomodation_provided ? 'up' : 'down' %> outline teal icon"></i></span><br>
+          <span>Acommodation provided: <i class="thumbs <%= @job.accomodation_provided ? 'up' : 'down' %> outline primary icon"></i></span><br>
         </div>
         <div class="ui hidden divider"></div>
         <h3>Description</h3>
@@ -105,7 +105,7 @@
         <p style="margin-top:3%;">
           <%= @job.farmer.business_description %>
         </p>
-        <a class="ui basic teal right floated button" href="<%= farmer_path(@job.farmer.id) %>">View Profile</a>
+        <a class="ui basic primary right floated button" href="<%= farmer_path(@job.farmer.id) %>">View Profile</a>
       </div>
     </div>
   </div>
@@ -114,7 +114,7 @@
 <% if current_worker %>
   <% applyable = current_worker.is_job_applyable(@job) %>
   <div style="text-align:center;margin-bottom:10%;">
-    <button style="min-width: 50%;" class="ui teal button apply-for-job <%= 'disabled' if !applyable %>" data-job-id="<%= @job.id %>"><%= applyable ? 'Apply now' : 'Applied' %></button>
+    <button style="min-width: 50%;" class="ui primary button apply-for-job <%= 'disabled' if !applyable %>" data-job-id="<%= @job.id %>"><%= applyable ? 'Apply now' : 'Applied' %></button>
   </div>
 <% end %>
 
