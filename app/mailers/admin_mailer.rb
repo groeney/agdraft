@@ -1,7 +1,10 @@
 class AdminMailer < ApplicationMailer
-  def previous_employer_review(previous_employer_id, rating, review)
+  def previous_employer_review(previous_employer_id, work_ethic, communication, skills, rating, review)
     @previous_employer = PreviousEmployer.find(previous_employer_id)
     @worker = @previous_employer.worker
+    @work_ethic = work_ethic
+    @communication = communication
+    @skills = skills
     @rating = rating
     @review = review
 

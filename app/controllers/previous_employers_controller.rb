@@ -6,7 +6,7 @@ class PreviousEmployersController < ApplicationController
 
   def send_review
     if @previous_employer = PreviousEmployer.find(params[:id])
-      AdminMailer.previous_employer_review(params[:id], params[:rating], params[:review]).deliver
+      AdminMailer.previous_employer_review(params[:id], params[:work_ethic], params[:communication], params[:skills], params[:rating], params[:review]).deliver
       flash[:success] = "Thank you for sending us your feedback!"
       redirect_to root_url
     else

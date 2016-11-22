@@ -1,5 +1,5 @@
 ActiveAdmin.register Review do
-  permit_params :rating, :feedback, :approved, :reviewee_type, :reviewee_id, :title
+  permit_params :rating, :feedback, :approved, :reviewee_type, :reviewee_id, :title, :work_ethic, :skills, :communication
   actions :index, :show, :new, :create, :update, :edit
 
   index do
@@ -19,6 +19,9 @@ ActiveAdmin.register Review do
 
   form do |f|
     f.inputs "Review" do
+      f.input :work_ethic
+      f.input :communication
+      f.input :skills
       f.input :rating
       f.input :feedback
       f.input :approved

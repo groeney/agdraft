@@ -21,6 +21,13 @@
     </h3>
     <div class="ui star rating" data-rating="<%= review.rating %>" data-max-rating="5"></div>
     <br>
+    <% if review.work_ethic %>
+      <p>
+        <b>Work Ethic: <%= review.work_ethic %>/5</b><br/>
+        <b>Skills: <%= review.skills %>/5</b><br/>
+        <b>Communication: <%= review.communication %>/5</b>
+      </p>
+    <%end%>
     <p>
       <%= review.feedback %>
     </p>

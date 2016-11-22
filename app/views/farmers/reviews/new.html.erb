@@ -8,9 +8,45 @@
   <%= f.hidden_field :reviewee_type, value: "Worker" %>
   <%= f.hidden_field :reviewer_id, value: current_farmer.id %>
   <%= f.hidden_field :reviewer_type, value: "Farmer" %>
+  <div class="field required integer">
+    <label class="integer optional" for="review[work_ethic]">
+      Please rate the employee on their <b>work ethic</b>
+    </label>
+    <select name="review[work_ethic]">
+      <option value="1">1: lazy</option>
+      <option value="2">2: needed encouragement</option>
+      <option value="3">3: good</option>
+      <option value="4">4: great, worked well alone</option>
+      <option value="5">5: unstoppable force</option>
+    </select>
+  </div>
+  <div class="field required integer">
+    <label class="integer optional" for="review[skills]">
+      Please rate the employee on their <b>skills</b>
+    </label>
+    <select name="review[skills]">
+      <option value="1">1: very poor – had low ability</option>
+      <option value="2">2: poor – didn’t know how to complete tasks</option>
+      <option value="3">3: good – had skills or could figure it out</option>
+      <option value="4">4: great – highly skilled</option>
+      <option value="5">5: excellent – top of their class</option>
+    </select>
+  </div>
+  <div class="field required integer">
+    <label class="integer optional" for="review[communication]">
+      Please rate the employee on their <b>communication</b>
+    </label>
+    <select name="review[communication]">
+      <option value="1">1: very poor – couldn’t understand instructions</option>
+      <option value="2">2: poor – didn’t always understand or engage</option>
+      <option value="3">3: good – adequate for the job</option>
+      <option value="4">4: great – always understood and engaged</option>
+      <option value="5">5: excellent – communication was perfect</option>
+    </select>
+  </div>
   <div class="field required integer optional review_rating">
     <label class="integer optional" for="review_rating">
-      Rating
+      Overall Rating
     </label>
     <div class="ui star rating" name="review[rating]"></div>
   </div>
