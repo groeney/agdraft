@@ -106,6 +106,15 @@ class Job < ActiveRecord::Base
                      invalid_worker_ids)
   end
 
+  def check_for_new_recommended_workers
+    old_recommended_workers = RecommendedWorker.where(job_id: id).map{|el| el.worker_id}
+    current_recommended_workers = recommended_workers.map{|el| el.id}
+    new_recommended_workers = current_recommended_workers - old_recommended_workers
+
+    new_recommended_workers.each{|worker_id| RecommendedWorker.create(job_id: id, worker_id: worker_id)}
+    return new_recommended_workers.map{|worker_id| Worker.find(worker_id) }
+  end
+
   def email_workers
     recommended_workers.each do |worker|
       EmailService.new.send_email(Rails.application.config.smart_email_ids[:new_job_listing_for_worker], worker.email, {url: job_url(id), full_name: worker.full_name})

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161122004805) do
+ActiveRecord::Schema.define(version: 20161123205747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -433,6 +433,16 @@ ActiveRecord::Schema.define(version: 20161122004805) do
     t.datetime "updated_at",                    null: false
   end
 
+  create_table "recommended_workers", force: :cascade do |t|
+    t.integer  "job_id"
+    t.integer  "worker_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "recommended_workers", ["job_id"], name: "index_recommended_workers_on_job_id", using: :btree
+  add_index "recommended_workers", ["worker_id"], name: "index_recommended_workers_on_worker_id", using: :btree
+
   create_table "reviews", force: :cascade do |t|
     t.integer  "reviewee_id"
     t.string   "reviewee_type"
@@ -534,4 +544,6 @@ ActiveRecord::Schema.define(version: 20161122004805) do
   add_foreign_key "jobs", "locations"
   add_foreign_key "payment_audits", "farmers"
   add_foreign_key "payment_audits", "jobs"
+  add_foreign_key "recommended_workers", "jobs"
+  add_foreign_key "recommended_workers", "workers"
 end
