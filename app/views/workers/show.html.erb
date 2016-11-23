@@ -59,7 +59,8 @@
             <span>Email: <span style="font-weight: bold;"><%= @worker.email %></span></span><br>
             <span>Mobile number: <span style="font-weight: bold;"><%= @worker.mobile_number %></span></span><br>
           <% end %>
-          <span>Country of Origin: <span style="font-weight: bold;"><%= @worker.nationality %></span></span><br>
+          <% country = ISO3166::Country[@worker.nationality] %>
+          <span>Country of Origin: <span style="font-weight: bold;"><%= country.try(:name) || @worker.nationality %></span></span><br>
           <span>DOB: <span style="font-weight: bold;"><%= @worker.dob.try(:strftime, "%B, %Y") || "Not provided" %></span></span><br>
           <% unless @worker.australian? %>
             <% visa_present = @worker.visa.present? %>
