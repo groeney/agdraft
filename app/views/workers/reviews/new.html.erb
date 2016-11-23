@@ -14,6 +14,7 @@
     </label>
     <div class="ui star rating" name="review[rating]"></div>
   </div>
+  <%= f.input :job_id, collection: current_worker.pending_review_jobs(@farmer), prompt: "Select the job", required: true, input_html: { class: "ui dropdown" } %>
   <%= f.input :feedback, label: "Share your feedback with the community", required: true %>
 
   <%= f.submit "Save", class: "ui primary button" %>

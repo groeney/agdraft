@@ -32,6 +32,6 @@ class Workers::ReviewsController < Workers::BaseController
   protected
 
   def secure_params
-    params.require(:review).permit(:reviewer_id, :reviewer_type, :reviewee_id, :reviewee_type, :feedback, :rating)
+    params.require(:review).permit(:reviewer_id, :reviewer_type, :reviewee_id, :reviewee_type, :feedback, :rating, :job_id)
   end
 end
