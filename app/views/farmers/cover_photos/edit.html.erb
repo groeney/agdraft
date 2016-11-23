@@ -1,5 +1,5 @@
 <% content_for :dashboard_header do %>
-  <%= render partial: "includes/dashboard/masthead", locals: {header: "Cover Photo", icon: "edit", description: "Upload the cover photo for your farm", live_link: false } %>
+  <%= render partial: "includes/dashboard/masthead", locals: {header: "Cover Photo", icon: "edit", description: "Upload the cover photo for your farm: file size must be over 1400px wide and 300px high", live_link: false } %>
 <%end%>
 
 <%= form_tag(farmer_cover_photo_path, method: :put, multipart: true, id: "cover_photo_form", class: "ui form segment") do %>
