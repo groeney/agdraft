@@ -1,0 +1,8 @@
+<div class="ui divider hidden"></div>
+<div class="ui primary segment">
+  <h1>Welcome to the new AgDraft!</h1>
+  <h3>We are excited to unviel the new AgDraft to all of our existing users!</h3>
+  <h3>To see all of the new changes you just need to setup a new password for your account. We just sent you an e-mail with a link that will let you do this.</h3>
+  <h3>We have spent a lot of time rebuilding AgDraft from the groundup to provide a smoother, faster and more intuitive experience. There is a lot to show you so we can't wait to grant you access!</h3>
+  <p>If you don't see the e-mail in the next 5 minutes, <%= link_to "click here", @farmer.nil? ? new_worker_password_path : new_farmer_password_path %>  to reset your account password.</p>
+</div>

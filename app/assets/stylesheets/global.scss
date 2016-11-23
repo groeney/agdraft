@@ -48,3 +48,11 @@
     border-left-style:solid;
   } 
 }
+
+/********************** THEME COLOR MODS ***********************/
+.ui.inverted.primary.segment{
+  background-color: $primary-color!important;
+}
+.ui.primary.segment{
+  border-top: 2px solid $primary-color!important;
+}
