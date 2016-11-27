@@ -2,7 +2,7 @@ $(document).on('turbolinks:load', function(){
   $('.jobs.show').ready(function(){
     $('.rating').rating('disable');
     $('.tabular.menu .item').tab();
-    jobID = /^\/jobs\/[0-9]*/.exec(window.location.pathname)[0].split('/')[2]
+    jobID = /^\/jobs\/[0-9]*/.exec(window.location.pathname)[0].split('/')[2];
     $('.apply-for-job').on('click', function(){
       var $button = $(this);
       $('.apply-for-job').addClass('disabled'); // more than one button on page
@@ -18,6 +18,13 @@ $(document).on('turbolinks:load', function(){
           _toastr('error', errorThrown);
         }
       })
+    });
+
+    $('.fb-share-button').on('click', function(){
+      FB.ui({
+        method: 'share',
+        href: 'https://developers.facebook.com/docs/',
+      }, function(response){});
     });
   });
 });

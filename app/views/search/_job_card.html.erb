@@ -57,18 +57,16 @@
         </div>
       <% end %>
     </div>
-
-    <span style="display:block;padding:5%;text-align:center;">
-      <% if current_worker %>
-        <% applyable = current_worker.is_job_applyable(job) %>
-        <button class="ui primary button apply-for-job <%= 'disabled' if !applyable %>" data-job-id="<%= job.id %>"><%= applyable ? 'Apply' : 'Applied' %> </button>
-      <% end %>
-      <% if defined? recommendation_id %>
-        <button class="ui icon button block-job" data-recommendation-id="<%= recommendation_id %>">
-          <i class="remove icon"></i>
-        </button>
-      <% end %>
-    </span>
   </div>
-
+  <span style="display:block;padding:5%;text-align:center;">
+    <% if current_worker %>
+      <% applyable = current_worker.is_job_applyable(job) %>
+      <button class="ui teal button apply-for-job <%= 'disabled' if !applyable %>" data-job-id="<%= job.id %>"><%= applyable ? 'Apply' : 'Applied' %> </button>
+    <% end %>
+    <% if defined? recommendation_id %>
+      <button class="ui icon button block-job" data-recommendation-id="<%= recommendation_id %>">
+        <i class="remove icon"></i>
+      </button>
+    <% end %>
+  </span>
 </a>

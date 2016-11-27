@@ -14,17 +14,10 @@
     <%= csrf_meta_tags %>
     <%= render "includes/analytics" %>
     <script type="text/javascript" src="https://js.stripe.com/v2/" data-turbolinks-track="true"></script>
-    <script type="text/javascript" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=252673595130934";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <%= render "includes/social_sdks" %>
   </head>
   <body id="dashboard" class="<%= @nav == 'admin' ? 'admin-dashboard' : '' %> <%= controller_name %> <%= action_name %>">
-    <div id="fb-root"></div>
     <div class="ui stackable grid">
       <%= render partial: "includes/dashboard/side_nav" %>
       <%= render partial: 'includes/dashboard/mobile_nav' %>
