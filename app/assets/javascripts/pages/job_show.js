@@ -23,7 +23,7 @@ $(document).on('turbolinks:load', function(){
     $('.fb-share-button').on('click', function(){
       FB.ui({
         method: 'share',
-        href: 'https://developers.facebook.com/docs/',
+        href: $(this).data('href')
       }, function(response){});
     });
   });
