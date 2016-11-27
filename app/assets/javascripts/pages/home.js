@@ -1,5 +1,6 @@
 $(document).on('turbolinks:load', function(){
   $('.pages.home').ready(function(){
+    $('.rating').rating('disable');
     $('.ui.tabular.menu .item').tab();
     // fix menu when passed
       $('.masthead')
@@ -14,7 +15,7 @@ $(document).on('turbolinks:load', function(){
         })
       ;
   });
-    // create sidebar and attach to menu open
-    $('.ui.sidebar')
-      .sidebar('attach events', '.toc.item');
+  // create sidebar and attach to menu open
+  $('.ui.sidebar')
+    .sidebar('attach events', '.toc.item');
 });
