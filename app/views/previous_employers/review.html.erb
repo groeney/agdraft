@@ -2,7 +2,7 @@
 
 <%= form_tag previous_employer_review_path(@previous_employer.id), method: "POST" do %>
   <p>
-    <label class="integer optional" for="work_ethic">
+    <label class="integer required" for="work_ethic">
       Please rate the employee on their <b>work ethic</b>
     </label>
     <select name="work_ethic">
@@ -14,7 +14,7 @@
     </select>
   </p>
   <p>
-    <label class="integer optional" for="skills">
+    <label class="integer required" for="skills">
       Please rate the employee on their <b>skills</b>
     </label>
     <select name="skills">
@@ -26,7 +26,7 @@
     </select>
   </p>
   <p>
-    <label class="integer optional" for="communication">
+    <label class="integer required" for="communication">
       Please rate the employee on their <b>communication</b>
     </label>
     <select name="communication">
@@ -38,13 +38,13 @@
     </select>
   </p>
   <p>
-    <label>Overall Rating (out of 5)</label><br/>
-    <select name="rating">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
+    <label class="integer required" for="recommended">Would you recommend them for <b>hire</b></label><br/>
+    <select name="recommended">
+      <option value="1">1: never</option>
+      <option value="2">2: unlikely – only if I’m stuck</option>
+      <option value="3">3: perhaps – depends on the other candidates</option>
+      <option value="4">4: often – would always consider use if available</option>
+      <option value="5">5: everytime – first choice for this type of work</option>
     </select>
   </p>
   <p>

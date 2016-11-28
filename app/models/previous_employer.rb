@@ -13,7 +13,9 @@ class PreviousEmployer < ActiveRecord::Base
   protected
 
   def email_contact
-    EmailService.new.send_email(Rails.application.config.smart_email_ids[:contact_previous_employer_for_review], contact_email, {worker_name: worker.full_name, job_title: job_title, business_name: business_name, start_date: start_date.strftime("%B %e %Y"), end_date: end_date.strftime("%B %e %Y"), reply_url: previous_employer_review_url(id)}) if contact_email
+    if contact_email
+      EmailService.new.send_email(Rails.application.config.smart_email_ids[:contact_previous_employer_for_review], contact_email, {worker_name: worker.full_name, job_title: job_title, name: contact_name || business_name, start_date: start_date.strftime("%B %e %Y"), end_date: end_date.strftime("%B %e %Y"), reply_url: previous_employer_review_url(id)})
+    end
   end
 
   def analytics

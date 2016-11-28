@@ -147,7 +147,8 @@ class Worker < ActiveRecord::Base
     if reviews_of.empty?
       0
     else
-      reviews_of.average(:rating).ceil 
+      reviews = reviews_of.map{|r| r.overall_rating}      
+      (reviews.inject(:+)/reviews.length.to_f).round
     end
   end
 
@@ -183,7 +184,7 @@ class Worker < ActiveRecord::Base
   end
 
   def pending_review_jobs(farmer = nil)
-    reviewed_jobs = self.reviews_of.pluck(:job_id)
+    reviewed_jobs = self.all_reviews_of.pluck(:job_id)
     self.job_history(farmer).reject { |job| reviewed_jobs.include? job.id }
   end
 
@@ -218,6 +219,10 @@ class Worker < ActiveRecord::Base
 
   def reviews_of
     Review.where(reviewee_id: id, reviewee_type: "Worker", approved: true)
+  end
+
+  def all_reviews_of
+    Review.where(reviewee_id: id, reviewee_type: "Worker")
   end
 
   def profile_completeness

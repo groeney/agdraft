@@ -3,7 +3,7 @@ class Farmers::ReviewsController < Farmers::BaseController
     @farmer = Farmer.find(params["review"].try(:[], "reviewer_id"))
     @worker = Worker.find(params["review"].try(:[], "reviewee_id"))
     return render_400 unless @farmer.can_review(@worker.id)
-    @review = Review.create(secure_params)
+    @review = Review.create(secure_params)    
     unless @review.valid?
       return render "new"
     end
@@ -32,6 +32,6 @@ class Farmers::ReviewsController < Farmers::BaseController
   protected
 
   def secure_params
-    params.require(:review).permit(:reviewer_id, :reviewer_type, :reviewee_id, :reviewee_type, :job_id, :feedback, :rating, :work_ethic, :skills, :communication)
+    params.require(:review).permit(:reviewer_id, :reviewer_type, :reviewee_id, :reviewee_type, :job_id, :feedback, :rating, :work_ethic, :skills, :communication, :recommended)
   end
 end

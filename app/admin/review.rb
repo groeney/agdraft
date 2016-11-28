@@ -1,12 +1,14 @@
 ActiveAdmin.register Review do
-  permit_params :rating, :feedback, :approved, :reviewee_type, :reviewee_id, :title, :work_ethic, :skills, :communication
+  permit_params :rating, :feedback, :approved, :reviewee_type, :reviewee_id, :title, :work_ethic, :skills, :communication, :recommended
   actions :index, :show, :new, :create, :update, :edit
 
   index do
     selectable_column
     id_column
     column :reviewee
-    column :rating
+    column :reviewee_type
+    column :overall_rating
+    column :approved
     actions
   end
 
@@ -19,10 +21,11 @@ ActiveAdmin.register Review do
 
   form do |f|
     f.inputs "Review" do
-      f.input :work_ethic
-      f.input :communication
-      f.input :skills
-      f.input :rating
+      f.input :work_ethic, label: "Work Ethic (Worker only)"
+      f.input :communication, label: "Communication (Worker only)"
+      f.input :skills, label: "Skills (Worker only)"
+      f.input :recommended, label: "Recommended (Worker only)"
+      f.input :rating, label: "Rating (Farmer only)"
       f.input :feedback
       f.input :approved
       f.input :reviewee_type, collection: ["Worker", "Farmer"]

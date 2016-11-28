@@ -5,7 +5,6 @@ class Review < ActiveRecord::Base
   belongs_to :job
 
   validates_presence_of :reviewee
-  validates :rating, inclusion: { in: [*1..5] }
   validate :reviewer_can_review_reviewee, on: :create
   validate :reviewee_exists
 
@@ -38,6 +37,21 @@ class Review < ActiveRecord::Base
       title
     else
       "Anonymous"
+    end
+  end
+
+  # this method is used to determine the correct rating to display
+  # there are these two ways of calculating because the review system
+  # ended up being modified to facilitate different types of reviews
+  # for farmers and workers - this was decided after this system had been built
+  # Ideally, since this has changed so much, we would now preffer to have a different review model for Farmer and Worker..
+  def overall_rating
+    # When it is a review of a Worker
+    if communication && skills && work_ethic && recommended
+      return ((communication + skills + work_ethic + recommended)/4.0).round
+    # When it is a reivew of a Farmer
+    else
+      return rating
     end
   end
 
