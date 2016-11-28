@@ -27,7 +27,8 @@ $(document).on('turbolinks:load', function(){
       template: "#js-shortlist-worker",
       events: {
         "click .state-transition": "transition",
-        "click .js-undo-state": "undo"
+        "click .js-undo-state": "undo",
+        "click .js-delete-job-worker": "delete"
       },
       className: "sixteen wide column",
       transition: function(e){
@@ -39,6 +40,9 @@ $(document).on('turbolinks:load', function(){
       undo: function(e){
         e.preventDefault();
         this.model.transition("undo");
+      },
+      delete: function(){
+        this.model.destroy();
       }
     });
 
