@@ -34,6 +34,7 @@ ActiveAdmin.register Job do
       f.inputs :number_of_workers
       f.inputs :published 
       f.inputs :live
+      f.inputs :archived
     end
     f.actions
   end
