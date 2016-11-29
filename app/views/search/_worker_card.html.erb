@@ -20,9 +20,9 @@
           </div>
         <% end %>
       </div>
-      <div class="ui horizontal divider" style="margin-left:15%;margin-right:15%;">
+      <div class="ui horizontal divider show-more" style="margin-left:15%;margin-right:15%;">
         <% if worker.skills.count > 3 %>
-          <span style="color:#00b5ad;font-size:xx-small;font-style:italic;"><%= worker.skills.count - 3 %>+ more skills</span>
+          <span style="font-size:xx-small;font-style:italic;"><%= worker.skills.count - 3 %>+ more skills</span>
         <% end %>
       </div>
     <% end %>
@@ -35,9 +35,9 @@
           </div>
         <% end %>
       </div>
-      <div class="ui horizontal divider" style="margin-left:15%;margin-right:15%;">
+      <div class="ui horizontal divider show-more" style="margin-left:15%;margin-right:15%;">
         <% if worker.job_categories.count > 3 %>
-          <span style="color:#00b5ad;font-size:xx-small;font-style:italic;"><%= worker.job_categories.count - 3 %>+ more job categories</span>
+          <span style="font-size:xx-small;font-style:italic;"><%= worker.job_categories.count - 3 %>+ more job categories</span>
         <% end %>
       </div>
     <% end %>

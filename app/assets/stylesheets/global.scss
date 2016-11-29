@@ -41,12 +41,17 @@
 }
 
 /************ GLOBAL CARDS *************/
-.ui.cards > .ui.card.job-card{
-  .content{
-    border-left-color:$primary-color;
-    border-left-width:thick;
-    border-left-style:solid;
-  } 
+.ui.cards > .ui.card{
+  &.job-card{
+    .content{
+      border-left-color:$primary-color;
+      border-left-width:thick;
+      border-left-style:solid;
+    }
+  }
+  .show-more{
+    color:$primary-color;
+  }
 }
 
 /********************** THEME COLOR MODS ***********************/
