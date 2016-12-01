@@ -12,7 +12,7 @@ namespace :jobs do
       Worker.all.each do |worker|
         recommendations = worker.recommend_jobs(10).map {|j| {url: job_url(j.id), title: j.title, location: j.location_name} }
         if recommendations.length > 0
-          EmailService.new.send_email(Rails.application.config.smart_email_ids[:weekly_jobs_recommended_to_worker], worker.email, {full_name: worker.full_name, jobs: recommendations})
+          EmailService.new.send_email(Rails.application.config.smart_email_ids[:weekly_jobs_recommended_to_worker], worker.email, {full_name: worker.full_name, jobs: recommendations, dashboard_url: worker_dashboard_url})
         end
       end
     end
@@ -34,7 +34,7 @@ namespace :jobs do
   task :new_recommended_workers => :environment do
     job = Job.where(archived: false, published: true).each do |job|
       recommended_workers = job.check_for_new_recommended_workers.map{|worker| {full_name: worker.full_name, profile_url: worker_url(worker.id)}}
-      EmailService.new.send_email(Rails.application.config.smart_email_ids[:new_recommended_workers_for_job], job.farmer.email, {job_title: job.title, recommened_workers: recommended_workers}) if !recommended_workers.empty?
+      EmailService.new.send_email(Rails.application.config.smart_email_ids[:new_recommended_workers_for_job], job.farmer.email, {job_title: job.title, recommened_workers: recommended_workers, manage_job_url: farmer_manage_job_url(job.id)}) if !recommended_workers.empty?
     end
   end
 
