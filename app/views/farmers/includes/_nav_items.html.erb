@@ -43,7 +43,7 @@
   </div>
 </div>
 
-<%= link_to "Jobs", farmer_jobs_path, class: "item right" %>
+<%= link_to "Jobs", farmer_published_jobs_path, class: "item right" %>
 <% if current_admin %>
   <%= link_to "Log Out", admin_destroy_farmer_session_path, :method => :delete, class: "item right" %>
 <%else%>
