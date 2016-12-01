@@ -17,6 +17,8 @@
         <div class="label">Only <%= current_worker.profile_completeness %>% complete. Click to add more details.</div>
       </a>
     <% end %>
+    <div class="ui divider hidden"></div>
+    <%= link_to "View Your Profile", worker_path(current_worker), class: "ui primary button", target: "_blank" %>
   </div>
   <div class="ui five wide column center aligned">
     <h3>Jobs</h3>

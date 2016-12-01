@@ -44,6 +44,7 @@
 </div>
 
 <%= link_to "Jobs", farmer_published_jobs_path, class: "item right" %>
+<%= link_to "View Your Profile", farmer_path(current_farmer), class: "ui primary button", target: "_blank" %>
 <% if current_admin %>
   <%= link_to "Log Out", admin_destroy_farmer_session_path, :method => :delete, class: "item right" %>
 <%else%>
