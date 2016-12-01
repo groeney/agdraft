@@ -11,7 +11,7 @@
       <i id="twitter-share" class="twitter link large icon" style="color:white;margin-right:0px;"></i>
     </a>
     <span class="fb-share-button" data-href="<%= job_url(@job.id) %>" data-layout="icon" data-mobile-iframe="true">
-      <a class="ui button fb-xfbml-parse-ignore" style="background-color: #4183C4;" target="_blank" href="https://www.facebook.com/sharer/sharer.php">
+      <a class="ui button fb-xfbml-parse-ignore" style="background-color: #4183C4;" target="_blank" href="https://www.facebook.com/sharer/sharer.php" data-job-title="<%= @job.title %>">
         <i id="facebook-share" class="facebook link large icon" style="color:white;margin-right:0px;"></i>
       </a>
     </span>

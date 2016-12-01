@@ -23,7 +23,8 @@ $(document).on('turbolinks:load', function(){
     $('.fb-share-button').on('click', function(){
       FB.ui({
         method: 'share',
-        href: $(this).data('href')
+        href: $(this).data('href'),
+        quote: $(this).data('job-title')
       }, function(response){});
     });
   });
