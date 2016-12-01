@@ -41,7 +41,6 @@
       <div class="ui eight wide column left aligned">
         <h3 style="margin-bottom: 0px;">Details</h3>
         <div class="ui basic segment" style="margin-top:0px;line-height:2rem;">
-          <span>Job length: <span style="font-weight: bold;">Full-time</span></span><br>
           <span>Pay rate: <span style="font-weight: bold;"><%= number_to_currency(@job.pay_max) %>/hr</span></span><br>
           <span>Start date: <span style="font-weight: bold;"><%= @job.start_date.strftime("%d/%m/%Y") %></span></span><br>
           <span>Location: <span style="font-weight: bold;"><%= @job.location.label %></span></span><br>
