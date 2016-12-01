@@ -49,8 +49,11 @@
   <input type="submit" class="ui submit primary button" value="Update Payment Information">
 </form>
 <div class="ui hidden divider"></div>
-<div class="ui grid">
-  <div class="ui column twelve wide">
+<div class="ui grid stackable">
+  <div class="ui column four wide">
+    <%= image_tag "secure-form.png", style: "width:220px;" %>
+  </div>
+  <div class="ui column ten wide">
     <div class="ui info message">
       Payment information, is securely transmitted directly to Stripe's servers and is never stored on our database.
 
@@ -59,7 +62,7 @@
       We make use of best-in-class security tools and practices to maintain a high level of security. Keeping your information safe
     </div>
   </div>
-  <div class="ui column four wide">
+  <div class="ui column two wide">
     <img class="ui tiny image" src="/assets/PCI-logo.png">
   </div>
 </div>
