@@ -34,6 +34,7 @@ class Worker < ActiveRecord::Base
   before_create :ensure_referral_token, :set_referral_user
   after_create :analytics # Must fire before other callbacks
   after_create :referred_logic, :signup_notifications
+  after_update :identify_thyself
 
   attr_accessor :referred_by_token
 
@@ -100,13 +101,23 @@ class Worker < ActiveRecord::Base
   end
 
   def analytics
-    Analytics.identify(
-      user_id: self.analytics_id,
-      traits: { email: self.email, user_type: "Worker" })
+    identify_thyself
 
     Analytics.track(
       user_id: self.analytics_id,
       event: "Signup")
+  end
+
+  def identify_thyself
+    Analytics.identify(
+      user_id: self.analytics_id,
+      traits: {
+        email: self.email,
+        user_type: "Worker",
+        created_at: self.created_at,
+        phone: self.mobile_number
+      }
+    )
   end
 
   def eligible_job_categories
@@ -147,7 +158,7 @@ class Worker < ActiveRecord::Base
     if reviews_of.empty?
       0
     else
-      reviews = reviews_of.map{|r| r.overall_rating}      
+      reviews = reviews_of.map{|r| r.overall_rating}
       (reviews.inject(:+)/reviews.length.to_f).round
     end
   end
@@ -239,7 +250,7 @@ class Worker < ActiveRecord::Base
 
   def unreviewed_jobs
     hired_job_ids = job_workers.where({ state: ["hired"] }).map {|el| el.job_id }
-    reviewed_job_ids = reviews_by.map {|el| el.job_id }    
+    reviewed_job_ids = reviews_by.map {|el| el.job_id }
     unreviewed_job_ids = hired_job_ids - reviewed_job_ids
     return unreviewed_job_ids.map {|id| Job.find(id)}
   end

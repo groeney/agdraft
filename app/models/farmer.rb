@@ -21,7 +21,7 @@ class Farmer < ActiveRecord::Base
 
   after_create :analytics # Must fire before other callbacks
   after_create :referred_logic, :signup_notifications
-  after_update :send_notification_after_change
+  after_update :send_notification_after_change, :identify_thyself
 
   attr_accessor :referred_by_token
 
@@ -60,13 +60,27 @@ class Farmer < ActiveRecord::Base
                           description: "You now have #{self.credit} credits on your account."
                           )
     end
+  end
 
-    if self.email_changed?
-      Analytics.identify(
-        user_id: self.analytics_id,
-        traits: { email: self.email, user_type: "Farmer" }
-        )
-    end
+  def analytics
+    identify_thyself
+    Analytics.track(
+      user_id: self.analytics_id,
+      event: "Signup")
+  end
+
+  def identify_thyself
+    Analytics.identify(
+      user_id: self.analytics_id,
+      traits: {
+        email: self.email,
+        user_type: "Farmer",
+        created_at: self.created_at,
+        phone: self.contact_number,
+        title: self.business_name,
+        description: self.business_description
+      }
+    )
   end
 
   def signup_notifications
@@ -97,16 +111,6 @@ class Farmer < ActiveRecord::Base
                         header: "Action step: post a job",
                         description: "Post a job to attract workers to you farm!"
                         )
-  end
-
-  def analytics
-    Analytics.identify(
-      user_id: self.analytics_id,
-      traits: { email: self.email, user_type: "Farmer" })
-
-    Analytics.track(
-      user_id: self.analytics_id,
-      event: "Signup")
   end
 
   def update_stripe_customer_source(token)
