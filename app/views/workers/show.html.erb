@@ -124,6 +124,35 @@
           </div>
         <% end %>
 
+        <% if @worker.educations.present? %>
+          <h3 class="header">Education</h3>
+          <div class="ui basic segment">
+            <div class="ui horizontal list">
+              <% @worker.educations.each do |education| %>
+                <div class="ui basic segment">
+                  <h4><%= education.school %></h4>
+                  <%= education.degree if education.degree %> <%= education.field_of_study if education.field_of_study %><br/>
+                  <%= education.start_date_label %> - <%= education.end_date_label %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <% if @recent_jobs.present? %>
+          <h3 class="header">Recent Jobs</h3>
+          <div class="ui basic segment">
+            <div class="ui horizontal list">
+              <% @recent_jobs.each do |job_worker| %>
+                <div class="ui basic segment">
+                  <%= link_to job_worker.job.title, job_path(job_worker.job_id) %> at <%= link_to job_worker.job.farmer.business_name, farmer_path(job_worker.job.farmer_id) %><br/>
+                  <%= job_worker.job.start_date_label %> - <%= job_worker.job.end_date_label %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
         <% if @worker.previous_employers.present? %>
           <h3 class="header">Recent Jobs</h3>
           <div class="ui basic segment">
