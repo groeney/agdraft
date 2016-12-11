@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require semantic-ui/dist/semantic.min
+//= require underscore/underscore-min
 //= require global
 //= require_tree ./workers
 //= require ./dashboard/location_picker
