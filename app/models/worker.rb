@@ -1,5 +1,5 @@
 class Worker < ActiveRecord::Base
-  include Recommendable, Filterable, Rails.application.routes.url_helpers
+  include Recommendable, Filterable, Rails.application.routes.url_helpers, Devise::Controllers::UrlHelpers
   acts_as_token_authenticatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -253,6 +253,29 @@ class Worker < ActiveRecord::Base
     reviewed_job_ids = reviews_by.map {|el| el.job_id }
     unreviewed_job_ids = hired_job_ids - reviewed_job_ids
     return unreviewed_job_ids.map {|id| Job.find(id)}
+  end
+
+  def welcome_to_new_site
+    if last_sign_in_at.nil?
+      raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
+
+      self.reset_password_token   = enc
+      self.reset_password_sent_at = Time.now.utc
+      self.save(validate: false)
+
+      EmailService.new.send_email(
+        Rails.application.config.smart_email_ids[:worker_new_site_registration], 
+        email,
+        {
+            full_name: full_name, 
+            reset_password_url: edit_password_url(self, reset_password_token: raw)
+        }
+      )
+    end
+  end
+
+  def main_app
+    Rails.application.class.routes.url_helpers
   end
 
   protected
