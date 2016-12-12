@@ -116,6 +116,7 @@ Rails.application.routes.draw do
   post "job_workers/:job_id/invite" => "job_workers#invite", as: :farmer_invite_worker
   post "job_workers/:job_worker_id/:transition" => "job_workers#transition", as: :job_worker_transition
   delete "job_workers/:job_id/:job_worker_id" => "job_workers#destroy"
+  get ".well-known/acme-challenge/:id" => "pages#letsencrypt"
   # Make sure this routeset is defined last
   comfy_route :cms, :path => '/', :sitemap => false
 end
