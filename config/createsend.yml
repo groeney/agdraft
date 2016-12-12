@@ -12,3 +12,5 @@ new_job_listing_for_worker: eeea5dbd-ba5a-4e4b-9e6c-ff232ae66a32
 request_job_review: a6f1fda1-c261-4ca4-8e90-5d3148dcc82a
 job_published: 250afafb-79db-4238-8372-a9cb13e449db
 new_recommended_workers_for_job: 4ce7f4ee-fca3-451b-a1be-8bf5a1edfb5a
+worker_new_site_registration: 0ab34455-a1b1-4b71-91c2-0227b4374179
+farmer_new_site_registration: 9ac8bc7a-d825-4952-a1af-47aa99db0de2
