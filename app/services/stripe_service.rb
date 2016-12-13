@@ -66,7 +66,7 @@ class StripeService
     begin
       charge = Stripe::Charge.create(
         customer: job.farmer.stripe_customer_id,
-        amount: amount #syripe takes amounts in dollara
+        amount: amount, #syripe takes amounts in dollara
         currency: "AUD"
       )
     rescue Exception => error
