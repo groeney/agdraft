@@ -1,5 +1,5 @@
 class Farmer < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
+  include Rails.application.routes.url_helpers, Devise::Controllers::UrlHelpers
   acts_as_token_authenticatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -209,6 +209,10 @@ class Farmer < ActiveRecord::Base
         }
       )
     end
+  end
+
+  def main_app
+    Rails.application.class.routes.url_helpers
   end
 
   protected
