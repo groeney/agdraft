@@ -97,4 +97,6 @@ Rails.application.configure do
     :domain         => 'heroku.com',
     :enable_starttls_auto => true
   }
+
+  config.font_assets.origin = "https://www.agdraft.com.au"
 end

@@ -45,6 +45,7 @@ gem "createsend"
 gem "simple_token_authentication", "~> 1.0"
 gem "impressionist"
 gem "analytics-ruby", "~> 2.0.0", :require => "segment/analytics"
+gem 'font_assets'
 
 #allow seeding data in staging and dev
 group :development, :test, :staging do

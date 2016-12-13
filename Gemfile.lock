@@ -161,6 +161,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.6.3)
       i18n (~> 0.5)
+    font_assets (0.1.14)
+      rack
     formtastic (3.1.4)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
@@ -416,6 +418,7 @@ DEPENDENCIES
   dotenv-rails
   factory_girl_rails
   faker
+  font_assets
   has_secure_token
   impressionist
   jbuilder (~> 2.0)
