@@ -33,6 +33,7 @@ ActiveAdmin.register Farmer do
       f.input :contact_name
       f.input :contact_number
       f.input :credit
+      f.input :sign_in_count
     end
     f.actions
   end
