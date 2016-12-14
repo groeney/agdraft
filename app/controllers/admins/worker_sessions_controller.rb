@@ -1,6 +1,6 @@
 class Admins::WorkerSessionsController < Admins::BaseController
   def create
-    session[:worker_id] = params[:id]
+    sign_in Worker.find(params[:id])
     redirect_to worker_dashboard_path
   end
 

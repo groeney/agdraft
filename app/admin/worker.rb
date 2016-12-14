@@ -29,7 +29,7 @@ ActiveAdmin.register Worker do
   sidebar "Details", only: :show do
     attributes_table_for worker do
       row :god_mode do
-        link_to "Access Account", :controller => "admins/worker_sessions", :action => "create", :id => worker.id
+        link_to "Access Account", {:controller => "admins/worker_sessions", :action => "create", :id => worker.id}, :target => "_blank"
       end
       row :reviews_by do
         link_to "Reviews BY worker", :controller => "reviews", :action => "index", 'q[reviewer_type_equals]' => "Worker", "q[reviewer_id_equals]" => "#{worker.id}"

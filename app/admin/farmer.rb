@@ -43,7 +43,7 @@ ActiveAdmin.register Farmer do
         link_to "#{farmer.jobs.length} listed jobs", :controller => "jobs", :action => "index", 'q[farmer_email_equals]' => "#{farmer.email}".html_safe
       end
       row :god_mode do
-        link_to "Access Account", :controller => "admins/farmer_sessions", :action => "create", :id => farmer.id
+        link_to "Access Account", {:controller => "admins/farmer_sessions", :action => "create", :id => farmer.id}, target: "_blank"
       end
       row :reviews_by do
         link_to "Reviews BY farmer", :controller => "reviews", :action => "index", 'q[reviewer_type_equals]' => "Farmer", "q[reviewer_id_equals]" => "#{farmer.id}"
