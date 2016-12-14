@@ -8,7 +8,7 @@ module Filterable
       filter_params.except(:start_date, :end_date).each do |key, value|
         results = results.public_send(key, value).distinct if value.present?
       end
-      results.sort_by { |r| (r.filter_rating(filter_params) + 1)*(r.review_rating + 1) }
+      results.sort_by { |r| (r.filter_rating(filter_params) + 1) * (r.review_rating + 1) + r.review_rating }
              .reverse
     end
 
@@ -19,7 +19,7 @@ module Filterable
         ids << results.public_send(key, value).pluck(:id) if value.present?
       end
       results.where({ id: ids.flatten.uniq })
-             .sort_by { |r| (r.filter_rating(filter_params) + 1)*(r.review_rating + 1) }
+             .sort_by { |r| (r.filter_rating(filter_params) + 1) * (r.review_rating + 1) + r.review_rating }
              .reverse
     end
 
