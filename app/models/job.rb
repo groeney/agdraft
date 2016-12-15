@@ -72,7 +72,6 @@ class Job < ActiveRecord::Base
 
     update_attributes(published: true, published_at: Time.now)
     email_workers
-    email_farmer
     true
   end
 
