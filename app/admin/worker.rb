@@ -1,5 +1,5 @@
 ActiveAdmin.register Worker do
-  permit_params :verified, :email, :password
+  permit_params :verified, :email, :password, :sign_in_count
   actions :index, :show, :update, :edit, :delete
   
   index do
