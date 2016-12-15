@@ -1,5 +1,5 @@
 ActiveAdmin.register Farmer do
-  permit_params :email, :password, :password_confirmation, :first_name, :last_name, :location, :business_name, :business_description, :contact_name, :contact_number, :credit
+  permit_params :email, :password, :password_confirmation, :first_name, :last_name, :location, :business_name, :business_description, :contact_name, :contact_number, :credit, :sign_in_count
   actions :index, :show, :update, :edit, :delete
   
   index do
