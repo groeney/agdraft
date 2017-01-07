@@ -163,6 +163,13 @@ class Worker < ActiveRecord::Base
     end
   end
 
+  def recommend_jobs(size = 5)
+    blocked_recommendations = self.recommendations.pluck(:resource_id)
+    applied_jobs = job_workers.where.not({ state: "invited" }).pluck(:job_id)
+    Job.recommend({ skills: skill_ids, job_categories: job_category_ids },
+                  blocked_recommendations |= applied_jobs, size)
+  end
+
   def job_recommendations
     results = self.recommendations.where({ blocked: false, resource_type: "Job" })
     if results.count < 5
@@ -179,12 +186,6 @@ class Worker < ActiveRecord::Base
     !job_worker || job_worker.invited? || job_worker.new?
   end
 
-  def recommend_jobs(size = 5)
-    blocked_recommendations = self.recommendations.pluck(:resource_id)
-    applied_jobs = job_workers.where.not({ state: "invited" }).pluck(:job_id)
-    Job.recommend({ skills: skill_ids, job_categories: job_category_ids },
-                  blocked_recommendations |= applied_jobs, size)
-  end
 
   def job_history(farmer = nil)
     job_workers_local = self.job_workers.where({ state: "hired" })
@@ -264,10 +265,10 @@ class Worker < ActiveRecord::Base
       self.save(validate: false)
 
       EmailService.new.send_email(
-        Rails.application.config.smart_email_ids[:worker_new_site_registration], 
+        Rails.application.config.smart_email_ids[:worker_new_site_registration],
         email,
         {
-            full_name: full_name, 
+            full_name: full_name,
             reset_password_url: edit_password_url(self, reset_password_token: raw)
         }
       )
