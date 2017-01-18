@@ -201,10 +201,29 @@ class Farmer < ActiveRecord::Base
       self.save(validate: false)
 
       EmailService.new.send_email(
-        Rails.application.config.smart_email_ids[:farmer_new_site_registration], 
+        Rails.application.config.smart_email_ids[:farmer_new_site_registration],
         email,
         {
-            full_name: full_name, 
+            full_name: full_name,
+            reset_password_url: edit_password_url(self, reset_password_token: raw)
+        }
+      )
+    end
+  end
+
+  def oops_password_reset
+    if last_sign_in_at.nil?
+      raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
+
+      self.reset_password_token   = enc
+      self.reset_password_sent_at = Time.now.utc
+      self.save(validate: false)
+
+      EmailService.new.send_email(
+        Rails.application.config.smart_email_ids[:oops_password_reset],
+        email,
+        {
+            full_name: full_name,
             reset_password_url: edit_password_url(self, reset_password_token: raw)
         }
       )
