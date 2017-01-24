@@ -55,6 +55,12 @@ class JobWorkersController < ApplicationController
     # Worker can only call no_interest event
     return render_400 if current_worker && params[:transition] != "no_interest"
     return render_400 unless job_worker.send(params[:transition] + "!")
+    if params[:transition] == "hire" && current_farmer
+      Analytics.track(
+        user_id: current_farmer.analytics_id,
+        event: "Farmer Hired Worker",
+      )
+    end
     render json: job_worker
   end
 

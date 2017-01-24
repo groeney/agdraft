@@ -1,5 +1,5 @@
 class Farmers::PaymentsController < Farmers::BaseController
-  def show    
+  def show
     @stripe_publishable_key = Rails.application.config.stripe_publishable_key
   end
 
@@ -12,8 +12,11 @@ class Farmers::PaymentsController < Farmers::BaseController
       unless StripeService.create_customer(current_farmer.id, params_token)
         return render_400
       end
+      Analytics.track(
+        user_id: current_farmer.analytics_id,
+        event: "Add Payment Details"
+      )
     end
-
     render_201
   end
 

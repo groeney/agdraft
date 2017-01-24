@@ -112,6 +112,8 @@ class Worker < ActiveRecord::Base
     Analytics.identify(
       user_id: self.analytics_id,
       traits: {
+        first_name: self.first_name,
+        last_name: self.last_name,
         email: self.email,
         user_type: "Worker",
         created_at: self.created_at,

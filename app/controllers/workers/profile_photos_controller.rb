@@ -10,6 +10,10 @@ class Workers::ProfilePhotosController < Workers::BaseController
   def update
     @worker = current_worker
     if @worker.update_attributes(worker_params)
+      Analytics.track(
+        user_id: current_worker.analytics_id,
+        event: "Worker Updated Profile Picture"
+      )
       render "show"
     else
       render "edit"

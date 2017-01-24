@@ -2,6 +2,7 @@ class Workers::SessionsController < Devise::SessionsController
   before_filter :old_user, only: [:create]
 
   def after_sign_in_path_for(resource)
+    current_worker.identify_thyself
     Analytics.track(
       user_id: current_worker.analytics_id,
       event: "Signin"

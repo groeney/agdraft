@@ -73,12 +73,18 @@ class Farmer < ActiveRecord::Base
     Analytics.identify(
       user_id: self.analytics_id,
       traits: {
+        first_name: self.first_name,
+        last_name: self.last_name,
         email: self.email,
         user_type: "Farmer",
         created_at: self.created_at,
         phone: self.contact_number,
         title: self.business_name,
-        description: self.business_description
+        description: self.business_description,
+        business_name: self.business_name,
+        business_description: self.business_description,
+        contact_name: self.contact_name,
+        contact_number: self.contact_number
       }
     )
   end

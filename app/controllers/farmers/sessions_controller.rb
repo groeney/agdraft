@@ -2,6 +2,7 @@ class Farmers::SessionsController < Devise::SessionsController
   before_filter :old_user, only: [:create]
 
   def after_sign_in_path_for(resource)
+    current_farmer.identify_thyself
     Analytics.track(
       user_id: current_farmer.analytics_id,
       event: "Signin"

@@ -9,6 +9,10 @@ class Workers::EducationsController < Workers::BaseController
       flash[:error] = @education.errors.full_messages[0]
       return render :new
     end
+    Analytics.track(
+      user_id: current_worker.analytics_id,
+      event: "Worker Created Education"
+    )
     redirect_to worker_qualifications_path
   end
 

@@ -5,6 +5,10 @@ class Workers::UnavailabilitiesController < Workers::BaseController
 
   def create
     if (unavailability = current_worker.unavailabilities.create(secure_params)).valid?
+      Analytics.track(
+        user_id: current_worker.analytics_id,
+        event: "Worker Updated Availability"
+      )
       return render_201
     end
     render_401 unavailability.errors.full_messages[0]
