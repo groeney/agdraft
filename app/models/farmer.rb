@@ -79,10 +79,10 @@ class Farmer < ActiveRecord::Base
         user_type: "Farmer",
         created_at: self.created_at,
         phone: self.contact_number,
-        title: self.business_name,
-        description: self.business_description,
-        business_name: self.business_name,
-        business_description: self.business_description,
+        title: self.business_name.try(:first, 255),
+        description: self.business_description.try(:first, 255),
+        business_name: self.business_name.try(:first, 255),
+        business_description: self.business_description.try(:first, 255),
         contact_name: self.contact_name,
         contact_number: self.contact_number
       }
