@@ -12,7 +12,7 @@ class Farmer < ActiveRecord::Base
   belongs_to :referral_user, polymorphic: true
   belongs_to :location
   has_many :jobs
-  has_many :payment_audtis
+  has_many :payment_audits
   has_many :notifications, as: :resource, dependent: :destroy
   has_many :recommendations, as: :user, dependent: :destroy
   validates_attachment_content_type :profile_photo, :content_type => /\Aimage\/.*\Z/
