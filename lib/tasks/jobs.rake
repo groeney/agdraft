@@ -4,7 +4,7 @@ namespace :jobs do
   # Archive jobs after 45 days - this is the time limit specified by Ella for when a job should expire
   task :archive_expired => :environment do
     Job.where("published_at <= ? AND published = ?", Time.now - 45.days, true).each {|j| j.archive }
-  end 
+  end
 
   # Every week an email should be sent to all workers showing them a list of recommended jobs on AgDraft
   task :recommended_to_worker => :environment do
@@ -34,9 +34,9 @@ namespace :jobs do
   task :new_recommended_workers => :environment do
     job = Job.where(archived: false, published: true).each do |job|
       recommended_workers = job.check_for_new_recommended_workers.map{|worker| {full_name: worker.full_name, profile_url: worker_url(worker.id)}}
-      EmailService.new.send_email(Rails.application.config.smart_email_ids[:new_recommended_workers_for_job], job.farmer.email, {job_title: job.title, recommened_workers: recommended_workers, manage_job_url: farmer_manage_job_url(job.id)}) if !recommended_workers.empty?
+      EmailService.new.send_email(Rails.application.config.smart_email_ids[:new_recommended_workers_for_job], job.farmer.email, {job: job, job_title: job.title, recommened_workers: recommended_workers, manage_job_url: farmer_manage_job_url(job.id)}) if !recommended_workers.empty?
     end
   end
 
-   
+
 end
