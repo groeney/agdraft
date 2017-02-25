@@ -33,7 +33,7 @@ namespace :jobs do
   # Every day check to see if there are new recommended workers for a job and e-mail the farmer if there are
   task :new_recommended_workers => :environment do
     job = Job.where(archived: false, published: true).each do |job|
-      recommended_workers = job.check_for_new_recommended_workers.map{|worker| {full_name: worker.full_name, profile_url: worker_url(worker.id)}}
+      recommended_workers = job.check_for_recommended_workers.map{|worker| {full_name: worker.full_name, profile_url: worker_url(worker.id)}}
       EmailService.new.send_email(Rails.application.config.smart_email_ids[:new_recommended_workers_for_job], job.farmer.email, {job: job, job_title: job.title, recommened_workers: recommended_workers, manage_job_url: farmer_manage_job_url(job.id)}) if !recommended_workers.empty?
     end
   end

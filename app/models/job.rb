@@ -100,19 +100,19 @@ class Job < ActiveRecord::Base
     (JOB_PRICE - farmer.credit) < 1 ? JOB_PRICE : farmer.credit
   end
 
+  def invalid_worker_ids
+    JobWorker.where({ job_id: id }).pluck(:worker_id)
+  end
+
   def recommended_workers
-    invalid_worker_ids = JobWorker.where({ job_id: id }).pluck(:worker_id)
     Worker.recommend({ skills: skill_ids, job_categories: job_category_ids, locations: [location.id] },
                      invalid_worker_ids)
   end
 
-  def check_for_new_recommended_workers
-    old_recommended_workers = RecommendedWorker.where(job_id: id).map{|el| el.worker_id}
-    current_recommended_workers = recommended_workers.map{|el| el.id}
-    new_recommended_workers = current_recommended_workers - old_recommended_workers
-
-    new_recommended_workers.each{|worker_id| RecommendedWorker.create(job_id: id, worker_id: worker_id)}
-    return new_recommended_workers.map{|worker_id| Worker.find(worker_id) }
+  def check_for_recommended_workers
+    new_recommended_workers = RecommendedWorker.where(job_id: id).present? ? recommended_workers_for_last_week : all_recommended_workers
+    new_recommended_workers.each { |worker| RecommendedWorker.create(job_id: id, worker_id: worker.id) }
+    new_recommended_workers
   end
 
   def email_workers
@@ -143,4 +143,17 @@ class Job < ActiveRecord::Base
     return false unless errors.empty?
     true
   end
+
+  private
+
+  def recommended_workers_for_last_week
+    Worker.recommend({ skills: skill_ids, job_categories: job_category_ids, locations: [location.id] },
+                     invalid_worker_ids, 50).select { |r| (1.week.ago..Time.zone.now).cover?(r.created_at) }
+  end
+
+  def all_recommended_workers
+    Worker.recommend({ skills: skill_ids, job_categories: job_category_ids, locations: [location.id] },
+                     invalid_worker_ids, 50)
+  end
+
 end
