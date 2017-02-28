@@ -24,9 +24,9 @@
         </div>
       <%end%>
       <% if !@jobs_applied_to.empty? %>
-        <div class="ui primary button manage-applications" style="margin-bottom:10px;">
+        <a href="<%= farmer_published_jobs_path(current_farmer) %>" class="ui primary button manage-applications" style="margin-bottom:10px;">
           Manage Applications
-        </div>
+        </a>
       <%end%>
     <% end %>
   </div>
