@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
         render json: { error: "400 client sent a poorly formed request" }.to_json, status: 400
       }
       format.html{
-        render :file => "public/422.html", status: 400, layout: false
+        render :file => "public/400.html", status: 400, layout: false
       }
     end
   end
