@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   comfy_route :cms_admin, :path => '/cms'
 
   root "pages#home"
+  get "/.well-known/acme-challenge/a4S9VajFQYWYEKOdssAWwVji8MV73ghmDBh38U7ZyfU" => "pages#letsencrypt"
   get "/search/workers" => "search#workers", as: :search_workers
   get "/search/jobs" => "search#jobs", as: :search_jobs
   put "/recommendations/block_job/:id" => "recommendations#block_job", as: :block_job_recommendation

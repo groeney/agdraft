@@ -16,6 +16,6 @@ class PagesController < ApplicationController
   end
 
   def letsencrypt
-    render text: "3OMSQ-8jOBc53dTVo9Y-uPCH_yBYbHLGM-ePC7FNoe4.wqnXpAe_Kqdnb_YmSuZyX3mJtyGs0KUUooA7YaRc378"
+    render text: "a4S9VajFQYWYEKOdssAWwVji8MV73ghmDBh38U7ZyfU.wqnXpAe_Kqdnb_YmSuZyX3mJtyGs0KUUooA7YaRc378"
   end
 end
